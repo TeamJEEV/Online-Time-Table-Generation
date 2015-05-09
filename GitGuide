@@ -13,8 +13,8 @@
 + Commit the changes i.e put in repository
    git commit -m "add message here" 
 
-Please read this before writting commit messages https://github.com/erlang/otp/wiki/Writing-good-commit-messages. 
-This is just for us to have the best practice implemented in our project.
+#Please read this before writting commit messages https://github.com/erlang/otp/wiki/Writing-good-commit-messages. 
+#This is just for us to have the best practice implemented in our project.
 
 + To view the commit log type
    git log
