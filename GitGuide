@@ -1,0 +1,50 @@
+#Guide to get started with the git repo (Tested on Unix) 
+#Editors: Eyog Yvon Léonce
+
++ Clone the git repository
+   git clone https://github.com/TeamJEEV/Online-Time-Table-Generation.git
+
++ Make changes in your local copy
+
++ Add the changes to staging directory 
+   git add . 
+  or git add 'specific folder or file'
+
++ Commit the changes i.e put in repository
+   git commit -m "add message here" 
+
+#Please read this before writting commit messages https://github.com/erlang/otp/wiki/Writing-good-commit-messages. 
+#This is just for us to have the best practice implemented in our project.
+
++ To view the commit log type
+   git log
+
++ To see whether or not you are in sync and updated with the reposiotory type
+   git status
+
++ Inquire about the remotes known by repo (type command in the first directory)
+   git remote 
+
++ To get push and pull detail on remote 
+   git remote -v
+
++ Add remote
+   git remote add <alias> <url>
+   git remote add origin https://github.com/TeamJEEV/Online-Time-Table-Generation.git
+
++ Push up the code to remote server 
+   git push -u origin 
+
+#fetch before you start working or before you push 
+
++ Fetch changes 
+   git fetch origin or 
+   git fetch
+
++ Merge with the fetched changes to bring changes to your master branch 
+   git merge
+
++To do both fetch and merge in one go 
+   git pull
+
+Well that's it. We can now all work together. 
