@@ -1,9 +1,9 @@
 -- -----------------------------------------------------
--- Table `Timetable`.`Courses`
+-- Table `Timetable`.`Course`
 -- -----------------------------------------------------
-DROP TABLE IF EXISTS `Timetable`.`Courses` ;
+DROP TABLE IF EXISTS `Timetable`.`Course` ;
 
-CREATE  TABLE IF NOT EXISTS `Timetable`.`Courses` (
+CREATE  TABLE IF NOT EXISTS `Timetable`.`Course` (
   `code` INT NOT NULL ,
   `Title` VARCHAR(45) NULL ,
   `semester` INT NULL ,
@@ -12,11 +12,11 @@ ENGINE = InnoDB;
 
 
 -- -----------------------------------------------------
--- Table `Timetable`.`Classrooms`
+-- Table `Timetable`.`Classroom`
 -- -----------------------------------------------------
-DROP TABLE IF EXISTS `Timetable`.`Classrooms` ;
+DROP TABLE IF EXISTS `Timetable`.`Classroom` ;
 
-CREATE  TABLE IF NOT EXISTS `Timetable`.`Classrooms` (
+CREATE  TABLE IF NOT EXISTS `Timetable`.`Classroom` (
   `ID` INT NOT NULL ,
   `name` VARCHAR(35) NULL ,
   `capacity` INT NULL ,
@@ -31,7 +31,7 @@ DROP TABLE IF EXISTS `Timetable`.`Lecturer` ;
 
 CREATE  TABLE IF NOT EXISTS `Timetable`.`Lecturer` (
   `ID` INT NOT NULL ,
-  `full name` VARCHAR(45) NULL ,
+  `fullName` VARCHAR(45) NULL ,
   `name` VARCHAR(40) NULL ,
   `role` VARCHAR(30) NULL ,
   `password` VARCHAR(45) NULL ,
@@ -85,56 +85,56 @@ ENGINE = InnoDB;
 
 
 -- -----------------------------------------------------
--- Table `Timetable`.`Lecturer_has_Courses`
+-- Table `Timetable`.`Lecturer_has_Course`
 -- -----------------------------------------------------
-DROP TABLE IF EXISTS `Timetable`.`Lecturer_has_Courses` ;
+DROP TABLE IF EXISTS `Timetable`.`Lecturer_has_Course` ;
 
-CREATE  TABLE IF NOT EXISTS `Timetable`.`Lecturer_has_Courses` (
+CREATE  TABLE IF NOT EXISTS `Timetable`.`Lecturer_has_Course` (
   `Lecturer_ID` INT NOT NULL ,
-  `Courses_code` INT NOT NULL ,
-  `Classrooms_ID` INT NOT NULL ,
+  `Course_code` INT NOT NULL ,
+  `Classroom_ID` INT NOT NULL ,
   `datetime` DATETIME NULL ,
-  PRIMARY KEY (`Lecturer_ID`, `Courses_code`, `Classrooms_ID`) ,
-  INDEX `fk_Lecturer_has_Courses_Courses1_idx` (`Courses_code` ASC) ,
-  INDEX `fk_Lecturer_has_Courses_Lecturer1_idx` (`Lecturer_ID` ASC) ,
-  INDEX `fk_Lecturer_has_Courses_Classrooms1_idx` (`Classrooms_ID` ASC) ,
-  CONSTRAINT `fk_Lecturer_has_Courses_Lecturer1`
+  PRIMARY KEY (`Lecturer_ID`, `Course_code`, `Classroom_ID`) ,
+  INDEX `fk_Lecturer_has_Course_Course1_idx` (`Course_code` ASC) ,
+  INDEX `fk_Lecturer_has_Course_Lecturer1_idx` (`Lecturer_ID` ASC) ,
+  INDEX `fk_Lecturer_has_Course_Classroom1_idx` (`Classroom_ID` ASC) ,
+  CONSTRAINT `fk_Lecturer_has_Course_Lecturer1`
     FOREIGN KEY (`Lecturer_ID` )
     REFERENCES `Timetable`.`Lecturer` (`ID` )
     ON DELETE NO ACTION
     ON UPDATE NO ACTION,
-  CONSTRAINT `fk_Lecturer_has_Courses_Courses1`
-    FOREIGN KEY (`Courses_code` )
-    REFERENCES `Timetable`.`Courses` (`code` )
+  CONSTRAINT `fk_Lecturer_has_Course_Course1`
+    FOREIGN KEY (`Course_code` )
+    REFERENCES `Timetable`.`Course` (`code` )
     ON DELETE NO ACTION
     ON UPDATE NO ACTION,
-  CONSTRAINT `fk_Lecturer_has_Courses_Classrooms1`
-    FOREIGN KEY (`Classrooms_ID` )
-    REFERENCES `Timetable`.`Classrooms` (`ID` )
+  CONSTRAINT `fk_Lecturer_has_Course_Classroom1`
+    FOREIGN KEY (`Classroom_ID` )
+    REFERENCES `Timetable`.`Classroom` (`ID` )
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
 ENGINE = InnoDB;
 
 
 -- -----------------------------------------------------
--- Table `Timetable`.`Departement_has_Courses`
+-- Table `Timetable`.`Departement_has_Course`
 -- -----------------------------------------------------
-DROP TABLE IF EXISTS `Timetable`.`Departement_has_Courses` ;
+DROP TABLE IF EXISTS `Timetable`.`Departement_has_Course` ;
 
-CREATE  TABLE IF NOT EXISTS `Timetable`.`Departement_has_Courses` (
+CREATE  TABLE IF NOT EXISTS `Timetable`.`Departement_has_Course` (
   `Departement_ID` INT NOT NULL ,
-  `Courses_code` INT NOT NULL ,
-  PRIMARY KEY (`Departement_ID`, `Courses_code`) ,
-  INDEX `fk_Departement_has_Courses_Courses1_idx` (`Courses_code` ASC) ,
-  INDEX `fk_Departement_has_Courses_Departement1_idx` (`Departement_ID` ASC) ,
-  CONSTRAINT `fk_Departement_has_Courses_Departement1`
+  `Course_code` INT NOT NULL ,
+  PRIMARY KEY (`Departement_ID`, `Course_code`) ,
+  INDEX `fk_Departement_has_Course_Course1_idx` (`Course_code` ASC) ,
+  INDEX `fk_Departement_has_Course_Departement1_idx` (`Departement_ID` ASC) ,
+  CONSTRAINT `fk_Departement_has_Course_Departement1`
     FOREIGN KEY (`Departement_ID` )
     REFERENCES `Timetable`.`Departement` (`ID` )
     ON DELETE NO ACTION
     ON UPDATE NO ACTION,
-  CONSTRAINT `fk_Departement_has_Courses_Courses1`
-    FOREIGN KEY (`Courses_code` )
-    REFERENCES `Timetable`.`Courses` (`code` )
+  CONSTRAINT `fk_Departement_has_Course_Course1`
+    FOREIGN KEY (`Course_code` )
+    REFERENCES `Timetable`.`Course` (`code` )
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
 ENGINE = InnoDB;

@@ -10,6 +10,8 @@ import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -36,21 +38,28 @@ public class ClassroomDAO {
         return null;
     }
 
-    public Classroom getClassByname(DataManager dataManager, String name) {
+    public List<Classroom> getClassByname(DataManager dataManager, String name) {
         Connection connection = dataManager.getConnection();
-        Classroom classroom = new Classroom();
+        List<Classroom> classrooms = new ArrayList<>();
         if (connection != null) {
             try {
                 Statement statement = connection.createStatement();
                 String query = "SELECT * FROM classroom where name like " + name;
-                ResultSet rs = statement.executeQuery(query);
-                classroom.setId(Integer.parseInt(rs.getString("id")));
-                classroom.setName(rs.getString("name"));
-                classroom.setCapacity(Integer.parseInt(rs.getString("capacity")));
+                try {
+                    ResultSet rs = statement.executeQuery(query);
+                    while (rs.next()) {
+                        Classroom classroom = new Classroom();
+                        classroom.setId(Integer.parseInt(rs.getString("id")));
+                        classroom.setName(rs.getString("name"));
+                        classroom.setCapacity(Integer.parseInt(rs.getString("capacity")));
+                    }
+                } finally {
+                    statement.close();
+                }
             } catch (SQLException e) {
                 Logger.getGlobal().log(Level.INFO, "Coud not find class {0}", new Object());
             }
         }
-        return classroom;
+        return classrooms;
     }
 }
