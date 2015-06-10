@@ -10,9 +10,7 @@ import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
-import java.text.DateFormat;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -23,7 +21,7 @@ import java.util.logging.Logger;
  */
 public class LecturerHasCourseDAO {
 
-    public List<LecturerHasCourse> getClass(DataManager dataManager) {
+    public static List<LecturerHasCourse> getClass(DataManager dataManager) {
         Connection connection = dataManager.getConnection();
         List<LecturerHasCourse> lectCourse = new ArrayList<>();
         if (connection != null) {
@@ -50,7 +48,7 @@ public class LecturerHasCourseDAO {
         return lectCourse;
     }
 
-    public LecturerHasCourse getLecturerHasCourseById(DataManager dataManager, int id) {
+    public static LecturerHasCourse getLecturerHasCourseById(DataManager dataManager, int id) {
         Connection connection = dataManager.getConnection();
         LecturerHasCourse lhc = new LecturerHasCourse();
         if (connection != null) {
@@ -74,7 +72,7 @@ public class LecturerHasCourseDAO {
         return lhc;
     }
 
-    public List<LecturerHasCourse> searchLecturerHasCourseByName(DataManager dataManager, String name) {
+    public static List<LecturerHasCourse> searchLecturerHasCourseByName(DataManager dataManager, String name) {
         Connection connection = dataManager.getConnection();
         List<LecturerHasCourse> faculties = new ArrayList<>();
         if (connection != null) {

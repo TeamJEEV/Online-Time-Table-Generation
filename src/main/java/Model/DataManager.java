@@ -5,9 +5,12 @@
  */
 package Model;
 
+import Bean.Classroom;
+import Bean.Course;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
+import java.util.List;
 
 /**
  *
@@ -60,5 +63,29 @@ public class DataManager {
       }
     }
     
+    //---------------Classroom operations---------------
+    public Classroom getClassById(int id){
+        return ClassroomDAO.getClassById(this, id);
+    }
     
+    public List<Classroom> getAllClasses(){
+        return ClassroomDAO.getClasses(this);
+    }
+    
+    public List<Classroom> getClassByName(String name){
+        return ClassroomDAO.getClassByname(this, name);
+    }
+    
+    //----------------Course Operations------------------
+    public List<Course> getCoursesByDept(int dept){
+        return DepartmenthasCourseDAO.getCoursesByDept(this, dept);
+    }
+    
+    public List<Course> getDeptCourseBySem(int dept, int sem){
+        return DepartmenthasCourseDAO.getDeptCoursesBySem(this, dept, sem);
+    }
+    
+    public Course getCourse(int courseId){
+        return DepartmenthasCourseDAO.getCourseById(this, courseId);
+    }
 }

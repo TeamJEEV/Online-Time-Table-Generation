@@ -19,15 +19,44 @@ import java.util.logging.Logger;
  *
  * @author Harvey
  */
-public class CourseDAO {
-
-    public static List<Course> getCourses(DataManager dataManager) {
+public class DepartmenthasCourseDAO {
+     public static List<Course> getCoursesByDept(DataManager dataManager, int deptId) {
         Connection connection = dataManager.getConnection();
         List<Course> courses = new ArrayList<>();
         if (connection != null) {
             try {
                 Statement statement = connection.createStatement();
-                String query = "SELECT * FROM course";
+                String query = "SELECT id, name, semester FROM course, departmenthascourse where "
+                        + "departmenthascourse.Department_ID = " + deptId;
+                try {
+                    ResultSet rs = statement.executeQuery(query);
+                    while (rs.next()) {
+                        Course course = new Course();
+                        course.setId(rs.getString("id"));
+                        course.setName(rs.getString("name"));
+                        course.setSemester(Integer.parseInt(rs.getString("semester")));
+                        courses.add(course);
+                    }
+
+                } finally {
+                    statement.close();
+                }
+            } catch (SQLException e) {
+                Logger.getGlobal().log(Level.INFO, "Could not get courses");
+            }
+        }
+        return courses;
+    }
+     
+     public static List<Course> getDeptCoursesBySem(DataManager dataManager, int deptId, int semester) {
+        Connection connection = dataManager.getConnection();
+        List<Course> courses = new ArrayList<>();
+        if (connection != null) {
+            try {
+                Statement statement = connection.createStatement();
+                String query = "SELECT id, name, semester FROM course, departmenthascourse where "
+                        + "departmenthascourse.Department_ID = " + deptId + 
+                        " and course.semester = " + semester;
                 try {
                     ResultSet rs = statement.executeQuery(query);
                     while (rs.next()) {
@@ -95,5 +124,4 @@ public class CourseDAO {
         }
         return courses;
     }
-
 }
