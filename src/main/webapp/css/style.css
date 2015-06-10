@@ -1,0 +1,156 @@
+/*
+This is our custom CSS Style sheet for the project
+*/
+/* 
+    Created on : 09-Jun-2015, 06:30:58
+    Author     : Toure
+*/
+
+.page-header{
+    margin-bottom: 0px;
+    padding-bottom: 0px;
+    background-color: #187764;
+}
+.navbar-fixed-top{
+    min-height: 60px;
+    background-color: #187764;//#1c4f8d;
+    
+}
+.navbar-right{
+    margin-right: -100px
+}
+.navbar-inverse .navbar-brand {
+    color: #fff;
+    
+}
+.page-header > .navbar-inverse{
+    border: none;
+}
+.navbar-brand{
+    font-size: 25px;
+}
+
+.navbar-form > .btn-success{
+    background-color: #1c4f8d;
+    border-color: #FFF;
+}
+.pagecontent{
+  padding-left: 0;
+    
+}
+.pagecontent_left{
+    z-index: 1000;
+   position: fixed;
+    left: 200px;
+    width: 200px;
+    height: 100%;
+    margin-left: -200px;
+    overflow-y: auto;
+    background: #000;
+
+}
+.pagecontent_right{
+    width: 100%;
+    position: relative;
+    padding: 10px;
+    display: box;
+    margin-left: 200px;
+    
+    min-height: 100%;
+    height: auto !important;
+    height: 100%;
+    margin-bottom: -25px;
+}
+
+/* Sidebar Styles */
+
+.sidebar-nav {
+    position: absolute;
+    top: 0;
+    width: 250px;
+    margin: 0;
+    padding: 0;
+    list-style: none;
+}
+
+.sidebar-nav li {
+    text-indent: 20px;
+    line-height: 40px;
+}
+
+.sidebar-nav > .panel-default{
+    background-color: #000;
+    border: none;
+}
+.sidebar-nav li a {
+    display: block;
+    text-decoration: none;
+    color: #999999;
+}
+
+.sidebar-nav li a:hover {
+    text-decoration: none;
+    color: #fff;
+    background: rgba(255,255,255,0.2);
+}
+
+.sidebar-nav li a:active,
+.sidebar-nav li a:focus,
+.panel-default a:active,
+.panel-default a:focus
+{
+    text-decoration: none;
+    background-color: #187764;
+    color: #FFF;
+    font-size: 16px;
+    border: 1px #fff solid;
+}
+
+.sidebar-nav > .sidebar-brand {
+    height: 65px;
+    font-size: 18px;
+    line-height: 60px;
+    padding-top: 10px;
+    border-bottom: 1px grey solid;
+}
+
+.sidebar-nav > .sidebar-brand span {
+    color: #FFF;
+}
+
+.sidebar-nav > .sidebar-brand a:hover {
+    color: #fff;
+    background: none;
+}
+
+.inner-list{
+    list-style: none;
+    margin-left: -40px;
+}
+
+.inner-list li{
+    text-indent: 30px;
+    line-height: 30px;
+}
+
+.inner-list li a {
+    display: block;
+    text-decoration: none;
+    color: #999999;
+}
+
+.inner-list li a:active,
+.inner-list li a:focus{
+    text-decoration: none;
+    background-color: #187764;
+    color: #FFF;
+    font-size: 15px;
+    border: none;
+}
+.footer, .push{
+    height: 25px;
+    text-align: center;
+    position: fixed;
+    bottom: 0;
+    text-align: center;
+}
