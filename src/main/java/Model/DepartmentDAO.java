@@ -21,7 +21,7 @@ import java.util.logging.Logger;
  */
 public class DepartmentDAO {
 
-    public List<Department> getDepartments(DataManager dataManager) {
+    public static List<Department> getDepartments(DataManager dataManager) {
         Connection connection = dataManager.getConnection();
         List<Department> departments = new ArrayList<>();
         if (connection != null) {
@@ -47,7 +47,7 @@ public class DepartmentDAO {
         return departments;
     }
 
-    public Department getDepartmentById(DataManager dataManager, int id) {
+    public static Department getDepartmentById(DataManager dataManager, int id) {
         Connection connection = dataManager.getConnection();
         Department department = new Department();
         if (connection != null) {
@@ -69,7 +69,7 @@ public class DepartmentDAO {
         return department;
     }
 
-    public List<Department> searchDepartmentByName(DataManager dataManager, String name) {
+    public static List<Department> searchDepartmentByName(DataManager dataManager, String name) {
         Connection connection = dataManager.getConnection();
         List<Department> departments = new ArrayList<>();
         if (connection != null) {
