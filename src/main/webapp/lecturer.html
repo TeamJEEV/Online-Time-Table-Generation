@@ -52,7 +52,7 @@ This is the a simple lecturer view of the app after login
                 
                 <li>
                     
-                    <a href="#" >
+                    <a href="#" data-toggle="modal" data-target="#myModal">
                         Account Setting <i class="glyphicon glyphicon-menu-right glyphicon-align-right"></i></a>
                 </li>
                 
@@ -83,7 +83,45 @@ This is the a simple lecturer view of the app after login
                 </footer>
             </div>
             
-            
+            <!-- modal content -->
+            <!-- Modal -->
+<div id="myModal" class="modal fade" role="dialog">
+  <div class="modal-dialog">
+
+    <!-- Modal content-->
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal">&times;</button>
+        <h4 class="modal-title">Account Settings</h4>
+      </div>
+        <form>
+      <div class="modal-body">
+          <div class="input-group form-group">
+              <span class="input-group-addon" id="full-name-addon">Full Name</span>
+              <input type="text" class="form-control" required="required" placeholder="Fullname" aria-describedby="full-name-addon">
+              
+          </div>
+          <div class="input-group form-group">
+              <span class="input-group-addon" id="username-addon">Username</span>
+              <input type="text" class="form-control" required="required" placeholder="Username" aria-describedby="username-addon">
+
+          </div >
+          <div class="input-group form-group">
+               <span class="input-group-addon" id="password-addon">password</span>
+               <input type="password" class="form-control" required="required" placeholder="Password" aria-describedby="password-addon">
+              
+          </div>
+        
+      </div>
+      <div class="modal-footer">
+          <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
+          <button type="submit" class="btn btn-success" >Save</button>
+      </div>
+        </form>
+    </div>
+
+  </div>
+</div>
            
         </div>
         
