@@ -69,7 +69,7 @@ and open the template in the editor.
                 </li>
                 
                <li >
-                    <a href="#" >Add Lecture Hall
+                    <a href="#" data-toggle="modal" data-target="#addlecturehallModal">Add Lecture Hall
                     <i class="glyphicon glyphicon-menu-right glyphicon-align-right"></i></a>
                 </li>
                 
@@ -136,6 +136,40 @@ and open the template in the editor.
           </div>
         </div>
            
+            <!-- Add lecture Hall modal -->
+             <div id="addlecturehallModal" class="modal fade" role="dialog">
+          <div class="modal-dialog">
+
+            <!-- Modal content-->
+            <div class="modal-content">
+              <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <h4 class="modal-title">Add Lecture Hall</h4>
+              </div>
+                <form>
+              <div class="modal-body">
+                  <div class="input-group form-group">
+                      <span class="input-group-addon" id="full-name-addon">Name</span>
+                      <input type="text" class="form-control" required="required" placeholder="hall name" aria-describedby="full-name-addon">
+
+                  </div>
+                  <div class="input-group form-group">
+                      <span class="input-group-addon" id="username-addon">Capacity</span>
+                      <input type="text" class="form-control" required="required" placeholder="capacity" aria-describedby="username-addon">
+
+                  </div >
+                 
+
+              </div>
+              <div class="modal-footer">
+                  <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
+                  <button type="submit" class="btn btn-success" >Save</button>
+              </div>
+                </form>
+            </div>
+
+          </div>
+        </div>
         </div>
         
         
