@@ -9,12 +9,12 @@ and open the template in the editor.
         <title>UB Time Table Systems</title>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <link href="css/bootstrap.min.css" rel="stylesheet"/>
-        <link href="css/style.css" rel="stylesheet"/>
-        <script src="js/respond.min.js"></script><!-- Used to add support for IE 8 -->
+        <link href="/css/bootstrap.min.css" rel="stylesheet"/>
+        <link href="/css/style.css" rel="stylesheet"/>
+        <script src="/js/respond.min.js"></script><!-- Used to add support for IE 8 -->
         
-        <script src="js/jquery-1.11.3.min.js" type="text/javascript"></script>
-        <script src="js/bootstrap.min.js" type="text/javascript"></script>
+        <script src="/js/jquery-1.11.3.min.js" type="text/javascript"></script>
+        <script src="/js/bootstrap.min.js" type="text/javascript"></script>
         
     </head>
     <body>

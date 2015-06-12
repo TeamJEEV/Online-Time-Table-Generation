@@ -5,8 +5,20 @@
  */
 package servlets;
 
+import Model.DataManager;
+import java.io.File;
+import java.io.FileNotFoundException;
 import java.io.IOException;
-import java.io.PrintWriter;
+import java.sql.Connection;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
+import java.util.Formatter;
+import java.util.Scanner;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.servlet.ServletConfig;
+import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -16,10 +28,31 @@ import javax.servlet.http.HttpServletResponse;
  *
  * @author Harvey
  */
-public class LoginServlet extends HttpServlet {
+public class TimeTableServlet extends HttpServlet {
 
-    private String userName;
-    private String password;
+    @Override
+    public void init(ServletConfig config) throws ServletException {
+        super.init(config); //To change body of generated methods, choose Tools | Templates.
+
+        DataManager dataManager = new DataManager();
+        dataManager.setDbUrl(config.getInitParameter("dbURL"));
+        dataManager.setUserName(config.getInitParameter("dbUserName"));
+        dataManager.setPassword(config.getInitParameter("dbPassword"));
+
+        ServletContext context = config.getServletContext();
+
+        context.setAttribute(
+                "base", config.getInitParameter("base"));
+        context.setAttribute(
+                "dataManager", dataManager);
+
+        try {  // load the database JDBC driver
+            Class.forName(config.getInitParameter("jdbcDriver"));
+        } catch (ClassNotFoundException e) {
+            System.out.println(e.toString());
+        }
+    }
+
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
      * methods.
@@ -32,7 +65,7 @@ public class LoginServlet extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
-        
+
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
@@ -61,20 +94,19 @@ public class LoginServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        userName = request.getParameter("userName");
-        password = request.getParameter("password");
-        
-        processRequest(request, response);
+        String base = "/jsp/";
+        String url = base + "index.jsp";
+        String action = request.getParameter("action");
+        if (action != null) {
+            switch (action) {
+                case "search":
+                    url = base + "SearchOutcome.jsp";
+                    break;
+                case "selectCatalog":
+                    url = base + "SelectCatalog.jsp";
+                    break;
+            }
+            processRequest(request, response);
+        }
     }
-
-    /**
-     * Returns a short description of the servlet.
-     *
-     * @return a String containing servlet description
-     */
-    @Override
-    public String getServletInfo() {
-        return "Short description";
-    }// </editor-fold>
-
 }
