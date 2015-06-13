@@ -19,7 +19,13 @@ import java.util.logging.Logger;
  *
  * @author Harvey
  */
-public class ClassroomDAO {
+public class ClassroomDAO{
+
+    public static String name;
+    public static String username;
+    public static String password;
+    
+    
 
     public static List<Classroom> getClasses(DataManager dataManager){
         Connection connection = dataManager.getConnection();

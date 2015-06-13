@@ -9,12 +9,12 @@ and open the template in the editor.
         <title>UB Time Table Systems</title>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <link href="/css/bootstrap.min.css" rel="stylesheet"/>
-        <link href="/css/style.css" rel="stylesheet"/>
-        <script src="/js/respond.min.js"></script><!-- Used to add support for IE 8 -->
+        <link href="css/bootstrap.min.css" rel="stylesheet"/>
+        <link href="css/style.css" rel="stylesheet"/>
+        <script src="js/respond.min.js"></script><!-- Used to add support for IE 8 -->
         
-        <script src="/js/jquery-1.11.3.min.js" type="text/javascript"></script>
-        <script src="/js/bootstrap.min.js" type="text/javascript"></script>
+        <script src="js/jquery-1.11.3.min.js" type="text/javascript"></script>
+        <script src="js/bootstrap.min.js" type="text/javascript"></script>
         
     </head>
     <body>
@@ -33,14 +33,14 @@ and open the template in the editor.
                    <span class="navbar-brand">Time Table Systems</span>
                  </div>
                  <div id="navbar" class="navbar-collapse collapse">
-                   <form class="navbar-form navbar-right">
+                     <form action="TimeTableServlet" class="navbar-form navbar-right" method="POST">
                      <div class="form-group">
                        <input type="text" name="username" placeholder="Username" class="form-control">
                      </div>
                      <div class="form-group">
                        <input type="password" name="password" placeholder="Password" class="form-control">
                      </div>
-                     <button type="submit" name="login" class="btn btn-success">Login</button>
+                         <button type="submit" name="submit" class="btn btn-success" value="login">Login</button>
                    </form>
                  </div><!--/.navbar-collapse -->
                </div>

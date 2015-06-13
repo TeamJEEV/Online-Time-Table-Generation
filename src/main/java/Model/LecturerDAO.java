@@ -20,6 +20,33 @@ import java.util.logging.Logger;
  * @author Harvey
  */
 public class LecturerDAO {
+    
+    public static void addLecturer(DataManager dataManager, Lecturer lecturer) {
+        String name = lecturer.getName();
+        String username = lecturer.getUserName();
+        String password = lecturer.getPassword();
+        String role = lecturer.getLectureRole();
+        Connection connection = dataManager.getConnection();
+        
+        if (connection != null) {
+            try {
+                Statement statement = connection.createStatement();
+                String query = "INSERT INTO lecturer values('" + name
+                        + "', '" + name
+                        + "', '" + username
+                        + "', '" + password
+                        + "', '" + role + "')";
+                try {
+                    ResultSet rs = statement.executeQuery(query);
+                } finally {
+                    statement.close();
+                }
+            } catch (SQLException e) {
+                Logger.getGlobal().log(Level.INFO, "Could not get lecturers");
+            }
+        }
+        
+    }
 
     public List<Lecturer> getLecturers(DataManager dataManager) {
         Connection connection = dataManager.getConnection();
@@ -48,7 +75,7 @@ public class LecturerDAO {
         }
         return lecturers;
     }
-
+    
     public Lecturer getLecturerById(DataManager dataManager, int id) {
         Connection connection = dataManager.getConnection();
         Lecturer lecturer = new Lecturer();
@@ -72,7 +99,7 @@ public class LecturerDAO {
         }
         return lecturer;
     }
-
+    
     public List<Lecturer> searchLecturerByName(DataManager dataManager, String name) {
         Connection connection = dataManager.getConnection();
         List<Lecturer> faculties = new ArrayList<>();
@@ -99,5 +126,34 @@ public class LecturerDAO {
             }
         }
         return faculties;
+    }
+    
+    public static Lecturer getLecturerLogin(DataManager dataManager, String userName, String password) {
+        Connection connection = dataManager.getConnection();
+        Lecturer lecturer = null;
+        ResultSet rs;
+        if (connection != null) {
+            
+            try {
+                Statement statement = connection.createStatement();
+                String query = "SELECT * FROM lecturer where name = '" + userName
+                        + "' AND password = '" + password + "'";
+                
+                rs = statement.executeQuery(query);
+                if (rs.next()) {
+                    lecturer = new Lecturer();
+                    lecturer.setId(Integer.parseInt(rs.getString("id")));
+                    lecturer.setName(rs.getString("full name"));
+                    lecturer.setUserName(rs.getString("name"));
+                    lecturer.setPassword(rs.getString("password"));
+                    lecturer.setLectureRole(rs.getString("role"));
+                }
+            } catch (SQLException ex) {
+                Logger.getLogger(LecturerDAO.class.getName()).log(Level.SEVERE, null, ex);
+            }
+                    
+                
+        }
+        return lecturer;
     }
 }
