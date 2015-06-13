@@ -154,3 +154,8 @@ This is our custom CSS Style sheet for the project
     bottom: 0;
     text-align: center;
 }
+
+.modal-header{
+    background-color: #187764;
+    color: #fff;
+}
