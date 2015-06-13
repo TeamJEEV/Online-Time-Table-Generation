@@ -6,7 +6,7 @@ and open the template in the editor.
 -->
 <html>
     <head>
-        <title>UB Time Table Systems</title>
+       <title>UB Time Table Systems</title>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <link href="css/bootstrap.min.css" rel="stylesheet"/>
@@ -15,14 +15,13 @@ and open the template in the editor.
         
         <script src="js/jquery-1.11.3.min.js" type="text/javascript"></script>
         <script src="js/bootstrap.min.js" type="text/javascript"></script>
-        
     </head>
     <body>
-       <header class="page-header">
+         <header class="page-header">
             <nav class="navbar navbar-inverse navbar-fixed-top">
                <div class="container">
                  <div class="navbar-header">
-                   <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar"  aria-controls="navbar">
+                   <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
                      <span class="sr-only">Toggle navigation</span>
                      <span class="icon-bar"></span>
                      <span class="icon-bar"></span>
@@ -31,7 +30,7 @@ and open the template in the editor.
                    <span class="navbar-brand">Time Table Systems</span>
                  </div>
                  <div id="navbar" class="navbar-collapse collapse">
-                   <form class="navbar-form navbar-right">
+                     <form class="navbar-form navbar-right" action="TimeTableServlet">
                      <div class="form-group">
                          <input type="hidden" name="username"  class="form-control">
                      </div>
@@ -42,39 +41,58 @@ and open the template in the editor.
                </div>
        </nav>
     </header>
-        
-        <div class="pagecontent">
+       
+         
+         <div class="pagecontent">
             <div class="pagecontent_left">        
                     
                 
                 <ul class="sidebar-nav">
                      <li class="sidebar-brand">
-                         <i class="glyphicon glyphicon-user" style="color: #FFF"></i><span> Admin </span>
+                         <i class="glyphicon glyphicon-user" style="color: #FFF"></i><span> Username </span>
                 </li>
                 
                 <li>
                     
                     <a href="#" >
-                        Create Faculty <i class="glyphicon glyphicon-menu-right glyphicon-align-right"></i></a>
+                        Account Setting <i class="glyphicon glyphicon-menu-right glyphicon-align-right"></i></a>
                 </li>
                 
                 <li >
-                    <a href="#" >Create department
-                    <i class="glyphicon glyphicon-menu-right glyphicon-align-right"></i></a>
-                </li>
-                
-                <li >
-                    <a href="#" >Add Lecturer
+                    <a href="#" >My Schedule
                     <i class="glyphicon glyphicon-menu-right glyphicon-align-right"></i></a>
                 </li>
                 
                <li >
-                    <a href="#" >Add Lecture Hall
+                    <a href="#" >Add Class
                     <i class="glyphicon glyphicon-menu-right glyphicon-align-right"></i></a>
                 </li>
                 
+                 <li >
+                    <a href="#" >Courses
+                    <i class="glyphicon glyphicon-menu-right glyphicon-align-right"></i></a>
+                </li>
                 
-                 
+                 <li >
+                    <a href="#" >Visiting Lecturer
+                    <i class="glyphicon glyphicon-menu-right glyphicon-align-right"></i></a>
+                </li>
+                
+                 <li >
+                    <a href="#" >Free List
+                    <i class="glyphicon glyphicon-menu-right glyphicon-align-right"></i></a>
+                </li>
+                
+                 <li >
+                    <a href="#" >BLock List
+                    <i class="glyphicon glyphicon-menu-right glyphicon-align-right"></i></a>
+                </li>
+                
+                 <li >
+                    <a href="#" >Assign HOD
+                    <i class="glyphicon glyphicon-menu-right glyphicon-align-right"></i></a>
+                </li>
+                
                 </ul>
                 
             </div>
