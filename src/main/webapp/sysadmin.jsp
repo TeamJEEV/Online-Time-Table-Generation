@@ -190,6 +190,7 @@ and open the template in the editor.
                     <button type="button" class="close" data-dismiss="modal">&times;</button>
                     <h4 class="modal-title">Add Faculty</h4>
                 </div>
+                <!--Create Faculty form-->
                 <form action="TimeTableServlet" method="POST">
                     <div class="modal-body">
                         <div class="input-group form-group">
@@ -219,13 +220,15 @@ and open the template in the editor.
                                 </a>
                             </span></div>
                     </div>
+                    
                     <div class="modal-footer">
+                        <button type="reset" class="btn btn-sm" name="clear">Clear</button>
                         <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
-                        <button class="btn btn-success" type="submit" name="submit" value="addLect">Save</button>
+                        <button class="btn btn-success" type="submit" name="submit" value="addFac">Save</button>
                     </div>
                 </form>
             </div>
-
+<!--end of create Faculty form-->
         </div>
     </div>
 

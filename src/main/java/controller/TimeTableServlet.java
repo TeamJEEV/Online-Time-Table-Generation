@@ -6,8 +6,10 @@
 package controller;
 
 import Bean.Classroom;
+import Bean.Faculty;
 import Bean.Lecturer;
 import Model.ClassroomDAO;
+import Model.FacultyDAO;
 import Utilities.DataManager;
 import Model.LecturerDAO;
 import java.io.IOException;
@@ -125,6 +127,15 @@ public class TimeTableServlet extends HttpServlet {
                     }
                     addHall(request);
                     url = base + "sysadmin.jsp";
+                    
+                case "addFac":
+                    if (request.getSession().getAttribute("user") == null) {
+                        // Not logged in. Redirect to login page.
+                        response.sendRedirect("index.jsp");
+                        return;
+                    }
+                     addFaculty(request);
+                    url = base + "sysadmin.jsp";
                     break;
             }
             RequestDispatcher dispatcher = getServletContext().getRequestDispatcher(url);
@@ -177,6 +188,14 @@ public class TimeTableServlet extends HttpServlet {
         hall.setName(request.getParameter("hall"));
         hall.setCapacity(Integer.parseInt(request.getParameter("capacity")));
         String message = ClassroomDAO.addHall(dataManager, hall);
+        request.setAttribute("message", message);
+    }
+    
+    
+    public void addFaculty(HttpServletRequest request) {
+        Faculty faculty= new Faculty();
+        faculty.setName(request.getParameter("name"));
+        String message =FacultyDAO.addFaculty(dataManager, faculty);
         request.setAttribute("message", message);
     }
 }
