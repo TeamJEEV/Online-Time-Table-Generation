@@ -6,7 +6,6 @@
 package Model;
 
 import Bean.Classroom;
-import com.mysql.jdbc.exceptions.MySQLIntegrityConstraintViolationException;
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -20,35 +19,15 @@ import java.util.logging.Logger;
  *
  * @author Harvey
  */
-public class ClassroomDAO {
+public class ClassroomDAO{
 
-    public static String addHall(DataManager dataManager, Classroom hall) {
-        Connection connection = dataManager.getConnection();
+    public static String name;
+    public static String username;
+    public static String password;
+    
+    
 
-        if (connection != null) {
-            String name = hall.getName();
-            int capacity = hall.getCapacity();
-            String query = "INSERT into classrooms values(null,'" + name + "',"
-                    + "'" + capacity + "')";
-            try {
-                Statement statement = connection.createStatement();
-                statement.executeUpdate(query);
-                try {
-                    statement.executeUpdate(query);
-                } finally {
-                    statement.close();
-                }
-            } catch (SQLException e) {
-                if (e.getClass().equals(MySQLIntegrityConstraintViolationException.class)) {
-                    return "Lecturer hall " + name + "has already been added";
-                }
-                Logger.getGlobal().log(Level.INFO, e.getMessage());
-            }
-        }
-        return null;
-    }
-
-    public static List<Classroom> getClasses(DataManager dataManager) {
+    public static List<Classroom> getClasses(DataManager dataManager){
         Connection connection = dataManager.getConnection();
         List<Classroom> classrooms = new ArrayList<>();
         if (connection != null) {
@@ -72,7 +51,7 @@ public class ClassroomDAO {
         }
         return classrooms;
     }
-
+    
     public static Classroom getClassById(DataManager dataManager, int id) {
         Connection connection = dataManager.getConnection();
         Classroom classroom = new Classroom();
