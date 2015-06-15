@@ -5,10 +5,13 @@
  */
 package controller;
 
+import Bean.Classroom;
 import Bean.Lecturer;
+import Model.ClassroomDAO;
 import Model.DataManager;
 import Model.LecturerDAO;
 import java.io.IOException;
+import java.io.PrintWriter;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.servlet.RequestDispatcher;
@@ -95,7 +98,7 @@ public class TimeTableServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        
+
         String url = base + "index.jsp";
         String action = request.getParameter("submit");
         if (action != null) {
@@ -103,22 +106,32 @@ public class TimeTableServlet extends HttpServlet {
                 case "login":
                     url = login(request, url);
                     break;
-                case "addLect":
-                    //Add Lecturer
-                    Lecturer lecturer = new Lecturer();
-                    lecturer.setName(request.getParameter("fullname"));
-                    lecturer.setUserName(request.getParameter("username"));
-                    lecturer.setPassword(request.getParameter("password"));
-                    lecturer.setLectureRole(request.getParameter("role"));
-                    LecturerDAO.addLecturer(dataManager, lecturer);
+                case "logout":
+                    logOut(request);
                     break;
-                case "selectCatalog":
-                    url = base + "SelectCatalog.jsp";
+                case "addLect"://Add Lecturer
+                    if (request.getSession().getAttribute("user") == null) {
+                        // Not logged in. Redirect to login page.
+                        response.sendRedirect("index.jsp");
+                        return;
+                    }
+                    addLecturer(request, response);
+                    url = request.getRequestURI();
+                    break;
+                case "addhall":
+                    if (request.getSession().getAttribute("user") == null) {
+                        // Not logged in. Redirect to login page.
+                        response.sendRedirect("index.jsp");
+                        return;
+                    }
+                    addHall(request);
+                    url = base + "sysadmin.jsp";
                     break;
             }
             RequestDispatcher dispatcher = getServletContext().getRequestDispatcher(url);
             dispatcher.forward(request, response);
         }
+
     }
 
     public String login(HttpServletRequest request, String url) {
@@ -132,6 +145,9 @@ public class TimeTableServlet extends HttpServlet {
         } else if (lecturer.getLectureRole().equals("HOD") || lecturer.getLectureRole().equals("Dean")) {
             url = base + "admin.jsp";
             request.getSession().setAttribute("user", userName);
+        } else if (lecturer.getLectureRole().equals("None")) {
+            url = base + "lecturer.jsp";
+            request.getSession().setAttribute("user", userName);
         } else {
             url = base + "sysadmin.jsp";
             request.getSession().setAttribute("user", userName);
@@ -139,4 +155,29 @@ public class TimeTableServlet extends HttpServlet {
         return url;
     }
 
+    public void logOut(HttpServletRequest request) {
+        request.getSession().setAttribute("user", null);
+    }
+
+    public void addLecturer(HttpServletRequest request, HttpServletResponse response) throws IOException {
+        Lecturer lecturer = new Lecturer();
+        lecturer.setName(request.getParameter("fullname"));
+        lecturer.setUserName(request.getParameter("username"));
+        lecturer.setPassword(request.getParameter("password"));
+        lecturer.setLectureRole(request.getParameter("role"));
+        String message = LecturerDAO.addLecturer(dataManager, lecturer);
+//        response.setContentType("text/html;charset=UTF-8");
+//        try (PrintWriter out = response.getWriter()) {
+//            /* TODO output your page here. You may use following sample code. */
+//            out.println("<div class=\"alert alert-warning\">" + message + "</div>");
+//        }
+    }
+
+    public void addHall(HttpServletRequest request) {
+        Classroom hall = new Classroom();
+        hall.setName(request.getParameter("hall"));
+        hall.setCapacity(Integer.parseInt(request.getParameter("capacity")));
+        String message = ClassroomDAO.addHall(dataManager, hall);
+        request.setAttribute("message", message);
+    }
 }
