@@ -30,18 +30,13 @@ and open the template in the editor.
                      <span class="icon-bar"></span>
                      <span class="icon-bar"></span>
                    </button>
+                     <div style="text-align:left">
+                     <a href="login.jsp">Admin Login here</a>
+                     </div>
                    <span class="navbar-brand">Time Table Systems</span>
                  </div>
                  <div id="navbar" class="navbar-collapse collapse">
-                     <form action="TimeTableServlet" class="navbar-form navbar-right" method="POST">
-                     <div class="form-group">
-                       <input type="text" name="username" placeholder="Username" class="form-control">
-                     </div>
-                     <div class="form-group">
-                       <input type="password" name="password" placeholder="Password" class="form-control">
-                     </div>
-                         <button type="submit" name="submit" class="btn btn-success" value="login">Login</button>
-                   </form>
+                  
                  </div><!--/.navbar-collapse -->
                </div>
        </nav>
