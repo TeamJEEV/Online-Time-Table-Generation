@@ -128,6 +128,6 @@ CREATE  TABLE IF NOT EXISTS `Timetable`.`Lecturer_has_Courses` (
   CONSTRAINT `fk_Lecturer_has_Courses_Classrooms1`
     FOREIGN KEY (`Classrooms_ID` )
     REFERENCES `Timetable`.`Classrooms` (`ID` )
-    ON DELETE SET NULL
+    ON DELETE NO ACTION
     ON UPDATE CASCADE)
 ENGINE = InnoDB;
