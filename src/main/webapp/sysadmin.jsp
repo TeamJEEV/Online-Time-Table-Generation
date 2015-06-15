@@ -55,8 +55,8 @@ and open the template in the editor.
 
                     <li>
 
-                        <a href="#" >
-                            Create Faculty <i class="glyphicon glyphicon-menu-right glyphicon-align-right"></i></a>
+                        <a href="#" data-toggle="modal" data-target="#addfacultyModal">Create Faculty 
+                            <i class="glyphicon glyphicon-menu-right glyphicon-align-right"></i></a>
                     </li>
 
                     <li >
@@ -79,122 +79,204 @@ and open the template in the editor.
                 </ul>
 
             </div>
-<!--            <div class="pagecontent_right">
-                <div class="alert alert-warning alert-dismissable">
-                    <button type="button" class="close" data-dismiss="alert" 
-                            aria-hidden="true">
-                        &times;
-                    </button>
-                    ${param.name}
-                </div>-->
-                <div class="container-fluid">
-                    <div class="row">
-                        <div class="col-md-12">
-                            <h1>Page content</h1>
-                            <p>This part of the page will contain the structured time tables for the various departments </p>
-                            <p>Make sure to keep all page content within the <code>#page-content-wrapper</code>.</p>
+            <!--            <div class="pagecontent_right">
+                            <div class="alert alert-warning alert-dismissable">
+                                <button type="button" class="close" data-dismiss="alert" 
+                                        aria-hidden="true">
+                                    &times;
+                                </button>
+            ${param.name}
+        </div>-->
+            <div class="container-fluid">
+                <div class="row">
+                    <div class="col-md-12">
+                        <h1>Page content</h1>
+                        <p>This part of the page will contain the structured time tables for the various departments </p>
+                        <p>Make sure to keep all page content within the <code>#page-content-wrapper</code>.</p>
 
-                        </div>
                     </div>
                 </div>
-                <div class="push"></div>
-                <footer class="footer">
-                    <p>&COPY;Team5 2015</p>
-                </footer>
             </div>
-
-
-            <!-- Modal -->
-            <!-- Add lecturer modal -->
-            <div id="addlecturerModal" class="modal fade" role="dialog">
-                <div class="modal-dialog">
-
-                    <!-- Modal content-->
-                    <div class="modal-content">
-                        <div class="modal-header">
-                            <button type="button" class="close" data-dismiss="modal">&times;</button>
-                            <h4 class="modal-title">Add Lecturer</h4>
-                        </div>
-                        <form action="TimeTableServlet" method="POST">
-                            <div class="modal-body">
-                                <div class="input-group form-group">
-                                    <span class="input-group-addon" id="full-name-addon">Full Name</span>
-                                    <input name="fullname" type="text" class="form-control" required="required" 
-                                           placeholder="Fullname" aria-describedby="full-name-addon">
-
-                                </div>
-                                <div class="input-group form-group">
-                                    <span class="input-group-addon" id="username-addon">Username</span>
-                                    <input name="username" type="text" class="form-control" required="required" placeholder="Username" aria-describedby="username-addon">
-
-                                </div >
-                                <div class="input-group form-group">
-                                    <span class="input-group-addon" id="password-addon">password</span>
-                                    <input name="password" type="password" class="form-control" required="required" placeholder="Password" aria-describedby="password-addon">
-                                </div>
-
-                            </div>
-                            <div class="modal-footer">
-                                <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
-                                <button class="btn btn-success" type="submit" name="submit" value="addLect">Save</button>
-                            </div>
-                        </form>
-                    </div>
-
-                </div>
-            </div>
-
-            <!-- Add lecture Hall modal -->
-            <div id="addlecturehallModal" class="modal fade" role="dialog">
-                <div class="modal-dialog">
-
-                    <!-- Modal content-->
-                    <div class="modal-content">
-                        <div class="modal-header">
-                            <button type="button" class="close" data-dismiss="modal">&times;</button>
-                            <h4 class="modal-title">Add Lecture Hall</h4>
-                        </div>
-                        <form method="POST">
-                            <div class="modal-body">
-                                <div class="input-group form-group">
-                                    <span class="input-group-addon" id="full-name-addon">Name</span>
-                                    <input type="text" name="hall" class="form-control" required="required" placeholder="hall name" aria-describedby="full-name-addon">
-
-                                </div>
-                                <div class="input-group form-group">
-                                    <span class="input-group-addon" id="username-addon">Capacity</span>
-                                    <input type="text" name="capacity" class="form-control" required="required" placeholder="capacity" aria-describedby="username-addon">
-
-                                </div >
-
-
-                            </div>
-                            <div class="modal-footer">
-                                <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
-                                <button type="submit" name="submit" value="addhall" class="btn btn-success" >Save</button>
-                            </div>
-                        </form>
-                    </div>
-
-                </div>
-            </div>
+            <div class="push"></div>
+            <footer class="footer">
+                <p>&COPY;Team5 2015</p>
+            </footer>
         </div>
 
 
+        <!-- Modal -->
+        <!-- Add lecturer modal -->
+        <div id="addlecturerModal" class="modal fade" role="dialog">
+            <div class="modal-dialog">
+
+                <!-- Modal content-->
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal">&times;</button>
+                        <h4 class="modal-title">Add Lecturer</h4>
+                    </div>
+                    <form action="TimeTableServlet" method="POST">
+                        <div class="modal-body">
+                            <div class="input-group form-group">
+                                <span class="input-group-addon" id="full-name-addon">Full Name</span>
+                                <input name="fullname" type="text" class="form-control" required="required" 
+                                       placeholder="Fullname" aria-describedby="full-name-addon">
+
+                            </div>
+                            <div class="input-group form-group">
+                                <span class="input-group-addon" id="username-addon">Username</span>
+                                <input name="username" type="text" class="form-control" required="required" placeholder="Username" aria-describedby="username-addon">
+
+                            </div >
+                            <div class="input-group form-group">
+                                <span class="input-group-addon" id="password-addon">password</span>
+                                <input name="password" type="password" class="form-control" required="required" placeholder="Password" aria-describedby="password-addon">
+                            </div>
+
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
+                            <button class="btn btn-success" type="submit" name="submit" value="addLect">Save</button>
+                        </div>
+                    </form>
+                </div>
+
+            </div>
+        </div>
+
+        <!-- Add lecture Hall modal -->
+        <div id="addlecturehallModal" class="modal fade" role="dialog">
+            <div class="modal-dialog">
+
+                <!-- Modal content-->
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal">&times;</button>
+                        <h4 class="modal-title">Add Lecture Hall</h4>
+                    </div>
+                    <form method="POST">
+                        <div class="modal-body">
+                            <div class="input-group form-group">
+                                <span class="input-group-addon" id="full-name-addon">Name</span>
+                                <input type="text" name="hall" class="form-control" required="required" placeholder="hall name" aria-describedby="full-name-addon">
+
+                            </div>
+                            <div class="input-group form-group">
+                                <span class="input-group-addon" id="username-addon">Capacity</span>
+                                <input type="text" name="capacity" class="form-control" required="required" placeholder="capacity" aria-describedby="username-addon">
+
+                            </div >
+
+
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
+                            <button type="submit" name="submit" value="addhall" class="btn btn-success" >Save</button>
+                        </div>
+                    </form>
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+    <!-- Add Faculty modal -->
+    <div id="addfacultyModal" class="modal fade" role="dialog">
+        <div class="modal-dialog">
+
+            <!-- Modal content-->
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                    <h4 class="modal-title">Add Faculty</h4>
+                </div>
+                <form action="TimeTableServlet" method="POST">
+                    <div class="modal-body">
+                        <div class="input-group form-group">
+                            <span class="input-group-addon" id="name-addon">Name</span>
+                            <input name="name" type="text" class="form-control" required="required" 
+                                   placeholder="Name" aria-describedby="name-addon">
+
+                        </div>
+                        <div class="input-group form-group">
+                            <span class="input-group-addon" id="username-addon">Dean</span>
+                            <input name="dean" type="text" class="form-control" required="required" 
+                                   placeholder="Dean" aria-describedby="dean-addon">
+                        </div>
+                        <hr>
+                        <div class="input-group form-group">
+                            <span class="input-group-addon" id="department-addon">Department</span>
+                            <input name="department" type="text" class="form-control">
+                            <span class="input-group-btn">
+                                <a href="#" data-toggle="modal" data-target="#adddepartmentModal">
+                                    <button  class="btn btn-default" type="button">
+                                        <span class="glyphicon glyphicon-plus"></span>
+                                    </button>
+                                </a>
+                            </span></div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
+                        <button class="btn btn-success" type="submit" name="submit" value="addLect">Save</button>
+                    </div>
+                </form>
+            </div>
+
+        </div>
+    </div>
+
+    <div id="adddepartmentModal" class="modal fade" role="dialog">
+        <div class="modal-dialog">
+
+            <!-- Modal content-->
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                    <h4 class="modal-title">Add Department</h4>
+                </div>
+                <form action="TimeTableServlet" method="POST">
+                    <div class="modal-body">
+                        <div class="input-group form-group">
+                            <span class="input-group-addon" id="dept-name-addon">Name</span>
+                            <input name="deptname" type="text" class="form-control" required="required" 
+                                   placeholder="Department Name" aria-describedby="dept-name-addon">
+
+                        </div>
+                        <div class="input-group form-group">
+                            <span class="input-group-addon" id="hod-addon">HOD</span>
+                            <input name="hod" type="text" class="form-control" required="required" 
+                                   placeholder="Head of Department" aria-describedby="hod-addon">
+                        </div>
+                        <div class="input-group form-group">
+                            <span class="input-group-addon" id="email-addon">Email</span>
+                            <input name="hodemail" type="text" class="form-control" required="required" 
+                                   readonly="true" placeholder="Email" aria-describedby="email-addon">
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
+                        <button class="btn btn-success" type="submit" name="submit" value="addLect">Save</button>
+                    </div>
+                </form>
+            </div>
+
+        </div>
+    </div>
 
 
 
 
 
 
-        <!-- Jquery CDN which will be incoporated when hosting the app-->
-        <!--  <script src="//code.jquery.com/jquery-1.11.3.min.js"></script>
-          <script src="//code.jquery.com/jquery-migrate-1.2.1.min.js"></script> -->
 
-        <!-- Bootstrap CDN which will be incoporated when hosting the app
-        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>-->
-        <script>
+    <!-- Jquery CDN which will be incoporated when hosting the app-->
+    <!--  <script src="//code.jquery.com/jquery-1.11.3.min.js"></script>
+      <script src="//code.jquery.com/jquery-migrate-1.2.1.min.js"></script> -->
 
-        </script>
-    </body>
+    <!-- Bootstrap CDN which will be incoporated when hosting the app
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>-->
+    <script>
+
+    </script>
+</body>
 </html>

@@ -5,6 +5,7 @@
  */
 package Model;
 
+import Utilities.DataManager;
 import Bean.LecturerHasCourse;
 import java.sql.Connection;
 import java.sql.ResultSet;

@@ -5,7 +5,9 @@
  */
 package Model;
 
+import Utilities.DataManager;
 import Bean.Faculty;
+import com.mysql.jdbc.exceptions.MySQLIntegrityConstraintViolationException;
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -20,6 +22,34 @@ import java.util.logging.Logger;
  * @author Harvey
  */
 public class FacultyDAO {
+
+    public static String addFaculty(DataManager dataManager, Faculty faculty) {
+        Connection connection = dataManager.getConnection();
+
+        if (connection != null) {
+            String name = faculty.getName();
+            int dean = faculty.getDean();
+            String query = "INSERT into faculty values(null,'" + name + "',"
+                    + dean + ")";
+            try {
+                Statement statement = connection.createStatement();
+                statement.executeUpdate(query);
+                try {
+                    statement.executeUpdate(query);
+                } finally {
+                    statement.close();
+                }
+            } catch (SQLException e) {
+                if (e.getClass().equals(MySQLIntegrityConstraintViolationException.class)) {
+                    return "Dean id" + dean + " owner is already a dean. Select someone else.";
+                } else {
+                    Logger.getGlobal().log(Level.INFO, e.getMessage());
+                }
+            }
+        }
+        return null;
+    }
+
     public List<Faculty> getFacultys(DataManager dataManager) {
         Connection connection = dataManager.getConnection();
         List<Faculty> facultys = new ArrayList<>();

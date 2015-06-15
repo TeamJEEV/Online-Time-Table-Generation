@@ -5,6 +5,7 @@
  */
 package Model;
 
+import Utilities.DataManager;
 import Bean.Lecturer;
 import com.mysql.jdbc.exceptions.MySQLIntegrityConstraintViolationException;
 import java.sql.Connection;
@@ -154,8 +155,6 @@ public class LecturerDAO {
             } catch (SQLException ex) {
                 Logger.getLogger(LecturerDAO.class.getName()).log(Level.SEVERE, null, ex);
             }
-                    
-                
         }
         return lecturer;
     }

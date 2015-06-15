@@ -5,7 +5,10 @@
  */
 package Model;
 
+import Utilities.DataManager;
+import Bean.Classroom;
 import Bean.Department;
+import com.mysql.jdbc.exceptions.MySQLIntegrityConstraintViolationException;
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -21,6 +24,33 @@ import java.util.logging.Logger;
  */
 public class DepartmentDAO {
 
+    public static String addHall(DataManager dataManager, Department department) {
+        Connection connection = dataManager.getConnection();
+
+        if (connection != null) {
+            String name = department.getName();
+            int facultyId = department.getFaculty();
+            int hodId = department.getHOD();
+            String query = "INSERT into classrooms values(null,'" + name + "',"
+                    + facultyId + ", "
+                    + hodId + ")";
+            try {
+                Statement statement = connection.createStatement();
+                statement.executeUpdate(query);
+                try {
+                    statement.executeUpdate(query);
+                } finally {
+                    statement.close();
+                }
+            } catch (SQLException e) {
+                if (e.getClass().equals(MySQLIntegrityConstraintViolationException.class)) {
+                    return "Lecturer with id " + hodId + " is already an HOD. Select someone else.";
+                }
+                Logger.getGlobal().log(Level.INFO, e.getMessage());
+            }
+        }
+        return null;
+    }
     public static List<Department> getDepartments(DataManager dataManager) {
         Connection connection = dataManager.getConnection();
         List<Department> departments = new ArrayList<>();

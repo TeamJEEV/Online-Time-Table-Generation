@@ -5,6 +5,7 @@
  */
 package Model;
 
+import Utilities.DataManager;
 import Bean.Classroom;
 import com.mysql.jdbc.exceptions.MySQLIntegrityConstraintViolationException;
 import java.sql.Connection;
@@ -29,7 +30,7 @@ public class ClassroomDAO {
             String name = hall.getName();
             int capacity = hall.getCapacity();
             String query = "INSERT into classrooms values(null,'" + name + "',"
-                    + "'" + capacity + "')";
+                    + capacity + ")";
             try {
                 Statement statement = connection.createStatement();
                 statement.executeUpdate(query);

@@ -8,7 +8,7 @@ package controller;
 import Bean.Classroom;
 import Bean.Lecturer;
 import Model.ClassroomDAO;
-import Model.DataManager;
+import Utilities.DataManager;
 import Model.LecturerDAO;
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -84,7 +84,6 @@ public class TimeTableServlet extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         processRequest(request, response);
-        doPost(request, response);
     }
 
     /**
@@ -145,11 +144,11 @@ public class TimeTableServlet extends HttpServlet {
         } else if (lecturer.getLectureRole().equals("HOD") || lecturer.getLectureRole().equals("Dean")) {
             url = base + "admin.jsp";
             request.getSession().setAttribute("user", userName);
-        } else if (lecturer.getLectureRole().equals("None")) {
-            url = base + "lecturer.jsp";
+        } else if ("System Administrator".equals(lecturer.getLectureRole())) {
+            url = base + "sysadmin.jsp";
             request.getSession().setAttribute("user", userName);
         } else {
-            url = base + "sysadmin.jsp";
+            url = base + "lecturer.jsp";
             request.getSession().setAttribute("user", userName);
         }
         return url;

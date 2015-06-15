@@ -3,10 +3,12 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package Model;
+package Utilities;
 
 import Bean.Classroom;
 import Bean.Course;
+import Model.ClassroomDAO;
+import Model.DepartmenthasCourseDAO;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;

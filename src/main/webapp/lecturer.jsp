@@ -28,12 +28,12 @@ This is the a simple lecturer view of the app after login
                    <span class="navbar-brand">Time Table Systems</span>
                  </div>
                  <div id="navbar" class="navbar-collapse collapse">
-                   <form class="navbar-form navbar-right">
+                     <form action="TimeTableServlet" method="POST" class="navbar-form navbar-right">
                      <div class="form-group">
                          <input type="hidden" name="username"  class="form-control">
                      </div>
                     
-                     <button type="submit" name="login" class="btn btn-success">LogOut</button>
+                         <button type="submit" name="submit" value="logout" class="btn btn-success">LogOut</button>
                    </form>
                  </div><!--/.navbar-collapse -->
                </div>
@@ -94,7 +94,7 @@ This is the a simple lecturer view of the app after login
         <button type="button" class="close" data-dismiss="modal">&times;</button>
         <h4 class="modal-title">Account Settings</h4>
       </div>
-        <form>
+        <form action="TimeTableSErvlet" method="POST">
       <div class="modal-body">
           <div class="input-group form-group">
               <span class="input-group-addon" id="full-name-addon">Full Name</span>
@@ -115,7 +115,7 @@ This is the a simple lecturer view of the app after login
       </div>
       <div class="modal-footer">
           <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
-          <button type="submit" class="btn btn-success" >Save</button>
+          <button type="submit" name="submit" value="logout" class="btn btn-success" >Save</button>
       </div>
         </form>
     </div>
