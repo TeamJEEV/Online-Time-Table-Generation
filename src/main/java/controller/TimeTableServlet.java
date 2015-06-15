@@ -144,7 +144,7 @@ public class TimeTableServlet extends HttpServlet {
         } else if (lecturer.getLectureRole().equals("HOD") || lecturer.getLectureRole().equals("Dean")) {
             url = base + "admin.jsp";
             request.getSession().setAttribute("user", userName);
-        } else if ("System Administrator".equals(lecturer.getLectureRole())) {
+        } else if ("Sysadmin".equals(lecturer.getLectureRole())) {
             url = base + "sysadmin.jsp";
             request.getSession().setAttribute("user", userName);
         } else {

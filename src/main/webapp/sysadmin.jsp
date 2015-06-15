@@ -32,7 +32,7 @@ and open the template in the editor.
                         <span class="navbar-brand">Time Table Systems</span>
                     </div>
                     <div id="navbar" class="navbar-collapse collapse">
-                        <form class="navbar-form navbar-right">
+                        <form method="POST" class="navbar-form navbar-right">
                             <div class="form-group">
                                 <input type="hidden" name="username"  class="form-control">
                             </div>
@@ -203,7 +203,11 @@ and open the template in the editor.
                             <input name="dean" type="text" class="form-control" required="required" 
                                    placeholder="Dean" aria-describedby="dean-addon">
                         </div>
-                        <hr>
+                        <div class="input-group form-group">
+                            <span class="input-group-addon" id="email-addon">Email</span>
+                            <input name="hodemail" type="text" class="form-control" required="required" 
+                                   readonly="true" placeholder="Email" aria-describedby="email-addon">
+                        </div>
                         <div class="input-group form-group">
                             <span class="input-group-addon" id="department-addon">Department</span>
                             <input name="department" type="text" class="form-control">
