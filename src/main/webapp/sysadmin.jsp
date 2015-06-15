@@ -9,15 +9,16 @@ and open the template in the editor.
         <title>UB Time Table Systems</title>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <link href="/css/bootstrap.min.css" rel="stylesheet"/>
-        <link href="/css/style.css" rel="stylesheet"/>
-        <script src="/js/respond.min.js"></script><!-- Used to add support for IE 8 -->
+        <link href="css/bootstrap.min.css" rel="stylesheet"/>
+        <link href="css/style.css" rel="stylesheet"/>
+        <script src="js/respond.min.js"></script><!-- Used to add support for IE 8 -->
 
-        <script src="/js/jquery-1.11.3.min.js" type="text/javascript"></script>
-        <script src="/js/bootstrap.min.js" type="text/javascript"></script>
+        <script src="js/jquery-1.11.3.min.js" type="text/javascript"></script>
+        <script src="js/bootstrap.min.js" type="text/javascript"></script>
 
     </head>
     <body>
+
         <header class="page-header">
             <nav class="navbar navbar-inverse navbar-fixed-top">
                 <div class="container">
@@ -36,7 +37,7 @@ and open the template in the editor.
                                 <input type="hidden" name="username"  class="form-control">
                             </div>
 
-                            <button type="submit" name="login" class="btn btn-success">LogOut</button>
+                            <button type="submit" name="submit" value="logout"  class="btn btn-success">LogOut</button>
                         </form>
                     </div><!--/.navbar-collapse -->
                 </div>
@@ -78,7 +79,14 @@ and open the template in the editor.
                 </ul>
 
             </div>
-            <div class="pagecontent_right">
+<!--            <div class="pagecontent_right">
+                <div class="alert alert-warning alert-dismissable">
+                    <button type="button" class="close" data-dismiss="alert" 
+                            aria-hidden="true">
+                        &times;
+                    </button>
+                    ${param.name}
+                </div>-->
                 <div class="container-fluid">
                     <div class="row">
                         <div class="col-md-12">
@@ -111,7 +119,6 @@ and open the template in the editor.
                             <div class="modal-body">
                                 <div class="input-group form-group">
                                     <span class="input-group-addon" id="full-name-addon">Full Name</span>
-                                    <input type="hidden" name="action" value="addLect"/>
                                     <input name="fullname" type="text" class="form-control" required="required" 
                                            placeholder="Fullname" aria-describedby="full-name-addon">
 
@@ -129,7 +136,7 @@ and open the template in the editor.
                             </div>
                             <div class="modal-footer">
                                 <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
-                                <button type="submit" class="btn btn-success">Save</button>
+                                <button class="btn btn-success" type="submit" name="submit" value="addLect">Save</button>
                             </div>
                         </form>
                     </div>
@@ -151,12 +158,12 @@ and open the template in the editor.
                             <div class="modal-body">
                                 <div class="input-group form-group">
                                     <span class="input-group-addon" id="full-name-addon">Name</span>
-                                    <input type="text" class="form-control" required="required" placeholder="hall name" aria-describedby="full-name-addon">
+                                    <input type="text" name="hall" class="form-control" required="required" placeholder="hall name" aria-describedby="full-name-addon">
 
                                 </div>
                                 <div class="input-group form-group">
                                     <span class="input-group-addon" id="username-addon">Capacity</span>
-                                    <input type="text" class="form-control" required="required" placeholder="capacity" aria-describedby="username-addon">
+                                    <input type="text" name="capacity" class="form-control" required="required" placeholder="capacity" aria-describedby="username-addon">
 
                                 </div >
 
@@ -164,7 +171,7 @@ and open the template in the editor.
                             </div>
                             <div class="modal-footer">
                                 <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
-                                <button type="submit" class="btn btn-success" >Save</button>
+                                <button type="submit" name="submit" value="addhall" class="btn btn-success" >Save</button>
                             </div>
                         </form>
                     </div>

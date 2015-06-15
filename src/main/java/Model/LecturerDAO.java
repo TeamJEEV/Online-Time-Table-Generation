@@ -6,6 +6,7 @@
 package Model;
 
 import Bean.Lecturer;
+import com.mysql.jdbc.exceptions.MySQLIntegrityConstraintViolationException;
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -21,7 +22,7 @@ import java.util.logging.Logger;
  */
 public class LecturerDAO {
     
-    public static void addLecturer(DataManager dataManager, Lecturer lecturer) {
+    public static String addLecturer(DataManager dataManager, Lecturer lecturer) {
         String name = lecturer.getName();
         String username = lecturer.getUserName();
         String password = lecturer.getPassword();
@@ -31,21 +32,23 @@ public class LecturerDAO {
         if (connection != null) {
             try {
                 Statement statement = connection.createStatement();
-                String query = "INSERT INTO lecturer values('" + name
-                        + "', '" + name
-                        + "', '" + username
-                        + "', '" + password
-                        + "', '" + role + "')";
+                String query = "INSERT INTO lecturer values(null,'" + name + "', '" 
+                        + username + "', '" 
+                        + password + "', '" 
+                        + role + "')";
                 try {
-                    ResultSet rs = statement.executeQuery(query);
+                    statement.executeUpdate(query);
                 } finally {
                     statement.close();
                 }
             } catch (SQLException e) {
-                Logger.getGlobal().log(Level.INFO, "Could not get lecturers");
+                if (e.getClass().equals(MySQLIntegrityConstraintViolationException.class)) {
+                    return "Username " + lecturer.getUserName() + "is already taken";
+                }
+                Logger.getGlobal().log(Level.INFO, e.getMessage());
             }
         }
-        
+        return null;   
     }
 
     public List<Lecturer> getLecturers(DataManager dataManager) {
