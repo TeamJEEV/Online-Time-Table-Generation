@@ -19,7 +19,7 @@ import java.util.logging.Logger;
 
 /**
  *
- * @author Harvey
+ * @author Harvey, Eyog Yvon Léonce 
  */
 public class LecturerDAO {
     
@@ -158,4 +158,30 @@ public class LecturerDAO {
         }
         return lecturer;
     }
+    
+    public Integer countLecturer(DataManager dataManager){
+         Connection connection = dataManager.getConnection();
+         Integer count=0;
+         if (connection != null){
+             try {
+                 
+              Statement statement = connection.createStatement();
+              String query = "SELECT Count(*) FROM lecturer";
+             try{
+                 ResultSet rs;
+                 rs= statement.executeQuery(query);
+                 count=rs.getInt(1);
+             }finally {
+                 statement.close();
+             }
+         } catch (SQLException e){
+                  Logger.getGlobal().log(Level.INFO, "Could not get count ", count);
+                 } //end catch block
+        
+    } //end of if loop
+ return count;
+
+    }
+    
 }
+      

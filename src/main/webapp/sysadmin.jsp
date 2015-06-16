@@ -1,3 +1,5 @@
+<%@page import="Utilities.DataManager"%>
+<%@page import="Model.LecturerDAO"%>
 <!DOCTYPE html>
 <!--
 To change this license header, choose License Headers in Project Properties.
@@ -142,6 +144,7 @@ and open the template in the editor.
                             </a>
                         </div>
                     </div>
+                           <!--teachers pannel-->
                     <div class="col-lg-3 col-md-6">
                         <div class="panel panel-yellow">
                             <div class="panel-heading">
@@ -150,7 +153,17 @@ and open the template in the editor.
                                         <i class="fa fa-shopping-cart fa-5x"></i>
                                     </div>
                                     <div class="col-xs-9 text-right">
-                                        <div class="huge">124</div>
+                                        <%
+                            DataManager dataManager = new DataManager();
+        dataManager.setDbUrl("jdbc:mysql://localhost:3306/timetable");
+        dataManager.setUserName("root");
+        dataManager.setPassword("root");
+                                            LecturerDAO him= new LecturerDAO();
+                                        Integer count;
+                                        count = him.countLecturer(dataManager);
+                                        
+                                        %>
+                                        <div class="huge"> <%out.print(count); %></div>
                                         <div>New teachers! </div>
                                     </div>
                                 </div>
@@ -164,6 +177,7 @@ and open the template in the editor.
                             </a>
                         </div>
                     </div>
+                           <!--teacher pannel-->
                     <div class="col-lg-3 col-md-6">
                         <div class="panel panel-red">
                             <div class="panel-heading">
