@@ -14,8 +14,8 @@ import Model.DepartmentDAO;
 import Model.FacultyDAO;
 import Utilities.DataManager;
 import Model.LecturerDAO;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import java.io.IOException;
-import java.io.PrintWriter;
 import java.util.Enumeration;
 import java.util.List;
 import java.util.logging.Level;
@@ -24,7 +24,6 @@ import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletConfig;
 import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
-import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -107,10 +106,10 @@ public class TimeTableServlet extends HttpServlet {
             throws ServletException, IOException {
 
         String url = base + "index.jsp";
-        Enumeration<String> parameterNames = request.getParameterNames();
-        while(parameterNames.hasMoreElements()){
-            System.out.println(parameterNames.nextElement());
-        }
+//        Enumeration<String> parameterNames = request.getParameterNames();
+//        while (parameterNames.hasMoreElements()) {
+//            System.out.println(parameterNames.nextElement());
+//        }
         String action = request.getParameter("submit");
         if (action != null) {
             switch (action) {
@@ -144,11 +143,17 @@ public class TimeTableServlet extends HttpServlet {
                         response.sendRedirect("index.jsp");
                         return;
                     }
-                     addFaculty(request);
+                    addFaculty(request);
                     url = base + "sysadmin.jsp";
                     break;
                 case "loadFaculties":
-                    getFacultiesAndDepts(request);
+                    getFacultiesAndDepts(request, response);
+            Enumeration<String> attributeNames = request.getAttributeNames();
+                    while(attributeNames.hasMoreElements()){
+                String nextElement = attributeNames.nextElement();
+                        System.out.println(nextElement +": " 
+                        + request.getAttribute(nextElement));
+                    }
                     break;
             }
             RequestDispatcher dispatcher = getServletContext().getRequestDispatcher(url);
@@ -203,42 +208,44 @@ public class TimeTableServlet extends HttpServlet {
         String message = ClassroomDAO.addHall(dataManager, hall);
         request.setAttribute("message", message);
     }
-    
-    
+
     public void addFaculty(HttpServletRequest request) {
-        Faculty faculty= new Faculty();
+        Faculty faculty = new Faculty();
         faculty.setName(request.getParameter("name"));
-        String message =FacultyDAO.addFaculty(dataManager, faculty);
+        String message = FacultyDAO.addFaculty(dataManager, faculty);
         request.setAttribute("message", message);
     }
-    
-    public void getFacultiesAndDepts(HttpServletRequest request){
+
+    public void getFacultiesAndDepts(HttpServletRequest request, HttpServletResponse httpresponse) throws IOException {
         List<Faculty> faculties = FacultyDAO.getFaculties(dataManager);
         List<Department> departments = DepartmentDAO.getDepartments(dataManager);
         request.setAttribute("facultyList", faculties);
         request.setAttribute("departmentList", departments);
         JSONArray response = new JSONArray();
-       
-        for (Faculty faculty: faculties) {
+
+        for (Faculty faculty : faculties) {
             JSONObject fac = new JSONObject();
             fac.put("name", faculty.getName());
             JSONArray depart = new JSONArray();
-            
-            for(Department department: departments){                
+
+            for (Department department : departments) {
                 if (faculty.getId() == department.getFaculty()) {
-                    JSONObject de =  new JSONObject();
+                    JSONObject de = new JSONObject();
                     de.put("id", department.getId());
                     de.put("name", department.getName());
-                    
-                   depart.add(de);
-                    
+
+                    depart.add(de);
+
                 }
             }
-            
+
             fac.put("departments", depart);
             response.add(fac);
         }
-        
-        System.out.print(response.toString());
+
+//        System.out.print(response.toString());
+        request.setAttribute("response", response);
+        ObjectMapper mapper = new ObjectMapper();
+        mapper.writeValue(httpresponse.getOutputStream(), response);
     }
 }

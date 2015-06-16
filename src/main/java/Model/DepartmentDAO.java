@@ -24,14 +24,14 @@ import java.util.logging.Logger;
  */
 public class DepartmentDAO {
 
-    public static String addHall(DataManager dataManager, Department department) {
+    public static String addDepartment(DataManager dataManager, Department department) {
         Connection connection = dataManager.getConnection();
 
         if (connection != null) {
             String name = department.getName();
             int facultyId = department.getFaculty();
             int hodId = department.getHOD();
-            String query = "INSERT into classrooms values(null,'" + name + "',"
+            String query = "INSERT into classrooms values(null,'" + name + "', "
                     + facultyId + ", "
                     + hodId + ")";
             try {
@@ -39,6 +39,8 @@ public class DepartmentDAO {
                 statement.executeUpdate(query);
                 try {
                     statement.executeUpdate(query);
+                } catch (SQLException e) {
+                    Logger.getGlobal().log(Level.WARNING,e.getMessage());
                 } finally {
                     statement.close();
                 }
@@ -51,6 +53,7 @@ public class DepartmentDAO {
         }
         return null;
     }
+
     public static List<Department> getDepartments(DataManager dataManager) {
         Connection connection = dataManager.getConnection();
         List<Department> departments = new ArrayList<>();
