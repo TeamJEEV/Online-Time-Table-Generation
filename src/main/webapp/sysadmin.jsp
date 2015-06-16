@@ -23,7 +23,17 @@ and open the template in the editor.
         
     </head>
     <body>
-
+<% 
+//     class declarations
+                            DataManager dataManager = new DataManager();
+        dataManager.setDbUrl("jdbc:mysql://localhost:3306/timetable");
+        dataManager.setUserName("root");
+        dataManager.setPassword("root");
+                                            LecturerDAO him= new LecturerDAO();
+                                        Integer count;
+                                        count = him.countLecturer(dataManager);
+                                        
+                                        %>
         <header class="page-header">
             <nav class="navbar navbar-inverse navbar-fixed-top">
                 <div class="container">
@@ -97,7 +107,7 @@ and open the template in the editor.
             <div class="container-fluid">
                 <div class="alert-info">
                     <div class="col-md-12">
-                        <!--Dashbord--> 
+                        <!--Dashbord.................................................--> 
                         <h1>Dashboard</h1>
                        <div class="row">
                     <div class="col-lg-3 col-md-6">
@@ -113,7 +123,7 @@ and open the template in the editor.
                                     </div>
                                 </div>
                             </div>
-                            <a href="#">
+                            <a href="#" id="task_link">
                                 <div class="panel-footer">
                                     <span class="pull-left">View Details</span>
                                     <span class="pull-right"><i class="fa fa-arrow-circle-right"></i></span>
@@ -153,17 +163,8 @@ and open the template in the editor.
                                         <i class="fa fa-shopping-cart fa-5x"></i>
                                     </div>
                                     <div class="col-xs-9 text-right">
-                                        <%
-                            DataManager dataManager = new DataManager();
-        dataManager.setDbUrl("jdbc:mysql://localhost:3306/timetable");
-        dataManager.setUserName("root");
-        dataManager.setPassword("root");
-                                            LecturerDAO him= new LecturerDAO();
-                                        Integer count;
-                                        count = him.countLecturer(dataManager);
                                         
-                                        %>
-                                        <div class="huge"> <%out.print(count); %></div>
+                                        <div class="huge"> <%out.print(count-1); %></div>
                                         <div>New teachers! </div>
                                     </div>
                                 </div>
@@ -205,6 +206,55 @@ and open the template in the editor.
                     </div>
                 </div>
             </div>
+<!--Task panel--.................................................-->
+
+<div style="visibility: hidden" id="task_panel" class="col-lg-4"  class="collapse in">
+                        <div class="panel panel-default">
+                            <div class="panel-heading">
+                                <h3 class="panel-title"><i class="fa fa-clock-o fa-fw"></i> Tasks Panel</h3>
+                            </div>
+                            <div class="panel-body">
+                                <div class="list-group">
+                                    <a href="#" class="list-group-item">
+                                        <span class="badge">just now</span>
+                                        <i class="fa fa-fw fa-calendar"></i> Calendar updated
+                                    </a>
+                                    <a href="#" class="list-group-item">
+                                        <span class="badge">4 minutes ago</span>
+                                        <i class="fa fa-fw fa-comment"></i> Commented on a post
+                                    </a>
+                                    <a href="#" class="list-group-item">
+                                        <span class="badge">23 minutes ago</span>
+                                        <i class="fa fa-fw fa-truck"></i> Order 392 shipped
+                                    </a>
+                                    <a href="#" class="list-group-item">
+                                        <span class="badge">46 minutes ago</span>
+                                        <i class="fa fa-fw fa-money"></i> Invoice 653 has been paid
+                                    </a>
+                                    <a href="#" class="list-group-item">
+                                        <span class="badge">1 hour ago</span>
+                                        <i class="fa fa-fw fa-user"></i> A new user has been added
+                                    </a>
+                                    <a href="#" class="list-group-item">
+                                        <span class="badge">2 hours ago</span>
+                                        <i class="fa fa-fw fa-check"></i> Completed task: "pick up dry cleaning"
+                                    </a>
+                                    <a href="#" class="list-group-item">
+                                        <span class="badge">yesterday</span>
+                                        <i class="fa fa-fw fa-globe"></i> Saved the world
+                                    </a>
+                                    <a href="#" class="list-group-item">
+                                        <span class="badge">two days ago</span>
+                                        <i class="fa fa-fw fa-check"></i> Completed task: "fix error on sales page"
+                                    </a>
+                                </div>
+                                <div class="text-right">
+                                    <a href="#">View All Activity <i class="fa fa-arrow-circle-right"></i></a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+<!--task Panel........-->
             <div class="push"></div>
             <footer class="footer">
                 <p>&COPY;Team5 2015</p>
@@ -212,7 +262,7 @@ and open the template in the editor.
         </div>
 
 
-        <!-- Modal -->
+        <!-- Modal 
         <!-- Add lecturer modal -->
         <div id="addlecturerModal" class="modal fade" role="dialog">
             <div class="modal-dialog">
@@ -391,7 +441,12 @@ and open the template in the editor.
     <!-- Bootstrap CDN which will be incoporated when hosting the app
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>-->
     <script>
-
-    </script>
+        
+//        Display task panel
+$("#task_link").click(function (){
+    alert("FFFFF");
+        $("#task_panel").css("visibility","show");
+        });
+</script>
 </body>
 </html>
