@@ -36,14 +36,15 @@ and open the template in the editor.
               <input type="password" name="password" class="form-control input-lg" placeholder="Password">
             </div>
             <div class="form-group">
-              <button name="submit" value="login" class="btn btn-primary btn-lg btn-block">Sign In</button>
+              <button name="submit" value="login" class="btn btn-success btn-lg btn-block">Sign In</button>
               <span class="pull-right"><a href="index.jsp">Home</a></span><span><a href="#">Need help?</a></span>
             </div>
           </form>
       </div>
       <div class="modal-footer">
           <div class="col-md-12">
-          <button class="btn" data-dismiss="modal" aria-hidden="true">Cancel</button>
+              <a href="index.jsp" class="btn btn-default">Cancel</a>
+          
 		  </div>	
       </div>
   </div>
