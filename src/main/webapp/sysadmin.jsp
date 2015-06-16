@@ -201,30 +201,42 @@ and open the template in the editor.
                                    placeholder="Name" aria-describedby="name-addon">
 
                         </div>
-                        <div class="input-group form-group">
-                            <span class="input-group-addon" id="username-addon">Dean</span>
-                            <input name="dean" type="text" class="form-control" required="required" 
-                                   placeholder="Dean" aria-describedby="dean-addon">
-                        </div>
+                        
+                        
+                         <div class="input-group form-group">
+                                                        
+                                <span class="input-group-addon" id="username-addon">Dean</span>
+                                <select class="form-control" name="dean" placeholder="Dean" required="required">
+                                     <option value="">Select dean</option>
+                                    <option value="">Proff Tanyi</option>
+                                    <option value="">Dr Nguti</option>
+                                    <option value="">Dr Eyog</option>
+                                    <option value="">Dr Nkweteyim</option>
+                                    <option value="">Proff Teyou</option>
+                                </select>
+                               
+                            </div>
+             
+                        
                         <div class="input-group form-group">
                             <span class="input-group-addon" id="email-addon">Email</span>
-                            <input name="hodemail" type="text" class="form-control" required="required" 
+                            <input name="hodemail" type="email" class="form-control" required="required" 
                                    readonly="true" placeholder="Email" aria-describedby="email-addon">
                         </div>
+                        
                         <div class="input-group form-group">
                             <span class="input-group-addon" id="department-addon">Department</span>
-                            <input name="department" type="text" class="form-control">
-                            <span class="input-group-btn">
-                                <a href="#" data-toggle="modal" data-target="#adddepartmentModal">
-                                    <button  class="btn btn-default" type="button">
+                   
+                                    <button  data-toggle="modal" data-target="#adddepartmentModal" class="btn btn-primary form-control" type="button">
                                         <span class="glyphicon glyphicon-plus"></span>
+                                         <span >Add Department</span>
                                     </button>
-                                </a>
-                            </span></div>
+                               
+                            </div>
                     </div>
                     
                     <div class="modal-footer">
-                        <button type="reset" class="btn btn-sm" name="clear">Clear</button>
+                        
                         <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
                         <button class="btn btn-success" type="submit" name="submit" value="addFac">Save</button>
                     </div>
@@ -234,7 +246,9 @@ and open the template in the editor.
         </div>
     </div>
 
-    <div id="adddepartmentModal" class="modal fade" role="dialog">
+    
+    <!-- Add Department modal -->
+    <div id="adddepartmentModal" class="modal fade" role="dialog" style="margin-top: 4%">
         <div class="modal-dialog">
 
             <!-- Modal content-->
@@ -253,8 +267,15 @@ and open the template in the editor.
                         </div>
                         <div class="input-group form-group">
                             <span class="input-group-addon" id="hod-addon">HOD</span>
-                            <input name="hod" type="text" class="form-control" required="required" 
-                                   placeholder="Head of Department" aria-describedby="hod-addon">
+                           
+                            <select class="form-control" name="hod" placeholder="Head of Department" required="required">
+                                     <option value="">Select HOD</option>
+                                    <option value="">Proff Tanyi</option>
+                                    <option value="">Dr Nguti</option>
+                                    <option value="">Dr Eyog</option>
+                                    <option value="">Dr Nkweteyim</option>
+                                    <option value="">Proff Teyou</option>
+                                </select>
                         </div>
                         <div class="input-group form-group">
                             <span class="input-group-addon" id="email-addon">Email</span>
@@ -284,8 +305,12 @@ and open the template in the editor.
 
     <!-- Bootstrap CDN which will be incoporated when hosting the app
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>-->
+    
+    
     <script>
-
+        
+      
+        
     </script>
 </body>
 </html>
