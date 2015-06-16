@@ -56,7 +56,7 @@ and open the template in the editor.
                 <ul class="sidebar-nav">
                      <li class="sidebar-brand">
                          <span >Faculties </span>
-                </li>
+                    </li>
                 
                 <li class="panel panel-default">
                     
@@ -189,7 +189,71 @@ and open the template in the editor.
       <!-- Bootstrap CDN which will be incoporated when hosting the app
       <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>-->
       <script>
-          
+         // This script will be executed when the page loads
+         
+         $(document).ready(function (){
+             loadFaculties();
+         });
+         
+         //This function is used to load the faculties and departement
+         function loadFaculties(){
+            var request =  $.ajax({
+                    //url: "index.jsp",
+                    method: "POST"
+                });
+                request.done(function( msg ) {
+                    var response = 
+                            {faculties : [
+                                {name:"FET", 
+                                 departement:[{name:"Computer", id:1},
+                                     {name:"Electrical", id:2}]
+                                },
+                                {name:"ART",
+                                departement:[{name:"History", id:3},
+                                               {name:"Performing Art", id:4}]
+                                }
+                            ]};
+                        
+                        //response = eval ("(" + response + ")");
+                    
+                    
+                    var contents = '<ul class="sidebar-nav">' +
+                                    '<li class="sidebar-brand">' +
+                                        '<span >Faculties </span>' +
+                                    '</li>';
+                    
+                    for(var i=0; i< response.faculties.length; i++){
+                        contents += '<li class="panel panel-default">' +
+                    
+                                '<a href="#FET" data-toggle="collapse" data-parent="#accordion">'+
+                                     response.faculties[i].name + ' <i class="glyphicon glyphicon-menu-down glyphicon-align-right"></i></a>'+
+                                    '<ul id="' + response.faculties[i].name + '" class="panel-collapse collapse inner-list">';
+                            
+                            for (var j=0; j<response.faculties[i].departement.length; j++){
+                                contents += '<li>'+
+                                                '<a href="#">'+ response.faculties[i].departement[j].name + '</a>'+
+                                            '</li>';
+                            }
+                                        
+                                contents +=    '</ul>'+
+                                            '</li>';
+                        
+                    }
+                    
+                    contents += '</ul>';
+                    
+                     //alert(contents);
+                    $("#accordion").html(contents);
+                    
+                        alert("OK toure");
+                });
+                
+                request.fail(function( jqXHR, textStatus ) {
+                    alert("failed");
+                    //alert( "Request failed: " + textStatus );
+                    });
+                 
+         }
       </script>
     </body>
 </html>
