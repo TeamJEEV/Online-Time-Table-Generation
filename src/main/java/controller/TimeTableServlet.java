@@ -6,14 +6,18 @@
 package controller;
 
 import Bean.Classroom;
+import Bean.Department;
 import Bean.Faculty;
 import Bean.Lecturer;
 import Model.ClassroomDAO;
+import Model.DepartmentDAO;
 import Model.FacultyDAO;
 import Utilities.DataManager;
 import Model.LecturerDAO;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.Enumeration;
+import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.servlet.RequestDispatcher;
@@ -24,6 +28,8 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import org.json.simple.JSONArray;
+import org.json.simple.JSONObject;
 
 /**
  *
@@ -85,7 +91,7 @@ public class TimeTableServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        processRequest(request, response);
+        doPost(request, response);
     }
 
     /**
@@ -101,6 +107,10 @@ public class TimeTableServlet extends HttpServlet {
             throws ServletException, IOException {
 
         String url = base + "index.jsp";
+        Enumeration<String> parameterNames = request.getParameterNames();
+        while(parameterNames.hasMoreElements()){
+            System.out.println(parameterNames.nextElement());
+        }
         String action = request.getParameter("submit");
         if (action != null) {
             switch (action) {
@@ -127,7 +137,7 @@ public class TimeTableServlet extends HttpServlet {
                     }
                     addHall(request);
                     url = base + "sysadmin.jsp";
-                    
+                    break;
                 case "addFac":
                     if (request.getSession().getAttribute("user") == null) {
                         // Not logged in. Redirect to login page.
@@ -136,6 +146,9 @@ public class TimeTableServlet extends HttpServlet {
                     }
                      addFaculty(request);
                     url = base + "sysadmin.jsp";
+                    break;
+                case "loadFaculties":
+                    getFacultiesAndDepts(request);
                     break;
             }
             RequestDispatcher dispatcher = getServletContext().getRequestDispatcher(url);
@@ -197,5 +210,35 @@ public class TimeTableServlet extends HttpServlet {
         faculty.setName(request.getParameter("name"));
         String message =FacultyDAO.addFaculty(dataManager, faculty);
         request.setAttribute("message", message);
+    }
+    
+    public void getFacultiesAndDepts(HttpServletRequest request){
+        List<Faculty> faculties = FacultyDAO.getFaculties(dataManager);
+        List<Department> departments = DepartmentDAO.getDepartments(dataManager);
+        request.setAttribute("facultyList", faculties);
+        request.setAttribute("departmentList", departments);
+        JSONArray response = new JSONArray();
+       
+        for (Faculty faculty: faculties) {
+            JSONObject fac = new JSONObject();
+            fac.put("name", faculty.getName());
+            JSONArray depart = new JSONArray();
+            
+            for(Department department: departments){                
+                if (faculty.getId() == department.getFaculty()) {
+                    JSONObject de =  new JSONObject();
+                    de.put("id", department.getId());
+                    de.put("name", department.getName());
+                    
+                   depart.add(de);
+                    
+                }
+            }
+            
+            fac.put("departments", depart);
+            response.add(fac);
+        }
+        
+        System.out.print(response.toString());
     }
 }

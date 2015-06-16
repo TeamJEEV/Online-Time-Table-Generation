@@ -1,3 +1,4 @@
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <!--
 To change this license header, choose License Headers in Project Properties.
@@ -57,7 +58,9 @@ and open the template in the editor.
                     </li>
                 
                 <li class="panel panel-default">
-                    
+                    <c:forEach var="faculty" items="${param.faculties}}">
+                        
+                    </c:forEach>
                     <a href="#FET" data-toggle="collapse" data-parent="#accordion">
                         Engineering <i class="glyphicon glyphicon-menu-down glyphicon-align-right"></i></a>
                          <ul id="FET" class="panel-collapse collapse inner-list">
@@ -195,8 +198,10 @@ and open the template in the editor.
          
          //This function is used to load the faculties and departement
          function loadFaculties(){
+             alert("calling load fac");
             var request =  $.ajax({
-                    //url: "index.jsp",
+                    url: "TimeTableServlet",
+                    data:{"submit": "loadFaculties"},
                     method: "POST"
                 });
                 request.done(function( msg ) {
