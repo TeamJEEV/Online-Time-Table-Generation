@@ -20,23 +20,26 @@ and open the template in the editor.
     <body>
         
         
-         <header class="page-header">
+        <header class="page-header">
             <nav class="navbar navbar-inverse navbar-fixed-top">
                <div class="container">
                  <div class="navbar-header">
-                   <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+                   <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar"  aria-controls="navbar">
                      <span class="sr-only">Toggle navigation</span>
                      <span class="icon-bar"></span>
                      <span class="icon-bar"></span>
                      <span class="icon-bar"></span>
                    </button>
-                     <div style="text-align:left">
-                     <a href="login.jsp">Admin Login here</a>
-                     </div>
                    <span class="navbar-brand">Time Table Systems</span>
                  </div>
                  <div id="navbar" class="navbar-collapse collapse">
-                  
+                   <form class="navbar-form navbar-right">
+                     <div class="form-group">
+                         <input type="hidden" name="username"  class="form-control">
+                     </div>
+                       <a href="login.jsp" class="btn btn-success">Login</a>
+                     
+                   </form>
                  </div><!--/.navbar-collapse -->
                </div>
        </nav>
