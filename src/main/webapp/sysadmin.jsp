@@ -79,6 +79,7 @@ and open the template in the editor.
                 </ul>
 
             </div>
+            
             <!--            <div class="pagecontent_right">
                             <div class="alert alert-warning alert-dismissable">
                                 <button type="button" class="close" data-dismiss="alert" 
@@ -87,6 +88,7 @@ and open the template in the editor.
                                 </button>
             ${param.name}
         </div>-->
+            <div class="pagecontent_right">
             <div class="container-fluid">
                 <div class="row">
                     <div class="col-md-12">
