@@ -159,3 +159,9 @@ This is our custom CSS Style sheet for the project
     background-color: #187764;
     color: #fff;
 }
+
+.task_panel{
+    margin-left :2%;
+    width:24%;
+}
+

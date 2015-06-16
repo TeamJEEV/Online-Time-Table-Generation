@@ -119,11 +119,11 @@ and open the template in the editor.
                                     </div>
                                     <div class="col-xs-9 text-right">
                                         <div class="huge">26</div>
-                                        <div>New Faculty!</div>
+                                        <div>Number of Faculties!</div>
                                     </div>
                                 </div>
                             </div>
-                            <a href="#" id="task_link">
+                            <a href="#" id="task_fac">
                                 <div class="panel-footer">
                                     <span class="pull-left">View Details</span>
                                     <span class="pull-right"><i class="fa fa-arrow-circle-right"></i></span>
@@ -141,11 +141,11 @@ and open the template in the editor.
                                     </div>
                                     <div class="col-xs-9 text-right">
                                         <div class="huge">12</div>
-                                        <div>New Department!</div>
+                                        <div>Number of Department!</div>
                                     </div>
                                 </div>
                             </div>
-                            <a href="#">
+                            <a href="#" id="task_dep">
                                 <div class="panel-footer">
                                     <span class="pull-left">View Details</span>
                                     <span class="pull-right"><i class="fa fa-arrow-circle-right"></i></span>
@@ -165,11 +165,11 @@ and open the template in the editor.
                                     <div class="col-xs-9 text-right">
                                         
                                         <div class="huge"> <%out.print(count-1); %></div>
-                                        <div>New teachers! </div>
+                                        <div>Numbers of teachers! </div>
                                     </div>
                                 </div>
                             </div>
-                            <a href="#">
+                            <a href="#" id="task_teach">
                                 <div class="panel-footer">
                                     <span class="pull-left">View Details</span>
                                     <span class="pull-right"><i class="fa fa-arrow-circle-right"></i></span>
@@ -188,11 +188,11 @@ and open the template in the editor.
                                     </div>
                                     <div class="col-xs-9 text-right">
                                         <div class="huge">13</div>
-                                        <div>New ****!</div>
+                                        <div>Number of classrooms!</div>
                                     </div>
                                 </div>
                             </div>
-                            <a href="#">
+                            <a href="#" id="task_class">
                                 <div class="panel-footer">
                                     <span class="pull-left">View Details</span>
                                     <span class="pull-right"><i class="fa fa-arrow-circle-right"></i></span>
@@ -208,7 +208,7 @@ and open the template in the editor.
             </div>
 <!--Task panel--.................................................-->
 
-<div style="visibility: hidden" id="task_panel" class="col-lg-4"  class="collapse in">
+<div id="task"  style="margin-left:2.5%;width:21%" >
                         <div class="panel panel-default">
                             <div class="panel-heading">
                                 <h3 class="panel-title"><i class="fa fa-clock-o fa-fw"></i> Tasks Panel</h3>
@@ -440,13 +440,64 @@ and open the template in the editor.
 
     <!-- Bootstrap CDN which will be incoporated when hosting the app
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>-->
-    <script>
+    <script type="text/javascript">
         
 //        Display task panel
-$("#task_link").click(function (){
-    alert("FFFFF");
-        $("#task_panel").css("visibility","show");
+    
+    $(document).ready(
+    function(){
+    $("#task").hide();
+    
+    $("#task_fac").click(function (){
+//    alert("FFFFF");"
+     $("#task").css({
+            "margin-left":"3%"
+            
         });
+        $("#task").show("slow");
+        
+    });
+
+    
+    
+    $("#task").hide("slow");
+    
+    $("#task_dep").click(function (){
+//    alert("FFFFF");"
+
+
+ $("#task").css({
+            "margin-left":"27%"
+            
+        });
+        $("#task").show("slow");
+       
+    });
+
+    
+     
+     $("#task").hide("slow");
+    $("#task_teach").click(function (){
+//    alert("FFFFF");"
+      $("#task").css({
+            "margin-left":"52%"
+            
+        });
+        $("#task").show("slow");
+        
+    });
+
+     $("#task").hide("slow");
+ $("#task_class").click(function (){
+//    alert("FFFFF");"
+      $("#task").css({
+            "margin-left":"77%"
+            
+        });
+        $("#task").show("slow");
+        
+    });
+    });
 </script>
 </body>
 </html>
