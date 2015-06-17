@@ -18,7 +18,7 @@ import java.util.logging.Logger;
 
 /**
  *
- * @author Harvey
+ * @author Harvey, Eyog Yvon Léonce
  */
 public class CourseDAO {
 
@@ -97,7 +97,7 @@ public class CourseDAO {
         return courses;
     }
     
-    public int countFaculty(DataManager dataManager){
+    public int countCourse(DataManager dataManager){
          Connection connection = dataManager.getConnection();
          Integer count=0;
          if (connection != null){

@@ -1,3 +1,5 @@
+<%@page import="Model.DepartmentDAO"%>
+<%@page import="Model.FacultyDAO"%>
 <%@page import="Utilities.DataManager"%>
 <%@page import="Model.LecturerDAO"%>
 <!DOCTYPE html>
@@ -29,9 +31,15 @@ and open the template in the editor.
         dataManager.setDbUrl("jdbc:mysql://localhost:3306/timetable");
         dataManager.setUserName("root");
         dataManager.setPassword("root");
-                                            LecturerDAO him= new LecturerDAO();
-                                        Integer count;
-                                        count = him.countLecturer(dataManager);
+        
+        LecturerDAO teach= new LecturerDAO();
+        Integer count_teach;
+        count_teach = teach.countLecturer(dataManager);
+        FacultyDAO fac = new FacultyDAO();
+        Integer count_fac=fac.countFaculty(dataManager);
+        DepartmentDAO dep= new DepartmentDAO();
+        Integer count_dep=dep.countDepartment(dataManager);
+        
                                         
                                         %>
         <header class="page-header">
@@ -110,6 +118,7 @@ and open the template in the editor.
                         <!--Dashbord.................................................--> 
                         <h1>Dashboard</h1>
                        <div class="row">
+                           <!--faculty panel..........................--> 
                     <div class="col-lg-3 col-md-6">
                         <div class="panel panel-primary">
                             <div class="panel-heading">
@@ -118,7 +127,7 @@ and open the template in the editor.
                                         <i class="fa fa-comments fa-5x"></i>
                                     </div>
                                     <div class="col-xs-9 text-right">
-                                        <div class="huge">26</div>
+                                        <div class="huge"><%out.print(count_fac); %></div>
                                         <div>Number of Faculties!</div>
                                     </div>
                                 </div>
@@ -132,6 +141,8 @@ and open the template in the editor.
                             </a>
                         </div>
                     </div>
+                                        
+                                        <!--department panel..........................................--> 
                     <div class="col-lg-3 col-md-6">
                         <div class="panel panel-green">
                             <div class="panel-heading">
@@ -140,7 +151,7 @@ and open the template in the editor.
                                         <i class="fa fa-tasks fa-5x"></i>
                                     </div>
                                     <div class="col-xs-9 text-right">
-                                        <div class="huge">12</div>
+                                        <div class="huge"><%out.print(count_dep); %></div>
                                         <div>Number of Department!</div>
                                     </div>
                                 </div>
@@ -154,7 +165,7 @@ and open the template in the editor.
                             </a>
                         </div>
                     </div>
-                           <!--teachers pannel-->
+                           <!--teachers pannel................................................-->
                     <div class="col-lg-3 col-md-6">
                         <div class="panel panel-yellow">
                             <div class="panel-heading">
@@ -164,7 +175,7 @@ and open the template in the editor.
                                     </div>
                                     <div class="col-xs-9 text-right">
                                         
-                                        <div class="huge"> <%out.print(count-1); %></div>
+                                        <div class="huge"> <%out.print(count_teach); %></div>
                                         <div>Numbers of teachers! </div>
                                     </div>
                                 </div>
@@ -178,7 +189,7 @@ and open the template in the editor.
                             </a>
                         </div>
                     </div>
-                           <!--teacher pannel-->
+                           <!--classroom panel....................................................................-->
                     <div class="col-lg-3 col-md-6">
                         <div class="panel panel-red">
                             <div class="panel-heading">
@@ -450,6 +461,15 @@ and open the template in the editor.
     
     $("#task_fac").click(function (){
 //    alert("FFFFF");"
+
+$.ajax({ //only showed when result is displayed
+    url:"TimeTableServlet",
+    async:false,
+    data:{"id":"task_fac"}
+}).done(function (results){
+    alert(results);
+    
+});
      $("#task").css({
             "margin-left":"3%"
             

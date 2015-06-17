@@ -20,7 +20,7 @@ import java.util.logging.Logger;
 
 /**
  *
- * @author Harvey
+ * @author Harvey, Eyog Yvon Léonce
  */
 public class DepartmentDAO {
 
@@ -124,7 +124,7 @@ public class DepartmentDAO {
         }
         return departments;
     }
-    public int countFaculty(DataManager dataManager){
+    public int countDepartment(DataManager dataManager){
          Connection connection = dataManager.getConnection();
          Integer count=0;
          if (connection != null){

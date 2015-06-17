@@ -102,6 +102,18 @@ public class TimeTableServlet extends HttpServlet {
 
         String url = base + "index.jsp";
         String action = request.getParameter("submit");
+        submitAction(action, url, request, response);
+        String populate=request.getParameter("id");
+        if(populate!=null){
+            switch(populate){
+                case "task_fac":
+                    
+            }
+        }
+
+    }
+
+    public void submitAction(String action, String url, HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         if (action != null) {
             switch (action) {
                 case "login":
@@ -134,14 +146,13 @@ public class TimeTableServlet extends HttpServlet {
                         response.sendRedirect("index.jsp");
                         return;
                     }
-                     addFaculty(request);
+                    addFaculty(request);
                     url = base + "sysadmin.jsp";
                     break;
             }
             RequestDispatcher dispatcher = getServletContext().getRequestDispatcher(url);
             dispatcher.forward(request, response);
         }
-
     }
 
     public String login(HttpServletRequest request, String url) {
