@@ -159,7 +159,46 @@ and open the template in the editor.
                 <div class="container-fluid">
                     <div class="row">
                         <div class="col-md-12">
-                            <h1>Page content</h1>
+                            
+                            <h3 style="text-align: center">Faculty name : Department name</h3>
+                            <!-- Time Table to be displayed -->
+                            <table style="width: 85%; text-align: center"class="table table-bordered table-striped table-hover table-responsive table-condensed">
+                                <thead>
+                                 <tr>
+                                   <th></th>
+                                   <th>Mon</th>
+                                   <th>Tues</th>
+                                   <th>Wed</th>
+                                   <th>Thurs</th>
+                                   <th>Fri</th>
+                                   <th>Sat</th>
+                                 </tr>
+                                </thead>
+                                <tbody>
+                                  <tr>
+                                    <td>7AM</td>
+                                    <td>CEF 502<br> Ublock A</td>
+                                    <td></td>
+                                    <td></td>
+                                    <td>CEF 506<br> ClBLK II 50D</td>
+                                    <td>CEF XXX</td>
+                                    <td>CEF XXX</td>
+                                    
+                                  </tr>
+                                  
+                                  <tr>
+                                    <td>9AM</td>
+                                    <td>CEF 502<br> Ublock A</td>
+                                    <td>CEF 510<br> Ublock C</td>
+                                    <td></td>
+                                    <td>CEF 506<br> ClBLK I 50A</td>
+                                    <td></td>
+                                    <td>CEF 504<br> Ublock D</td>
+                                    
+                                  </tr>
+                                </tbody>
+  
+                            </table>
                             <p>This part of the page will contain the structured time tables for the various departments </p>
                             <p>Make sure to keep all page content within the <code>#page-content-wrapper</code>.</p>
 
