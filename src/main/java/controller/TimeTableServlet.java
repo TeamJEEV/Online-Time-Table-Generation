@@ -111,6 +111,18 @@ public class TimeTableServlet extends HttpServlet {
 //            System.out.println(parameterNames.nextElement());
 //        }
         String action = request.getParameter("submit");
+        submitAction(action, url, request, response);
+        String populate=request.getParameter("id");
+        if(populate!=null){
+            switch(populate){
+                case "task_fac":
+                    
+            }
+        }
+
+    }
+
+    public void submitAction(String action, String url, HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         if (action != null) {
             switch (action) {
                 case "login":
@@ -159,7 +171,6 @@ public class TimeTableServlet extends HttpServlet {
             RequestDispatcher dispatcher = getServletContext().getRequestDispatcher(url);
             dispatcher.forward(request, response);
         }
-
     }
 
     public String login(HttpServletRequest request, String url) {
