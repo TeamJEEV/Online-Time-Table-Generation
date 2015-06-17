@@ -83,7 +83,7 @@ and open the template in the editor.
                     </li>
 
                     <li >
-                        <a href="#" >Create department
+                        <a href="#" data-toggle="modal" data-target="#adddepartmentModal">Create department
                             <i class="glyphicon glyphicon-menu-right glyphicon-align-right"></i></a>
                     </li>
 
@@ -398,7 +398,7 @@ and open the template in the editor.
                                    readonly="true" placeholder="Email" aria-describedby="email-addon" id="deanemail">
                         </div>
                         
-                        <div class="input-group form-group">
+                        <!-- div class="input-group form-group">
                             <span class="input-group-addon" id="department-addon">Department</span>
                    
                                     <button  data-toggle="modal" data-target="#adddepartmentModal" class="btn btn-primary form-control" type="button">
@@ -406,7 +406,10 @@ and open the template in the editor.
                                          <span >Add Department</span>
                                     </button>
                                
-                            </div>
+                        </div -->
+                        
+                       
+                       
                     </div>
                     
                     <div class="modal-footer">
@@ -438,6 +441,17 @@ and open the template in the editor.
                             <input name="deptname" type="text" class="form-control" required="required" 
                                    placeholder="Department Name" aria-describedby="dept-name-addon">
 
+                        </div>
+                        <div class="input-group form-group">
+                            <span class="input-group-addon" id="hod-addon">Faculty</span>
+                           
+                            <select class="form-control" name="depart-fac" id="depart-fac" placeholder="Select Faculty" required="required">
+                                <option value="" disabled="true">Select faculty</option>
+                                <option value="1">FET</option>
+                                <option value="2">Education</option> 
+                                <option value="3">ART</option> 
+                                <option value="4">SMS</option> 
+                                </select>
                         </div>
                         <div class="input-group form-group">
                             <span class="input-group-addon" id="hod-addon">HOD</span>
