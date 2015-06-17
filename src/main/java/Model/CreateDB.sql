@@ -57,23 +57,23 @@ ENGINE = InnoDB;
 
 
 -- -----------------------------------------------------
--- Table `timetable`.`department`
+-- Table `timetable`.`departement`
 -- -----------------------------------------------------
-CREATE  TABLE IF NOT EXISTS `timetable`.`department` (
+CREATE  TABLE IF NOT EXISTS `timetable`.`departement` (
   `id` INT NOT NULL AUTO_INCREMENT ,
   `name` VARCHAR(45) NULL ,
   `faculty_id` INT NOT NULL ,
   `hod_id` INT NOT NULL ,
   PRIMARY KEY (`id`) ,
-  INDEX `fk_department_faculty1_idx` (`faculty_id` ASC) ,
-  INDEX `fk_department_lecturer1` (`hod_id` ASC) ,
+  INDEX `fk_departement_faculty1_idx` (`faculty_id` ASC) ,
+  INDEX `fk_departement_lecturer1` (`hod_id` ASC) ,
   UNIQUE INDEX `hod_id_UNIQUE` (`hod_id` ASC) ,
-  CONSTRAINT `fk_department_faculty1`
+  CONSTRAINT `fk_departement_faculty1`
     FOREIGN KEY (`faculty_id` )
     REFERENCES `timetable`.`faculty` (`id` )
     ON DELETE CASCADE
     ON UPDATE CASCADE,
-  CONSTRAINT `fk_department_lecturer1`
+  CONSTRAINT `fk_departement_lecturer1`
     FOREIGN KEY (`hod_id` )
     REFERENCES `timetable`.`lecturer` (`id` )
     ON DELETE NO ACTION
@@ -82,20 +82,20 @@ ENGINE = InnoDB;
 
 
 -- -----------------------------------------------------
--- Table `timetable`.`department_has_courses`
+-- Table `timetable`.`departement_has_courses`
 -- -----------------------------------------------------
-CREATE  TABLE IF NOT EXISTS `timetable`.`department_has_courses` (
-  `department_id` INT NOT NULL ,
+CREATE  TABLE IF NOT EXISTS `timetable`.`departement_has_courses` (
+  `departement_id` INT NOT NULL ,
   `courses_code` VARCHAR(50) NOT NULL ,
-  PRIMARY KEY (`department_id`, `courses_code`) ,
-  INDEX `fk_department_has_courses_courses1` (`courses_code` ASC) ,
-  INDEX `fk_department_has_courses_department1` (`department_id` ASC) ,
-  CONSTRAINT `fk_department_has_courses_department1`
-    FOREIGN KEY (`department_id` )
-    REFERENCES `timetable`.`department` (`id` )
+  PRIMARY KEY (`departement_id`, `courses_code`) ,
+  INDEX `fk_departement_has_courses_courses1` (`courses_code` ASC) ,
+  INDEX `fk_departement_has_courses_departement1` (`departement_id` ASC) ,
+  CONSTRAINT `fk_departement_has_courses_departement1`
+    FOREIGN KEY (`departement_id` )
+    REFERENCES `timetable`.`departement` (`id` )
     ON DELETE CASCADE
     ON UPDATE CASCADE,
-  CONSTRAINT `fk_department_has_courses_courses1`
+  CONSTRAINT `fk_departement_has_courses_courses1`
     FOREIGN KEY (`courses_code` )
     REFERENCES `timetable`.`courses` (`code` )
     ON DELETE CASCADE

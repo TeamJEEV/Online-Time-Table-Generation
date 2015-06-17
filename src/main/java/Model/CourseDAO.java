@@ -18,7 +18,7 @@ import java.util.logging.Logger;
 
 /**
  *
- * @author Harvey, Eyog Yvon Léonce
+ * @author Harvey
  */
 public class CourseDAO {
 
@@ -95,31 +95,6 @@ public class CourseDAO {
             }
         }
         return courses;
-    }
-    
-    public int countCourse(DataManager dataManager){
-         Connection connection = dataManager.getConnection();
-         Integer count=0;
-         if (connection != null){
-             try {
-                 
-              Statement statement = connection.createStatement();
-              String query = "SELECT Count(*) as COUNT FROM course";
-             try{
-                 ResultSet rs;
-                 rs= statement.executeQuery(query);
-                 rs.next();
-                 count= rs.getInt(1);
-                 
-             }catch (SQLException e ) {
-                 e.printStackTrace();
-             }
-         } catch (SQLException e){
-                 } //end catch block
-        
-    } //end of if loop
-  return count;
-
     }
 
 }

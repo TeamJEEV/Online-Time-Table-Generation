@@ -1,7 +1,3 @@
-<%@page import="Model.DepartmentDAO"%>
-<%@page import="Model.FacultyDAO"%>
-<%@page import="Utilities.DataManager"%>
-<%@page import="Model.LecturerDAO"%>
 <!DOCTYPE html>
 <!--
 To change this license header, choose License Headers in Project Properties.
@@ -25,23 +21,7 @@ and open the template in the editor.
         
     </head>
     <body>
-<% 
-//     class declarations
-                            DataManager dataManager = new DataManager();
-        dataManager.setDbUrl("jdbc:mysql://localhost:3306/timetable");
-        dataManager.setUserName("root");
-        dataManager.setPassword("root");
-        
-        LecturerDAO teach= new LecturerDAO();
-        Integer count_teach;
-        count_teach = teach.countLecturer(dataManager);
-        FacultyDAO fac = new FacultyDAO();
-        Integer count_fac=fac.countFaculty(dataManager);
-        DepartmentDAO dep= new DepartmentDAO();
-        Integer count_dep=dep.countDepartment(dataManager);
-        
-                                        
-                                        %>
+
         <header class="page-header">
             <nav class="navbar navbar-inverse navbar-fixed-top">
                 <div class="container">
@@ -115,10 +95,9 @@ and open the template in the editor.
             <div class="container-fluid">
                 <div class="alert-info">
                     <div class="col-md-12">
-                        <!--Dashbord.................................................--> 
+                        <!--Dashbord--> 
                         <h1>Dashboard</h1>
                        <div class="row">
-                           <!--faculty panel..........................--> 
                     <div class="col-lg-3 col-md-6">
                         <div class="panel panel-primary">
                             <div class="panel-heading">
@@ -127,12 +106,12 @@ and open the template in the editor.
                                         <i class="fa fa-comments fa-5x"></i>
                                     </div>
                                     <div class="col-xs-9 text-right">
-                                        <div class="huge"><%out.print(count_fac); %></div>
-                                        <div>Number of Faculties!</div>
+                                        <div class="huge">26</div>
+                                        <div>New Faculty!</div>
                                     </div>
                                 </div>
                             </div>
-                            <a href="#" id="task_fac">
+                            <a href="#">
                                 <div class="panel-footer">
                                     <span class="pull-left">View Details</span>
                                     <span class="pull-right"><i class="fa fa-arrow-circle-right"></i></span>
@@ -141,8 +120,6 @@ and open the template in the editor.
                             </a>
                         </div>
                     </div>
-                                        
-                                        <!--department panel..........................................--> 
                     <div class="col-lg-3 col-md-6">
                         <div class="panel panel-green">
                             <div class="panel-heading">
@@ -151,12 +128,12 @@ and open the template in the editor.
                                         <i class="fa fa-tasks fa-5x"></i>
                                     </div>
                                     <div class="col-xs-9 text-right">
-                                        <div class="huge"><%out.print(count_dep); %></div>
-                                        <div>Number of Department!</div>
+                                        <div class="huge">12</div>
+                                        <div>New Department!</div>
                                     </div>
                                 </div>
                             </div>
-                            <a href="#" id="task_dep">
+                            <a href="#">
                                 <div class="panel-footer">
                                     <span class="pull-left">View Details</span>
                                     <span class="pull-right"><i class="fa fa-arrow-circle-right"></i></span>
@@ -165,7 +142,6 @@ and open the template in the editor.
                             </a>
                         </div>
                     </div>
-                           <!--teachers pannel................................................-->
                     <div class="col-lg-3 col-md-6">
                         <div class="panel panel-yellow">
                             <div class="panel-heading">
@@ -174,13 +150,12 @@ and open the template in the editor.
                                         <i class="fa fa-shopping-cart fa-5x"></i>
                                     </div>
                                     <div class="col-xs-9 text-right">
-                                        
-                                        <div class="huge"> <%out.print(count_teach); %></div>
-                                        <div>Numbers of teachers! </div>
+                                        <div class="huge">124</div>
+                                        <div>New teachers! </div>
                                     </div>
                                 </div>
                             </div>
-                            <a href="#" id="task_teach">
+                            <a href="#">
                                 <div class="panel-footer">
                                     <span class="pull-left">View Details</span>
                                     <span class="pull-right"><i class="fa fa-arrow-circle-right"></i></span>
@@ -189,7 +164,6 @@ and open the template in the editor.
                             </a>
                         </div>
                     </div>
-                           <!--classroom panel....................................................................-->
                     <div class="col-lg-3 col-md-6">
                         <div class="panel panel-red">
                             <div class="panel-heading">
@@ -199,11 +173,11 @@ and open the template in the editor.
                                     </div>
                                     <div class="col-xs-9 text-right">
                                         <div class="huge">13</div>
-                                        <div>Number of classrooms!</div>
+                                        <div>New ****!</div>
                                     </div>
                                 </div>
                             </div>
-                            <a href="#" id="task_class">
+                            <a href="#">
                                 <div class="panel-footer">
                                     <span class="pull-left">View Details</span>
                                     <span class="pull-right"><i class="fa fa-arrow-circle-right"></i></span>
@@ -217,55 +191,6 @@ and open the template in the editor.
                     </div>
                 </div>
             </div>
-<!--Task panel--.................................................-->
-
-<div id="task"  style="margin-left:2.5%;width:21%" >
-                        <div class="panel panel-default">
-                            <div class="panel-heading">
-                                <h3 class="panel-title"><i class="fa fa-clock-o fa-fw"></i> Tasks Panel</h3>
-                            </div>
-                            <div class="panel-body">
-                                <div class="list-group">
-                                    <a href="#" class="list-group-item">
-                                        <span class="badge">just now</span>
-                                        <i class="fa fa-fw fa-calendar"></i> Calendar updated
-                                    </a>
-                                    <a href="#" class="list-group-item">
-                                        <span class="badge">4 minutes ago</span>
-                                        <i class="fa fa-fw fa-comment"></i> Commented on a post
-                                    </a>
-                                    <a href="#" class="list-group-item">
-                                        <span class="badge">23 minutes ago</span>
-                                        <i class="fa fa-fw fa-truck"></i> Order 392 shipped
-                                    </a>
-                                    <a href="#" class="list-group-item">
-                                        <span class="badge">46 minutes ago</span>
-                                        <i class="fa fa-fw fa-money"></i> Invoice 653 has been paid
-                                    </a>
-                                    <a href="#" class="list-group-item">
-                                        <span class="badge">1 hour ago</span>
-                                        <i class="fa fa-fw fa-user"></i> A new user has been added
-                                    </a>
-                                    <a href="#" class="list-group-item">
-                                        <span class="badge">2 hours ago</span>
-                                        <i class="fa fa-fw fa-check"></i> Completed task: "pick up dry cleaning"
-                                    </a>
-                                    <a href="#" class="list-group-item">
-                                        <span class="badge">yesterday</span>
-                                        <i class="fa fa-fw fa-globe"></i> Saved the world
-                                    </a>
-                                    <a href="#" class="list-group-item">
-                                        <span class="badge">two days ago</span>
-                                        <i class="fa fa-fw fa-check"></i> Completed task: "fix error on sales page"
-                                    </a>
-                                </div>
-                                <div class="text-right">
-                                    <a href="#">View All Activity <i class="fa fa-arrow-circle-right"></i></a>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-<!--task Panel........-->
             <div class="push"></div>
             <footer class="footer">
                 <p>&COPY;Team5 2015</p>
@@ -273,7 +198,7 @@ and open the template in the editor.
         </div>
 
 
-        <!-- Modal 
+        <!-- Modal -->
         <!-- Add lecturer modal -->
         <div id="addlecturerModal" class="modal fade" role="dialog">
             <div class="modal-dialog">
@@ -451,73 +376,8 @@ and open the template in the editor.
 
     <!-- Bootstrap CDN which will be incoporated when hosting the app
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>-->
-    <script type="text/javascript">
-        
-//        Display task panel
-    
-    $(document).ready(
-    function(){
-    $("#task").hide();
-    
-    $("#task_fac").click(function (){
-//    alert("FFFFF");"
+    <script>
 
-$.ajax({ //only showed when result is displayed
-    url:"TimeTableServlet",
-    async:false,
-    data:{"id":"task_fac"}
-}).done(function (results){
-    alert(results);
-    
-});
-     $("#task").css({
-            "margin-left":"3%"
-            
-        });
-        $("#task").show("slow");
-        
-    });
-
-    
-    
-    $("#task").hide("slow");
-    
-    $("#task_dep").click(function (){
-//    alert("FFFFF");"
-
-
- $("#task").css({
-            "margin-left":"27%"
-            
-        });
-        $("#task").show("slow");
-       
-    });
-
-    
-     
-     $("#task").hide("slow");
-    $("#task_teach").click(function (){
-//    alert("FFFFF");"
-      $("#task").css({
-            "margin-left":"52%"
-            
-        });
-        $("#task").show("slow");
-        
-    });
-
-     $("#task").hide("slow");
- $("#task_class").click(function (){
-//    alert("FFFFF");"
-      $("#task").css({
-            "margin-left":"77%"
-            
-        });
-        $("#task").show("slow");
-        
-    });
-    });
-</script>
+    </script>
 </body>
 </html>
