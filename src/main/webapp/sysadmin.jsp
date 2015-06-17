@@ -183,7 +183,7 @@ and open the template in the editor.
     </div>
 
     <!-- Add Faculty modal -->
-    <div id="addfacultyModal" class="modal fade" role="dialog">
+    <div id="addfacultyModal" class="modal fade" role="dialog" data-backdrop="static">
         <div class="modal-dialog">
 
             <!-- Modal content-->
@@ -244,7 +244,7 @@ and open the template in the editor.
 
     
     <!-- Add Department modal -->
-    <div id="adddepartmentModal" class="modal fade" role="dialog" style="margin-top: 4%">
+    <div id="adddepartmentModal" class="modal fade" role="dialog" style="margin-top: 4%" data-backdrop="static">
         <div class="modal-dialog">
 
             <!-- Modal content-->
