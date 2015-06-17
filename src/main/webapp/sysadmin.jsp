@@ -192,8 +192,9 @@ and open the template in the editor.
                     <button type="button" class="close" data-dismiss="modal">&times;</button>
                     <h4 class="modal-title">Add Faculty</h4>
                 </div>
+                
                 <!--Create Faculty form-->
-                <form action="TimeTableServlet" method="POST">
+                <form action="TimeTableServlet" method="POST" id="addfaculty">
                     <div class="modal-body">
                         <div class="input-group form-group">
                             <span class="input-group-addon" id="name-addon">Name</span>
@@ -206,13 +207,8 @@ and open the template in the editor.
                          <div class="input-group form-group">
                                                         
                                 <span class="input-group-addon" id="username-addon">Dean</span>
-                                <select class="form-control" name="dean" placeholder="Dean" required="required">
-                                     <option value="">Select dean</option>
-                                    <option value="">Proff Tanyi</option>
-                                    <option value="">Dr Nguti</option>
-                                    <option value="">Dr Eyog</option>
-                                    <option value="">Dr Nkweteyim</option>
-                                    <option value="">Proff Teyou</option>
+                                <select class="form-control" name="dean" placeholder="Dean" required="required" id="dean" onChange="setDeanEmail(this.options.selectedIndex)" >
+                                   
                                 </select>
                                
                             </div>
@@ -220,8 +216,8 @@ and open the template in the editor.
                         
                         <div class="input-group form-group">
                             <span class="input-group-addon" id="email-addon">Email</span>
-                            <input name="hodemail" type="email" class="form-control" required="required" 
-                                   readonly="true" placeholder="Email" aria-describedby="email-addon">
+                            <input name="deanemail" type="email" class="form-control" required="required" 
+                                   readonly="true" placeholder="Email" aria-describedby="email-addon" id="deanemail">
                         </div>
                         
                         <div class="input-group form-group">
@@ -268,19 +264,15 @@ and open the template in the editor.
                         <div class="input-group form-group">
                             <span class="input-group-addon" id="hod-addon">HOD</span>
                            
-                            <select class="form-control" name="hod" placeholder="Head of Department" required="required">
-                                     <option value="">Select HOD</option>
-                                    <option value="">Proff Tanyi</option>
-                                    <option value="">Dr Nguti</option>
-                                    <option value="">Dr Eyog</option>
-                                    <option value="">Dr Nkweteyim</option>
-                                    <option value="">Proff Teyou</option>
+                            <select class="form-control" name="hod" id="hod" placeholder="Head of Department" required="required"
+                                    onChange="setHodEmail(this.options.selectedIndex)" >
+                                    
                                 </select>
                         </div>
                         <div class="input-group form-group">
                             <span class="input-group-addon" id="email-addon">Email</span>
                             <input name="hodemail" type="text" class="form-control" required="required" 
-                                   readonly="true" placeholder="Email" aria-describedby="email-addon">
+                                   readonly="true" placeholder="Email" aria-describedby="email-addon" id="hodemail">
                         </div>
                     </div>
                     <div class="modal-footer">
@@ -308,17 +300,67 @@ and open the template in the editor.
     
     
     <script>
-        //This method respond to the submit event of the add department modal
+        var lecturerList = {lec:[{id:1, name:"Proff Tanyi", email:"tanhyi@ubuea.cm"},{id:2, name:"Dr Nguti", email:"ngutii@ubuea.cm"},
+                        {id:3,name:"Dr Akana", email:"akana@ubuea.cm"}, {id:4,name:"Dr Tsafack" , email:"tsafack@ubuea.cm"}]};
+                
+        $(document).ready(function (){   
+                
+           
+                var deanList = document.getElementById("dean");
+                var hodList = document.getElementById("hod");
+                
+                for (var m = deanList.options.length - 1; m >= 0; m--)
+                    deanList.options[m] = null;
+                
+                for (var m = hodList.options.length - 1; m >= 0; m--)
+                    hodList.options[m] = null;
+            
+                deanList.options[0] = new Option("Select dean", "", true);
+                deanList.options[0].disabled = true;
+                hodList.options[0] = new Option("Select HOD", "", true);
+                 hodList.options[0].disabled = true;
+               
+               //Initialise the list of Deans
+                for(var i=0; i<lecturerList.lec.length; i++){
+                   deanList.options[i+1] = new Option(lecturerList.lec[i].name, lecturerList.lec[i].id);
+                   
+                   
+               } 
+               
+               //Initailise list of HODs
+                for(var i=0; i<lecturerList.lec.length; i++){
+                   hodList.options[i+1] = new Option(lecturerList.lec[i].name, lecturerList.lec[i].id);
+                   
+               }
+               
+                
+            //This method respond to the submit event of the add department modal
         $( "#adddepartmentModal" ).submit(function( event ) {
             alert( "Handler for .submit() called." );
-            event.preventDefault();
+            
+             $(this).modal('toggle');
+             event.preventDefault();
         });
         
         //This method respond to the submit event of the add faculty method
       $( "#addfacultyModal" ).submit(function( event ) {
             alert( "Handler for .submit() called." );
+            
+            $(this).modal('toggle');
             event.preventDefault();
         });
+        
+         
+        });
+        //This function set the Selected Dean Email
+        function setDeanEmail(SelectedIndex){          
+            $("#deanemail").val(lecturerList.lec[SelectedIndex-1].email);
+        }
+       
+        //This fucntion set the selected HOD Email
+        function setHodEmail(SelectedIndex){
+            $("#hodemail").val(lecturerList.lec[SelectedIndex-1].email);
+        }
         
     </script>
 </body>
