@@ -115,16 +115,11 @@ and open the template in the editor.
             <div class="container-fluid">
                 <div class="alert-info">
                     <div class="col-md-12">
-<<<<<<< HEAD
+
                         <!--Dashbord.................................................--> 
                         <h1>Dashboard</h1>
                        <div class="row">
                            <!--faculty panel..........................--> 
-=======
-                        <!--Dashbord--> 
-                        <h1>Dashboard</h1>
-                       <div class="row">
->>>>>>> FETCH_HEAD
                     <div class="col-lg-3 col-md-6">
                         <div class="panel panel-primary">
                             <div class="panel-heading">
@@ -133,21 +128,14 @@ and open the template in the editor.
                                         <i class="fa fa-comments fa-5x"></i>
                                     </div>
                                     <div class="col-xs-9 text-right">
-<<<<<<< HEAD
+
                                         <div class="huge"><%out.print(count_fac); %></div>
                                         <div>Number of Faculties!</div>
                                     </div>
                                 </div>
                             </div>
                             <a href="#" id="task_fac">
-=======
-                                        <div class="huge">26</div>
-                                        <div>New Faculty!</div>
-                                    </div>
-                                </div>
-                            </div>
-                            <a href="#">
->>>>>>> FETCH_HEAD
+
                                 <div class="panel-footer">
                                     <span class="pull-left">View Details</span>
                                     <span class="pull-right"><i class="fa fa-arrow-circle-right"></i></span>
@@ -156,11 +144,10 @@ and open the template in the editor.
                             </a>
                         </div>
                     </div>
-<<<<<<< HEAD
+
                                         
                                         <!--department panel..........................................--> 
-=======
->>>>>>> FETCH_HEAD
+
                     <div class="col-lg-3 col-md-6">
                         <div class="panel panel-green">
                             <div class="panel-heading">
@@ -169,21 +156,14 @@ and open the template in the editor.
                                         <i class="fa fa-tasks fa-5x"></i>
                                     </div>
                                     <div class="col-xs-9 text-right">
-<<<<<<< HEAD
+
                                         <div class="huge"><%out.print(count_dep); %></div>
                                         <div>Number of Department!</div>
                                     </div>
                                 </div>
                             </div>
                             <a href="#" id="task_dep">
-=======
-                                        <div class="huge">12</div>
-                                        <div>New Department!</div>
-                                    </div>
-                                </div>
-                            </div>
-                            <a href="#">
->>>>>>> FETCH_HEAD
+
                                 <div class="panel-footer">
                                     <span class="pull-left">View Details</span>
                                     <span class="pull-right"><i class="fa fa-arrow-circle-right"></i></span>
