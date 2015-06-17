@@ -130,7 +130,7 @@ and open the template in the editor.
                                     <div class="col-xs-9 text-right">
 
                                         <div class="huge"><%out.print(count_fac); %></div>
-                                        <div>Number of Faculties!</div>
+                                        <div>Faculties</div>
                                     </div>
                                 </div>
                             </div>
@@ -158,7 +158,7 @@ and open the template in the editor.
                                     <div class="col-xs-9 text-right">
 
                                         <div class="huge"><%out.print(count_dep); %></div>
-                                        <div>Number of Department!</div>
+                                        <div>Lecturers</div>
                                     </div>
                                 </div>
                             </div>
@@ -184,7 +184,7 @@ and open the template in the editor.
                                     <div class="col-xs-9 text-right">
 
                                         <div class="huge">124</div>
-                                        <div>New teachers! </div>
+                                        <div>Halls</div>
                                     </div>
                                 </div>
                             </div>
@@ -199,30 +199,7 @@ and open the template in the editor.
                         </div>
                     </div>
 
- <div class="col-lg-3 col-md-6">
-                        <div class="panel panel-red">
-                            <div class="panel-heading">
-                                <div class="row">
-                                    <div class="col-xs-3">
-                                        <i class="fa fa-support fa-5x"></i>
-                                    </div>
-                                    <div class="col-xs-9 text-right">
-                                        <div class="huge">13</div>
-
-                                        <div>New ****!</div>
-                                    </div>
-                                </div>
-                            </div>
-                            <a href="#">
-
-                                <div class="panel-footer">
-                                    <span class="pull-left">View Details</span>
-                                    <span class="pull-right"><i class="fa fa-arrow-circle-right"></i></span>
-                                    <div class="clearfix"></div>
-                                </div>
-                            </a>
-                        </div>
-                    </div>
+ 
                 </div>
                 
                     </div>
@@ -570,7 +547,7 @@ $.ajax({ //only showed when result is displayed
     async:false,
     data:{"id":"task_fac"}
 }).done(function (results){
-    alert(results);
+
     
 });
      $("#task").css({

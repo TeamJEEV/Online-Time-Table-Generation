@@ -52,7 +52,7 @@ public class LecturerDAO {
         return null;   
     }
 
-    public List<Lecturer> getLecturers(DataManager dataManager) {
+    public static List<Lecturer> getLecturers(DataManager dataManager) {
         Connection connection = dataManager.getConnection();
         List<Lecturer> lecturers = new ArrayList<>();
         if (connection != null) {

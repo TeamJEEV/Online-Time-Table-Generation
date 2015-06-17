@@ -113,7 +113,10 @@ public class TimeTableServlet extends HttpServlet {
         String action = request.getParameter("submit");
         if (action != null) {
             switch (action) {
-                case "login":
+                case "loginPage":
+                    url = base + "login.jsp";
+                    break;
+                case "login": 
                     url = login(request, url);
                     break;
                 case "logout":
@@ -126,7 +129,6 @@ public class TimeTableServlet extends HttpServlet {
                         return;
                     }
                     addLecturer(request, response);
-                    url = request.getRequestURI();
                     break;
                 case "addhall":
                     if (request.getSession().getAttribute("user") == null) {
@@ -148,16 +150,17 @@ public class TimeTableServlet extends HttpServlet {
                     break;
                 case "loadFaculties":
                     getFacultiesAndDepts(request, response);
-            Enumeration<String> attributeNames = request.getAttributeNames();
-                    while(attributeNames.hasMoreElements()){
-                String nextElement = attributeNames.nextElement();
-                        System.out.println(nextElement +": " 
-                        + request.getAttribute(nextElement));
-                    }
+                    Enumeration<String> attributeNames = request.getAttributeNames();
                     break;
             }
+            System.out.println(request.getRequestURI());
             RequestDispatcher dispatcher = getServletContext().getRequestDispatcher(url);
             dispatcher.forward(request, response);
+        } else {
+            if (request.getSession().getAttribute("user") == null) {
+                // Not logged in. Redirect to home page.
+                response.sendRedirect("index.jsp");
+            }
         }
 
     }
@@ -209,6 +212,26 @@ public class TimeTableServlet extends HttpServlet {
         request.setAttribute("message", message);
     }
 
+    public void getHalls(HttpServletRequest request, HttpServletResponse response) throws IOException {
+        List<Classroom> classes = ClassroomDAO.getClasses(dataManager);
+        JSONArray halls = new JSONArray();
+        for (Classroom classroom : classes) {
+            halls.add(classroom.getName());
+        }
+        ObjectMapper mapper = new ObjectMapper();
+        mapper.writeValue(response.getOutputStream(), response);
+    }
+
+    public void getLecturers(HttpServletRequest request, HttpServletResponse response) throws IOException {
+        List<Lecturer> lecturers = LecturerDAO.getLecturers(dataManager);
+        JSONArray profs = new JSONArray();
+        for (Lecturer lecturer : lecturers) {
+            profs.add(lecturer.getName());
+        }
+        ObjectMapper mapper = new ObjectMapper();
+        mapper.writeValue(response.getOutputStream(), response);
+    }
+
     public void addFaculty(HttpServletRequest request) {
         Faculty faculty = new Faculty();
         faculty.setName(request.getParameter("name"));
@@ -221,6 +244,7 @@ public class TimeTableServlet extends HttpServlet {
         List<Department> departments = DepartmentDAO.getDepartments(dataManager);
         request.setAttribute("facultyList", faculties);
         request.setAttribute("departmentList", departments);
+
         JSONArray response = new JSONArray();
 
         for (Faculty faculty : faculties) {
@@ -248,4 +272,5 @@ public class TimeTableServlet extends HttpServlet {
         ObjectMapper mapper = new ObjectMapper();
         mapper.writeValue(httpresponse.getOutputStream(), response);
     }
+
 }
