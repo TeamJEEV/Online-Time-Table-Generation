@@ -160,7 +160,7 @@ and open the template in the editor.
                     <div class="row">
                         <div class="col-md-12">
                             
-                            <h3 style="text-align: center">Faculty name : Department name</h3>
+                            <h3 style="width: 85%; text-align: center">Faculty name : Department name</h3>
                             <!-- Time Table to be displayed -->
                             <table style="width: 85%; text-align: center"class="table table-bordered table-striped table-hover table-responsive table-condensed">
                                 <thead>
@@ -194,6 +194,16 @@ and open the template in the editor.
                                     <td>CEF 506<br> ClBLK I 50A</td>
                                     <td></td>
                                     <td>CEF 504<br> Ublock D</td>
+                                    
+                                  </tr>
+                                  <tr>
+                                    <td>11AM</td>
+                                    <td></td>
+                                    <td></td>
+                                    <td>CEF 514<br> ClBLK I 50A</td>
+                                    <td></td>
+                                    <td>CEF 506<br> Restau 2</td>
+                                    <td></td>
                                     
                                   </tr>
                                 </tbody>
