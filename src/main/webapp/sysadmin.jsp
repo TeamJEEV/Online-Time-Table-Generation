@@ -308,8 +308,17 @@ and open the template in the editor.
     
     
     <script>
+        //This method respond to the submit event of the add department modal
+        $( "#adddepartmentModal" ).submit(function( event ) {
+            alert( "Handler for .submit() called." );
+            event.preventDefault();
+        });
         
-      
+        //This method respond to the submit event of the add faculty method
+      $( "#addfacultyModal" ).submit(function( event ) {
+            alert( "Handler for .submit() called." );
+            event.preventDefault();
+        });
         
     </script>
 </body>
