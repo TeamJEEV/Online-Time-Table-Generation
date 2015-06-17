@@ -192,5 +192,9 @@ public class FacultyDAO {
 //                        faculty.setDeptId(Integer.parseInt(rs.getString("deptId")));
 //                        faculty.setFactname(rs.getString("factName"));
 //                        faculty.setDeptName(rs.getString("deptName"));
+
+//                        facultys.add(faculty);
+
+
 //                        facultys.add(faculty);
 
