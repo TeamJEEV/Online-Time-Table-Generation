@@ -20,18 +20,18 @@ import java.util.logging.Logger;
 
 /**
  *
- * @author Harvey
+ * @author Harvey, Eyog Yvon Léonce
  */
 public class DepartmentDAO {
 
-    public static String addHall(DataManager dataManager, Department department) {
+    public static String addDepartment(DataManager dataManager, Department department) {
         Connection connection = dataManager.getConnection();
 
         if (connection != null) {
             String name = department.getName();
             int facultyId = department.getFaculty();
             int hodId = department.getHOD();
-            String query = "INSERT into classrooms values(null,'" + name + "',"
+            String query = "INSERT into classrooms values(null,'" + name + "', "
                     + facultyId + ", "
                     + hodId + ")";
             try {
@@ -39,6 +39,8 @@ public class DepartmentDAO {
                 statement.executeUpdate(query);
                 try {
                     statement.executeUpdate(query);
+                } catch (SQLException e) {
+                    Logger.getGlobal().log(Level.WARNING,e.getMessage());
                 } finally {
                     statement.close();
                 }
@@ -51,6 +53,7 @@ public class DepartmentDAO {
         }
         return null;
     }
+
     public static List<Department> getDepartments(DataManager dataManager) {
         Connection connection = dataManager.getConnection();
         List<Department> departments = new ArrayList<>();
@@ -124,4 +127,30 @@ public class DepartmentDAO {
         }
         return departments;
     }
+    public int countDepartment(DataManager dataManager){
+         Connection connection = dataManager.getConnection();
+         Integer count=0;
+         if (connection != null){
+             try {
+                 
+              Statement statement = connection.createStatement();
+              String query = "SELECT Count(*) as COUNT FROM department";
+             try{
+                 ResultSet rs;
+                 rs= statement.executeQuery(query);
+                 rs.next();
+                 count= rs.getInt(1);
+                 
+             }catch (SQLException e ) {
+                 e.printStackTrace();
+             }
+         } catch (SQLException e){
+                 } //end catch block
+        
+    } //end of if loop
+  return count;
+
+    }
+    
+    
 }

@@ -18,7 +18,7 @@ import java.util.logging.Logger;
 
 /**
  *
- * @author Harvey
+ * @author Harvey, Eyog Yvon Leonce
  */
 public class DepartmenthasCourseDAO {
      public static List<Course> getCoursesByDept(DataManager dataManager, int deptId) {

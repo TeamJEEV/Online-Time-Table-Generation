@@ -50,7 +50,7 @@ public class FacultyDAO {
         return null;
     }
 
-    public List<Faculty> getFacultys(DataManager dataManager) {
+    public static List<Faculty> getFaculties(DataManager dataManager) {
         Connection connection = dataManager.getConnection();
         List<Faculty> facultys = new ArrayList<>();
         if (connection != null) {
@@ -123,4 +123,74 @@ public class FacultyDAO {
         }
         return faculties;
     }
+
+    public int countFaculty(DataManager dataManager) {
+        Connection connection = dataManager.getConnection();
+        Integer count = 0;
+        if (connection != null) {
+            try {
+
+                Statement statement = connection.createStatement();
+                String query = "SELECT Count(*) as COUNT FROM faculty";
+                try {
+                    ResultSet rs;
+                    rs = statement.executeQuery(query);
+                    rs.next();
+                    count = rs.getInt(1);
+
+                } catch (SQLException e) {
+                    e.printStackTrace();
+                }
+            } catch (SQLException e) {
+            } //end catch block
+
+        } //end of if loop
+        return count;
+
+    }
+
+    /**
+     * Get Faculty names
+     */
+    public ArrayList getFacultyNames(DataManager dataManager) throws SQLException {
+        Statement statement=null;
+        Connection connection = dataManager.getConnection();
+        ArrayList names = new ArrayList();
+        String query = "SELECT NAME FROM FACULTY";
+        if (connection != null) {
+            try {
+                 statement = connection.createStatement();
+                ResultSet rs = statement.executeQuery(query);
+                while (rs.next()) {
+                    int i = 1;
+                    names.add(rs.getString(i));
+                    i++;
+
+                }
+            } catch (SQLException e) {
+                e.printStackTrace();
+
+            } finally {
+                if (statement != null) {
+                    statement.close();
+                }
+            }
+        }
+      return  names;
+    }
+    
 }
+
+//String query = "SELECT faculty.id as facId, faculty.name as facName,"
+//                        + "departement.id as deptId, departement.name  as deptname FROM faculty, "
+//                        + "departement WHERE department.faculty_id = faculty.id";
+//                try {
+//                    ResultSet rs = statement.executeQuery(query);
+//                    while (rs.next()) {
+//                        FacultyDept faculty = new FacultyDept();
+//                        faculty.setFactId(Integer.parseInt(rs.getString("factId")));
+//                        faculty.setDeptId(Integer.parseInt(rs.getString("deptId")));
+//                        faculty.setFactname(rs.getString("factName"));
+//                        faculty.setDeptName(rs.getString("deptName"));
+//                        facultys.add(faculty);
+
