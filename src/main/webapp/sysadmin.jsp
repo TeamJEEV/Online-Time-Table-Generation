@@ -340,10 +340,10 @@ and open the template in the editor.
                             <div class="input-group form-group">
 
                                 <span class="input-group-addon" id="username-addon">Dean</span>
-                                <select class="form-control" name="dean" placeholder="Dean" required="required" id="dean" onChange="setDeanEmail(this.options.selectedIndex)" >
+                                <select class="form-control" name="dean" placeholder="Dean" required="required" 
+                                        id="dean" onChange="setDeanEmail(this.options.selectedIndex)" >
 
                                 </select>
-
                             </div>
 
 
@@ -480,11 +480,11 @@ and open the template in the editor.
                 }
                 );
                 //This method respond to the submit event of the add faculty method
-                $("#addfacultyModal").submit(function (event) {
-                    alert("Handler for .submit() called.");
-                    $(this).modal('toggle');
-                    event.preventDefault();
-                });
+//                $("#addfacultyModal").submit(function (event) {
+//                    alert("Handler for .submit() called.");
+//                    $(this).modal('toggle');
+//                    event.preventDefault();
+//                });
             }
             );
             //This function set the Selected Dean Email

@@ -265,9 +265,8 @@ public class TimeTableServlet extends HttpServlet {
 
     public void addFaculty(HttpServletRequest request) {
         Faculty faculty = new Faculty();
-        int deanId = Integer.parseInt(request.getParameter("dean"));  
-        Lecturer lecturer = LecturerDAO.getLecturerById(dataManager, deanId);
-        LecturerDAO.addEditLecturer(dataManager, lecturer, "edit");
+        int deanId = Integer.parseInt(request.getParameter("dean"));
+        LecturerDAO.setRole(dataManager, deanId, base);
         faculty.setName(request.getParameter("name"));
         String message = FacultyDAO.addFaculty(dataManager, faculty);
         request.getSession().setAttribute("message", message);

@@ -24,7 +24,7 @@ import java.util.logging.Logger;
 public class LecturerDAO {
 
     public static String addEditLecturer(DataManager dataManager, Lecturer lecturer, String choice) {
-        int id= lecturer.getId();
+        int id = lecturer.getId();
         String name = lecturer.getName();
         String username = lecturer.getUserName();
         String password = lecturer.getPassword();
@@ -45,11 +45,11 @@ public class LecturerDAO {
                             + email + "')";
                 } else {
                     query = "UPDATE lecturer set full name ='" + name
-                            + "', name = '" + username 
-                            + "', password '" + password 
-                            + "', role '"+ role 
-                            + "', email '" + email 
-                            + "' where id = "+ id +")";
+                            + "', name = '" + username
+                            + "', password '" + password
+                            + "', role '" + role
+                            + "', email '" + email
+                            + "' where id = " + id + ")";
                 }
                 try {
                     statement.executeUpdate(query);
@@ -64,6 +64,27 @@ public class LecturerDAO {
             }
         }
         return null;
+    }
+    
+    public static void setRole(DataManager dataManager, int id, String role){
+         Connection connection = dataManager.getConnection();
+         if (connection != null) {
+            try {
+                Statement statement = connection.createStatement();
+                String query = "Update lecturer set role = '" + role 
+                        + "' where id = " + id;
+                try{
+                    statement.executeUpdate(query);
+                }
+                catch(SQLException ex){
+                    Logger.getGlobal().log(Level.INFO, ex.getMessage());
+                }finally{
+                    statement.close();
+                }
+            }catch(SQLException ex){
+                Logger.getGlobal().log(Level.INFO, ex.getMessage());
+            }
+         }
     }
 
     public static List<Lecturer> getLecturers(DataManager dataManager) {
@@ -111,6 +132,9 @@ public class LecturerDAO {
                     lecturer.setUserName(rs.getString("username"));
                     lecturer.setPassword(rs.getString("password"));
                     lecturer.setLectureRole(rs.getString("role"));
+                    lecturer.setEmail(rs.getString("email"));
+                } catch (SQLException e) {
+                    Logger.getGlobal().log(Level.INFO, e.getMessage());
                 } finally {
                     statement.close();
                 }
@@ -137,6 +161,7 @@ public class LecturerDAO {
                         lecturer.setUserName(rs.getString("username"));
                         lecturer.setPassword(rs.getString("password"));
                         lecturer.setLectureRole(rs.getString("role"));
+                        lecturer.setEmail(rs.getString("email"));
                         faculties.add(lecturer);
                     }
                 } finally {
@@ -168,6 +193,7 @@ public class LecturerDAO {
                     lecturer.setUserName(rs.getString("name"));
                     lecturer.setPassword(rs.getString("password"));
                     lecturer.setLectureRole(rs.getString("role"));
+                    lecturer.setEmail(rs.getString("email"));
                 }
             } catch (SQLException ex) {
                 Logger.getLogger(LecturerDAO.class.getName()).log(Level.SEVERE, null, ex);
