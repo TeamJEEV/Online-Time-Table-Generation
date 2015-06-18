@@ -114,6 +114,8 @@ public class TimeTableServlet extends HttpServlet {
 //        }
         Enumeration<String> parameterNames = request.getParameterNames();
         String action = request.getParameter("submit");
+        request.getSession().removeAttribute("facultyList");
+
         if (action != null) {
             switch (action) {
                 case "loginPage":
@@ -296,12 +298,13 @@ public class TimeTableServlet extends HttpServlet {
 
     public void populateLectList(HttpServletRequest request) {
         List<Lecturer> lecturers = LecturerDAO.getLecturers(dataManager);
-        request.getSession().setAttribute("lecturerList", lecturers);
+
+        request.getSession().setAttribute("facultyList", lecturers);
     }
 
     public void populateClassList(HttpServletRequest request) {
         List<Classroom> classrooms = ClassroomDAO.getClasses(dataManager);
-        request.getSession().setAttribute("hallList", classrooms);
+        request.getSession().setAttribute("facultyList", classrooms);
     }
 
     public void populateFacultyList(HttpServletRequest request) {
