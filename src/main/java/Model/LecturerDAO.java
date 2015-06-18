@@ -19,26 +19,38 @@ import java.util.logging.Logger;
 
 /**
  *
- * @author Harvey, Eyog Yvon Léonce 
+ * @author Harvey, Eyog Yvon Léonce
  */
 public class LecturerDAO {
-    
-    public static String addLecturer(DataManager dataManager, Lecturer lecturer) {
+
+    public static String addEditLecturer(DataManager dataManager, Lecturer lecturer, String choice) {
+        int id= lecturer.getId();
         String name = lecturer.getName();
         String username = lecturer.getUserName();
         String password = lecturer.getPassword();
         String role = lecturer.getLectureRole();
         String email = lecturer.getEmail();
         Connection connection = dataManager.getConnection();
-        
+
         if (connection != null) {
             try {
                 Statement statement = connection.createStatement();
-                String query = "INSERT INTO lecturer values(null,'" + name + "', '" 
-                        + username + "', '" 
-                        + password + "', '" 
-                        + role + "', '"
-                        + email + "')";
+
+                String query;
+                if (choice.equals("add")) {
+                    query = "INSERT INTO lecturer values(null,'" + name + "', '"
+                            + username + "', '"
+                            + password + "', '"
+                            + role + "', '"
+                            + email + "')";
+                } else {
+                    query = "UPDATE lecturer set full name ='" + name
+                            + "', name = '" + username 
+                            + "', password '" + password 
+                            + "', role '"+ role 
+                            + "', email '" + email 
+                            + "' where id = "+ id +")";
+                }
                 try {
                     statement.executeUpdate(query);
                 } finally {
@@ -51,7 +63,7 @@ public class LecturerDAO {
                 Logger.getGlobal().log(Level.INFO, e.getMessage());
             }
         }
-        return null;   
+        return null;
     }
 
     public static List<Lecturer> getLecturers(DataManager dataManager) {
@@ -73,10 +85,9 @@ public class LecturerDAO {
                         lecturer.setEmail(rs.getString("email"));
                         lecturers.add(lecturer);
                     }
-                }catch(SQLException ex){
+                } catch (SQLException ex) {
                     Logger.getGlobal().log(Level.INFO, ex.getMessage());
-                }
-                    finally {
+                } finally {
                     statement.close();
                 }
             } catch (SQLException e) {
@@ -85,8 +96,8 @@ public class LecturerDAO {
         }
         return lecturers;
     }
-    
-    public Lecturer getLecturerById(DataManager dataManager, int id) {
+
+    public static Lecturer getLecturerById(DataManager dataManager, int id) {
         Connection connection = dataManager.getConnection();
         Lecturer lecturer = new Lecturer();
         if (connection != null) {
@@ -109,7 +120,7 @@ public class LecturerDAO {
         }
         return lecturer;
     }
-    
+
     public List<Lecturer> searchLecturerByName(DataManager dataManager, String name) {
         Connection connection = dataManager.getConnection();
         List<Lecturer> faculties = new ArrayList<>();
@@ -137,18 +148,18 @@ public class LecturerDAO {
         }
         return faculties;
     }
-    
+
     public static Lecturer getLecturerLogin(DataManager dataManager, String userName, String password) {
         Connection connection = dataManager.getConnection();
         Lecturer lecturer = null;
         ResultSet rs;
         if (connection != null) {
-            
+
             try {
                 Statement statement = connection.createStatement();
                 String query = "SELECT * FROM lecturer where name = '" + userName
                         + "' AND password = '" + password + "'";
-                
+
                 rs = statement.executeQuery(query);
                 if (rs.next()) {
                     lecturer = new Lecturer();
@@ -164,31 +175,30 @@ public class LecturerDAO {
         }
         return lecturer;
     }
-    
-    public static int countLecturer(DataManager dataManager){
-         Connection connection = dataManager.getConnection();
-         Integer count=0;
-         if (connection != null){
-             try {
-                 
-              Statement statement = connection.createStatement();
-              String query = "SELECT Count(*) as COUNT FROM lecturer";
-             try{
-                 ResultSet rs;
-                 rs= statement.executeQuery(query);
-                 rs.next();
-                 count= rs.getInt(1);
-                 
-             }catch (SQLException e ) {
-                 e.printStackTrace();
-             }
-         } catch (SQLException e){
-                 } //end catch block
-        
-    } //end of if loop
-  return count;
+
+    public static int countLecturer(DataManager dataManager) {
+        Connection connection = dataManager.getConnection();
+        Integer count = 0;
+        if (connection != null) {
+            try {
+
+                Statement statement = connection.createStatement();
+                String query = "SELECT Count(*) as COUNT FROM lecturer";
+                try {
+                    ResultSet rs;
+                    rs = statement.executeQuery(query);
+                    rs.next();
+                    count = rs.getInt(1);
+
+                } catch (SQLException e) {
+                    e.printStackTrace();
+                }
+            } catch (SQLException e) {
+            } //end catch block
+
+        } //end of if loop
+        return count;
 
     }
-    
+
 }
-      
