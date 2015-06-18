@@ -66,13 +66,17 @@ public class LecturerDAO {
                     while (rs.next()) {
                         Lecturer lecturer = new Lecturer();
                         lecturer.setId(Integer.parseInt(rs.getString("id")));
-                        lecturer.setName(rs.getString("fullName"));
-                        lecturer.setUserName(rs.getString("username"));
+                        lecturer.setName(rs.getString("full name"));
+                        lecturer.setUserName(rs.getString("name"));
                         lecturer.setPassword(rs.getString("password"));
                         lecturer.setLectureRole(rs.getString("role"));
+                        lecturer.setEmail(rs.getString("email"));
                         lecturers.add(lecturer);
                     }
-                } finally {
+                }catch(SQLException ex){
+                    Logger.getGlobal().log(Level.INFO, ex.getMessage());
+                }
+                    finally {
                     statement.close();
                 }
             } catch (SQLException e) {

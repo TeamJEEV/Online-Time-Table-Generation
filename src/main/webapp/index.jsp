@@ -155,9 +155,9 @@ and open the template in the editor.
         <script>
             // This script will be executed when the page loads
 
-//            $(document).ready(function () {
-//                loadFaculties();
-//            });
+            $(document).ready(function () {
+                loadFaculties();
+            });
 
             //This function is used to load the faculties and departement
             function loadFaculties() {
