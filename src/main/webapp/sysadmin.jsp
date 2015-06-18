@@ -545,13 +545,22 @@ and open the template in the editor.
                                 url: "TimeTableServlet",
                                 async: false,
                                 data: {"submit": "getLecturers"}
-                            }).done(function (results) {
-                                alert(results);
-                                //var response = JSON.parse(results);
+                            }).done(function (results) {                               
+                                var response = JSON.parse(results);
+                                
+                                 var content = "";
+                                for (var i = 0; i < response.lec.length; i++) {
+                                    
+                                    content += '<a href="#" class="list-group-item">' +
+                                                    '<i class="fa fa-fw fa-calendar"></i>' +  response.lec[i].name +
+                                               '</a>';
+                                    
+                                }
+                                $("#panel_list").html("Lecturers");
+                                $("#panel_list_items").html(content);
                             });
                             
-                            $("#panel_list").html("Lecturers");
-                            
+                 
                             $("#task").css({
                                 "margin-left": "27%"
 
@@ -563,15 +572,22 @@ and open the template in the editor.
                         
                         
                         $("#task_hall").click(function () {
-                            //    alert("FFFFF");"
+                             $.ajax({//only showed when result is displayed
+                                url: "TimeTableServlet",
+                                async: false,
+                                data: {"submit": "getLecturers"}
+                            }).done(function (results) {
+                                
+                                $("#panel_list").html("Halls");
+                            });
                             
-                            $("#panel_list").html("Halls");
                             $("#task").css({
                                 "margin-left": "52%"
 
                             });
                             $("#task").show("slow");
                         });
+                        
                         $("#task").hide("slow");
                         
                     });
