@@ -66,13 +66,32 @@ public class LecturerDAO {
         return null;
     }
     
-    public static void setRole(DataManager dataManager, int id, String role){
+    public static void setDean(DataManager dataManager, int id){
          Connection connection = dataManager.getConnection();
          if (connection != null) {
             try {
                 Statement statement = connection.createStatement();
-                String query = "Update lecturer set role = '" + role 
-                        + "' where id = " + id;
+                String query = "Update lecturer set role = 'Dean' where id = " + id;
+                try{
+                    statement.executeUpdate(query);
+                }
+                catch(SQLException ex){
+                    Logger.getGlobal().log(Level.INFO, ex.getMessage());
+                }finally{
+                    statement.close();
+                }
+            }catch(SQLException ex){
+                Logger.getGlobal().log(Level.INFO, ex.getMessage());
+            }
+         }
+    }
+    
+    public static void setHod(DataManager dataManager, int id){
+         Connection connection = dataManager.getConnection();
+         if (connection != null) {
+            try {
+                Statement statement = connection.createStatement();
+                String query = "Update lecturer set role = 'HOD' where id = " + id;
                 try{
                     statement.executeUpdate(query);
                 }
@@ -143,6 +162,38 @@ public class LecturerDAO {
             }
         }
         return lecturer;
+    }
+
+    public static List<Lecturer> getLectsForDrop(DataManager dataManager) {
+        Connection connection = dataManager.getConnection();
+        List<Lecturer> lecturers = new ArrayList<>();
+        if (connection != null) {
+            try {
+                Statement statement = connection.createStatement();
+                String query = "SELECT * FROM lecturer where role <> 'Dean' AND "
+                        + "role <> 'HOD' AND role <> 'Sysadmin'";
+                try {
+                    ResultSet rs = statement.executeQuery(query);
+                    while (rs.next()) {
+                        Lecturer lecturer = new Lecturer();
+                        lecturer.setId(Integer.parseInt(rs.getString("id")));
+                        lecturer.setName(rs.getString("full name"));
+                        lecturer.setUserName(rs.getString("name"));
+                        lecturer.setPassword(rs.getString("password"));
+                        lecturer.setLectureRole(rs.getString("role"));
+                        lecturer.setEmail(rs.getString("email"));
+                        lecturers.add(lecturer);
+                    }
+                } catch (SQLException ex) {
+                    Logger.getGlobal().log(Level.INFO, ex.getMessage());
+                } finally {
+                    statement.close();
+                }
+            } catch (SQLException e) {
+                Logger.getGlobal().log(Level.INFO, "Could not get lecturers");
+            }
+        }
+        return lecturers;
     }
 
     public List<Lecturer> searchLecturerByName(DataManager dataManager, String name) {

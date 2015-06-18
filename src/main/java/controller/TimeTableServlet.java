@@ -165,6 +165,13 @@ public class TimeTableServlet extends HttpServlet {
                 case "getHalls":
                     getHalls(request, response);
                     return;
+                case "getLectsForCombo":
+                    getLectsForDropDown(request, response);
+                    break;
+                case "addDept"://add Department
+                    addDepartment(request);
+                    url = base + "sysadmin.jsp";
+                    break;
             }
 //            System.out.println(request.getRequestURI());
             RequestDispatcher dispatcher = getServletContext().getRequestDispatcher(url);
@@ -266,8 +273,9 @@ public class TimeTableServlet extends HttpServlet {
     public void addFaculty(HttpServletRequest request) {
         Faculty faculty = new Faculty();
         int deanId = Integer.parseInt(request.getParameter("dean"));
-        LecturerDAO.setRole(dataManager, deanId, base);
+        LecturerDAO.setDean(dataManager, deanId);
         faculty.setName(request.getParameter("name"));
+        faculty.setDean(deanId);
         String message = FacultyDAO.addFaculty(dataManager, faculty);
         request.getSession().setAttribute("message", message);
     }
@@ -282,6 +290,7 @@ public class TimeTableServlet extends HttpServlet {
         for (Faculty faculty : faculties) {
             JSONObject fac = new JSONObject();
             fac.put("name", faculty.getName());
+            fac.put("id", faculty.getId());
             JSONArray depart = new JSONArray();
 
             for (Department department : departments) {
@@ -318,5 +327,32 @@ public class TimeTableServlet extends HttpServlet {
     public void populateFacultyList(HttpServletRequest request) {
         List<Faculty> faculties = FacultyDAO.getFaculties(dataManager);
         request.getSession().setAttribute("facultyList", faculties);
+    }
+
+    private void getLectsForDropDown(HttpServletRequest request, HttpServletResponse response) throws IOException {
+         List<Lecturer> lecturers = LecturerDAO.getLectsForDrop(dataManager);
+        JSONObject obj = new JSONObject();
+        JSONArray profs = new JSONArray();
+        for (Lecturer lecturer : lecturers) {
+            JSONObject de = new JSONObject();
+            de.put("id", lecturer.getId());
+            de.put("name", lecturer.getName());
+            de.put("email", lecturer.getEmail());
+            profs.add(de);
+        }
+        obj.put("lec", profs);
+        ObjectMapper mapper = new ObjectMapper();
+        mapper.writeValue(response.getOutputStream(), obj);
+    }
+
+    private void addDepartment(HttpServletRequest request) {
+        Department department = new Department();
+        department.setFaculty(Integer.parseInt(request.getParameter("depart-fac")));
+        department.setHOD(Integer.parseInt(request.getParameter("hod")));
+        department.setName(request.getParameter("dept"));
+        LecturerDAO.setHod(dataManager, Integer.parseInt(request.getParameter("hod")));
+        
+        String message = DepartmentDAO.addDepartment(dataManager, department);
+        request.getSession().setAttribute("message", message);
     }
 }

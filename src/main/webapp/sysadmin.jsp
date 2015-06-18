@@ -205,7 +205,7 @@ and open the template in the editor.
                         </div>
                     </div>
                 </div>
-                                                    
+
                 <!--Task panel--.................................................-->
 
                 <div id="task"  style="margin-left:2.5%;width:21%" >
@@ -215,10 +215,10 @@ and open the template in the editor.
                         </div>
                         <div class="panel-body">
                             <div class="list-group" id="panel_list_items">
-                              <!--  <c:forEach var="faculty" items="${sessionScope.faculties}">
-                                <a href="#" class="list-group-item">
-                                    <i class="fa fa-fw fa-calendar"></i> ${faculty.getName()}
-                                </a>
+                                <!--  <c:forEach var="faculty" items="${sessionScope.faculties}">
+                                  <a href="#" class="list-group-item">
+                                      <i class="fa fa-fw fa-calendar"></i> ${faculty.getName()}
+                                  </a>
                                 </c:forEach>-->
                             </div>
                         </div>
@@ -381,18 +381,15 @@ and open the template in the editor.
                         <div class="modal-body">
                             <div class="input-group form-group">
                                 <span class="input-group-addon" id="dept-name-addon">Name</span>
-                                <input name="deptname" type="text" class="form-control" required="required" 
-                                       placeholder="Department Name" aria-describedby="dept-name-addon">
+                                <input type="text" class="form-control" required="required" 
+                                       name="dept" placeholder="Department Name" aria-describedby="dept-name-addon">
 
                             </div>
                             <div class="input-group form-group">
                                 <span class="input-group-addon" id="hod-addon">Faculty</span>
 
                                 <select class="form-control" name="depart-fac" id="depart-fac" placeholder="Select Faculty" required="required">
-                                    <option value="" disabled="true">Select faculty</option>
-                                    <c:forEach var="faculty" items="${sessionScope.faculties}">
-                                        <option value="1">${faculty.getName()}</option>
-                                    </c:forEach>
+
                                 </select>
                             </div>
                             <div class="input-group form-group">
@@ -405,13 +402,13 @@ and open the template in the editor.
                             </div>
                             <div class="input-group form-group">
                                 <span class="input-group-addon" id="email-addon">Email</span>
-                                <input name="hodemail" type="text" class="form-control" required="required" 
+                                <input name="hodemail" type="text" class="form-control" required="required" name="email"
                                        readonly="true" placeholder="Email" aria-describedby="email-addon" id="hodemail">
                             </div>
                         </div>
                         <div class="modal-footer">
                             <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
-                            <button class="btn btn-success" type="submit" name="submit" value="addLect">Save</button>
+                            <button class="btn btn-success" type="submit" name="submit" value="addDept">Save</button>
                         </div>
                     </form>
                 </div>
@@ -436,10 +433,30 @@ and open the template in the editor.
 
         <script type="text/javascript">
             var response = "";
+            function loadFaculties() {
+                $.ajax({//only showed when result is displayed
+                    url: "TimeTableServlet",
+                    async: false,
+                    data: {"submit": "loadFaculties"}
+                }).done(function (results) {
+                    var response = JSON.parse(results);
+                    var facultyList = document.getElementById("depart-fac");
+                    for (var m = facultyList.options.length - 1; m >= 0; m--)
+                        facultyList.options[m] = null;
+
+                    facultyList.options[0] = new Option("Select faculty", "", true);
+                    facultyList.options[0].disabled = true;
+                    
+                    for (var i = 0; i < response.length; i++)
+                        facultyList.options[i + 1] = new Option(response[i].name, response[i].id);
+
+                });
+            }
+
             function loadLecturers() {
                 var request = $.ajax({
                     url: "TimeTableServlet",
-                    data: {"submit": "getLecturers"},
+                    data: {"submit": "getLectsForCombo"},
                     method: "POST"
                 });
                 request.done(function (msg) {
@@ -447,14 +464,11 @@ and open the template in the editor.
                     response = JSON.parse(msg);
                     var deanList = document.getElementById("dean");
                     var hodList = document.getElementById("hod");
-
-
                     for (var m = deanList.options.length - 1; m >= 0; m--) {
                         deanList.options[m] = null;
                     }
                     for (var m = hodList.options.length - 1; m >= 0; m--)
                         hodList.options[m] = null;
-
                     deanList.options[0] = new Option("Select dean", "", true);
                     deanList.options[0].disabled = true;
                     hodList.options[0] = new Option("Select HOD", "", true);
@@ -467,26 +481,11 @@ and open the template in the editor.
                 });
             }
             ;
-
             $(document).ready(function () {
                 loadLecturers();
-
-
-                //This method respond to the submit event of the add department modal
-                $("#adddepartmentModal").submit(function (event) {
-                    alert("Handler for .submit() called.");
-                    $(this).modal('toggle');
-                    event.preventDefault();
-                }
-                );
-                //This method respond to the submit event of the add faculty method
-//                $("#addfacultyModal").submit(function (event) {
-//                    alert("Handler for .submit() called.");
-//                    $(this).modal('toggle');
-//                    event.preventDefault();
-//                });
+                loadFaculties();
             }
-            );
+                    );
             //This function set the Selected Dean Email
             function setDeanEmail(SelectedIndex) {
                 $("#deanemail").val(response.lec[SelectedIndex - 1].email);
@@ -503,8 +502,7 @@ and open the template in the editor.
             $(document).ready(
                     function () {
                         $("#task").hide();
-
-                        $("#task_fac").click(function () {                          
+                        $("#task_fac").click(function () {
 
                             $.ajax({//only showed when result is displayed
                                 url: "TimeTableServlet",
@@ -514,22 +512,19 @@ and open the template in the editor.
                                 var response = JSON.parse(results);
                                 var content = "";
                                 for (var i = 0; i < response.length; i++) {
-                                    
+
                                     content += '<a href="#" class="list-group-item">' +
-                                                    '<i class="fa fa-fw fa-calendar"></i>' +  response[i].name +
-                                               '</a>';
+                                            '<i class="fa fa-fw fa-calendar"></i>' + response[i].name +
+                                            '</a>';
                                     for (var j = 0; j < response[i].departments.length; j++) {
                                         content += '<a href="#" class="list-group-item">' +
-                                                    '<i class="fa fa-fw fa-calendar"></i>' +  response[i].departments[j].name +
-                                                    '</a>';
+                                                '<i class="fa fa-fw fa-calendar"></i>' + response[i].departments[j].name +
+                                                '</a>';
                                     }
                                 }
-                                
+
                                 $("#panel_list").html("Faculties");
                                 $("#panel_list_items").html(content);
-                                
-                                
-
                             });
                             $("#task").css({
                                 "margin-left": "3%"
@@ -538,70 +533,60 @@ and open the template in the editor.
                             $("#task").show("slow");
                         });
                         $("#task").hide("slow");
-
+                        
+                        
+                        
                         $("#task_lec").click(function () {
-                                                               
-                                $.ajax({//only showed when result is displayed
+
+                            $.ajax({//only showed when result is displayed
                                 url: "TimeTableServlet",
                                 async: false,
                                 data: {"submit": "getLecturers"}
-                            }).done(function (results) {                               
+                            }).done(function (results) {
                                 var response = JSON.parse(results);
-                                
-                                 var content = "";
+                                var content = "";
                                 for (var i = 0; i < response.lec.length; i++) {
-                                    
+
                                     content += '<a href="#" class="list-group-item">' +
-                                                    '<i class="fa fa-fw fa-calendar"></i>' +  response.lec[i].name +
-                                               '</a>';
-                                    
+                                            '<i class="fa fa-fw fa-calendar"></i>' + response.lec[i].name +
+                                            '</a>';
                                 }
                                 $("#panel_list").html("Lecturers");
                                 $("#panel_list_items").html(content);
                             });
-                            
-                 
                             $("#task").css({
                                 "margin-left": "27%"
 
                             });
                             $("#task").show("slow");
                         });
-
                         $("#task").hide("slow");
                         
-                        
                         $("#task_hall").click(function () {
-                             $.ajax({//only showed when result is displayed
+                            $.ajax({//only showed when result is displayed
                                 url: "TimeTableServlet",
                                 async: false,
                                 data: {"submit": "getHalls"}
                             }).done(function (results) {
-             
-                                 var response = JSON.parse(results);
-                                
-                                 var content = "";
+
+                                var response = JSON.parse(results);
+                                var content = "";
                                 for (var i = 0; i < response.halls.length; i++) {
-                                    
+
                                     content += '<a href="#" class="list-group-item">' +
-                                                    '<i class="fa fa-fw fa-calendar"></i>' +  response.halls[i].name +
-                                               '</a>';
-                                    
+                                            '<i class="fa fa-fw fa-calendar"></i>' + response.halls[i].name +
+                                            '</a>';
                                 }
                                 $("#panel_list").html("Halls");
-                                $("#panel_list_items").html(content);                               
-                               
+                                $("#panel_list_items").html(content);
                             });
-                            
                             $("#task").css({
                                 "margin-left": "52%"
 
                             });
                             $("#task").show("slow");
                         });
-                        
                         $("#task").hide("slow");
-                        
                     });
         </script>
 

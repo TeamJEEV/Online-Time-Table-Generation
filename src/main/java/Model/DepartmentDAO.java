@@ -31,7 +31,7 @@ public class DepartmentDAO {
             String name = department.getName();
             int facultyId = department.getFaculty();
             int hodId = department.getHOD();
-            String query = "INSERT into classrooms values(null,'" + name + "', "
+            String query = "INSERT into department values(null,'" + name + "', "
                     + facultyId + ", "
                     + hodId + ")";
             try {
