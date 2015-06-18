@@ -255,6 +255,13 @@ and open the template in the editor.
                                     <input name="username" type="text" class="form-control" required="required" placeholder="Username" aria-describedby="username-addon">
 
                                 </div >
+                                
+                                <div class="input-group form-group">
+                                    <span class="input-group-addon" id="username-addon">Email   </span>
+                                    <input name="email" type="email" class="form-control" required="required" placeholder="Email" aria-describedby="emailname-addon">
+
+                                </div >
+                                
                                 <div class="input-group form-group">
                                     <span class="input-group-addon" id="password-addon">password</span>
                                     <input name="password" type="password" class="form-control" required="required" placeholder="Password" aria-describedby="password-addon">
