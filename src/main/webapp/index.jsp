@@ -55,11 +55,20 @@ and open the template in the editor.
 
                     <ul class="sidebar-nav">
                         <li class="sidebar-brand">
-                            <span >Faculties </span>
+                            <span >Faculties  </span>
                         </li>
+                        <c:forEach var="faculty" items="${sessionScope.faculties}">
+                            <li class="panel panel-default">
+                                <a href="#FET" data-toggle="collapse" data-parent="#accordion">
+                                    ${faculty.getName()} <i class="glyphicon glyphicon-menu-down glyphicon-align-right"></i></a>
+                            </li>
+
+                        </c:forEach>
+
                     </ul>
                 </div>
             </div>
+
             <div class="pagecontent_right">
                 <div class="container-fluid">
                     <div class="row">
@@ -146,13 +155,13 @@ and open the template in the editor.
         <script>
             // This script will be executed when the page loads
 
-            $(document).ready(function () {
-                loadFaculties();
-            });
+//            $(document).ready(function () {
+//                loadFaculties();
+//            });
 
             //This function is used to load the faculties and departement
             function loadFaculties() {
-                alert("calling load fac");
+//                alert("calling load fac");
                 var request = $.ajax({
                     url: "TimeTableServlet",
                     data: {"submit": "loadFaculties"},

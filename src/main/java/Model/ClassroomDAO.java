@@ -115,29 +115,28 @@ public class ClassroomDAO {
         }
         return classrooms;
     }
-    
-    public int countFaculty(DataManager dataManager){
-         Connection connection = dataManager.getConnection();
-         Integer count=0;
-         if (connection != null){
-             try {
-                 
-              Statement statement = connection.createStatement();
-              String query = "SELECT Count(*) as COUNT FROM classroom";
-             try{
-                 ResultSet rs;
-                 rs= statement.executeQuery(query);
-                 rs.next();
-                 count= rs.getInt(1);
-                 
-             }catch (SQLException e ) {
-                 e.printStackTrace();
-             }
-         } catch (SQLException e){
-                 } //end catch block
-        
-    } //end of if loop
-  return count;
 
+    public static int countHalls(DataManager dataManager) {
+        Connection connection = dataManager.getConnection();
+        int count = 0;
+        if (connection != null) {
+            try {
+
+                Statement statement = connection.createStatement();
+                String query = "SELECT Count(*) as COUNT FROM classrooms";
+                try {
+                    ResultSet rs;
+                    rs = statement.executeQuery(query);
+                    rs.next();
+                    count = rs.getInt(1);
+
+                } catch (SQLException e) {
+                    e.printStackTrace();
+                }
+            } catch (SQLException e) {
+            } //end catch block
+
+        } //end of if loop
+        return count;
     }
 }

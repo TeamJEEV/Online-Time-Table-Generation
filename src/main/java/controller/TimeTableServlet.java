@@ -16,6 +16,7 @@ import Utilities.DataManager;
 import Model.LecturerDAO;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.Enumeration;
 import java.util.List;
 import java.util.logging.Level;
@@ -27,6 +28,7 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 
@@ -110,13 +112,14 @@ public class TimeTableServlet extends HttpServlet {
 //        while (parameterNames.hasMoreElements()) {
 //            System.out.println(parameterNames.nextElement());
 //        }
+        Enumeration<String> parameterNames = request.getParameterNames();
         String action = request.getParameter("submit");
         if (action != null) {
             switch (action) {
                 case "loginPage":
                     url = base + "login.jsp";
                     break;
-                case "login": 
+                case "login":
                     url = login(request, url);
                     break;
                 case "logout":
@@ -152,17 +155,31 @@ public class TimeTableServlet extends HttpServlet {
                     getFacultiesAndDepts(request, response);
                     Enumeration<String> attributeNames = request.getAttributeNames();
                     break;
+                case "getFaculties":
+                    populateFacultyList(request);
+                    return;
+//                    break;
+                case "getLecturers":
+                    populateLectList(request);
+                    return;
+                case "getHalls":
+                    populateClassList(request);
+                    return;
             }
-            System.out.println(request.getRequestURI());
+//            System.out.println(request.getRequestURI());
             RequestDispatcher dispatcher = getServletContext().getRequestDispatcher(url);
             dispatcher.forward(request, response);
         } else {
+//            System.out.println(request.getRequestURL());
+//            if (request.getRequestURI().equals("/TimeTableProject/index.jsp")) {
+//                return;
+//            }
             if (request.getSession().getAttribute("user") == null) {
                 // Not logged in. Redirect to home page.
-                response.sendRedirect("index.jsp");
+                RequestDispatcher dispatcher = getServletContext().getRequestDispatcher(url);
+                dispatcher.forward(request, response);
             }
         }
-
     }
 
     public String login(HttpServletRequest request, String url) {
@@ -178,7 +195,10 @@ public class TimeTableServlet extends HttpServlet {
             request.getSession().setAttribute("user", userName);
         } else if ("Sysadmin".equals(lecturer.getLectureRole())) {
             url = base + "sysadmin.jsp";
-            request.getSession().setAttribute("user", userName);
+            HttpSession session = request.getSession();
+            session.setAttribute("user", userName);
+            session.setAttribute("halls", ClassroomDAO.countHalls(dataManager));
+            session.setAttribute("lecturers", LecturerDAO.countLecturer(dataManager));
         } else {
             url = base + "lecturer.jsp";
             request.getSession().setAttribute("user", userName);
@@ -226,7 +246,7 @@ public class TimeTableServlet extends HttpServlet {
         List<Lecturer> lecturers = LecturerDAO.getLecturers(dataManager);
         JSONArray profs = new JSONArray();
         for (Lecturer lecturer : lecturers) {
-            profs.add(lecturer.getName());
+            profs.add(lecturer);
         }
         ObjectMapper mapper = new ObjectMapper();
         mapper.writeValue(response.getOutputStream(), response);
@@ -244,7 +264,8 @@ public class TimeTableServlet extends HttpServlet {
         List<Department> departments = DepartmentDAO.getDepartments(dataManager);
         request.setAttribute("facultyList", faculties);
         request.setAttribute("departmentList", departments);
-
+        HttpSession session = request.getSession();
+        session.setAttribute("faculties", faculties);
         JSONArray response = new JSONArray();
 
         for (Faculty faculty : faculties) {
@@ -273,4 +294,18 @@ public class TimeTableServlet extends HttpServlet {
         mapper.writeValue(httpresponse.getOutputStream(), response);
     }
 
+    public void populateLectList(HttpServletRequest request) {
+        List<Lecturer> lecturers = LecturerDAO.getLecturers(dataManager);
+        request.getSession().setAttribute("lecturerList", lecturers);
+    }
+
+    public void populateClassList(HttpServletRequest request) {
+        List<Classroom> classrooms = ClassroomDAO.getClasses(dataManager);
+        request.getSession().setAttribute("hallList", classrooms);
+    }
+
+    public void populateFacultyList(HttpServletRequest request) {
+        List<Faculty> faculties = FacultyDAO.getFaculties(dataManager);
+        request.getSession().setAttribute("facultyList", faculties);
+    }
 }

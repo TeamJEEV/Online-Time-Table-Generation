@@ -1,3 +1,4 @@
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@page import="Model.DepartmentDAO"%>
 <%@page import="Model.FacultyDAO"%>
 <%@page import="Utilities.DataManager"%>
@@ -16,32 +17,31 @@ and open the template in the editor.
         <link href="css/bootstrap.min.css" rel="stylesheet"/>
         <link href="css/style.css" rel="stylesheet"/>
         <!-- Dashboard Custom CSS -->
-    <link href="css/sb-admin.css" rel="stylesheet">
+        <link href="css/sb-admin.css" rel="stylesheet">
         <script src="js/respond.min.js"></script><!-- Used to add support for IE 8 -->
 
         <script src="js/jquery-1.11.3.min.js" type="text/javascript"></script>
         <script src="js/bootstrap.min.js" type="text/javascript"></script>
 
-        
+
     </head>
     <body>
-<% 
-//     class declarations
-                            DataManager dataManager = new DataManager();
-        dataManager.setDbUrl("jdbc:mysql://localhost:3306/timetable");
-        dataManager.setUserName("root");
-        dataManager.setPassword("root");
-        
-        LecturerDAO teach= new LecturerDAO();
-        Integer count_teach;
-        count_teach = teach.countLecturer(dataManager);
-        FacultyDAO fac = new FacultyDAO();
-        Integer count_fac=fac.countFaculty(dataManager);
-        DepartmentDAO dep= new DepartmentDAO();
-        Integer count_dep=dep.countDepartment(dataManager);
-        
-                                        
-                                        %>
+        <%
+        //     class declarations
+            DataManager dataManager = new DataManager();
+            dataManager.setDbUrl("jdbc:mysql://localhost:3306/timetable");
+            dataManager.setUserName("root");
+            dataManager.setPassword("root");
+
+            LecturerDAO teach = new LecturerDAO();
+            Integer count_teach;
+            count_teach = teach.countLecturer(dataManager);
+            FacultyDAO fac = new FacultyDAO();
+            Integer count_fac = fac.countFaculty(dataManager);
+//            DepartmentDAO dep = new DepartmentDAO();
+//            Integer count_dep = dep.countDepartment(dataManager);
+
+        %>
         <header class="page-header">
             <nav class="navbar navbar-inverse navbar-fixed-top">
                 <div class="container">
@@ -102,7 +102,7 @@ and open the template in the editor.
                 </ul>
 
             </div>
-            
+
             <!--            <div class="pagecontent_right">
                             <div class="alert alert-warning alert-dismissable">
                                 <button type="button" class="close" data-dismiss="alert" 
@@ -112,184 +112,307 @@ and open the template in the editor.
             ${param.name}
         </div>-->
             <div class="pagecontent_right">
-            <div class="container-fluid">
-                <div class="alert-info">
-                    <div class="col-md-12">
+                <div class="container-fluid">
+                    <div class="alert-info">
+                        <div class="col-md-12">
 
-                        <!--Dashbord.................................................--> 
-                        <h1>Dashboard</h1>
-                       <div class="row">
-                           <!--faculty panel..........................--> 
-                    <div class="col-lg-3 col-md-6">
-                        <div class="panel panel-primary">
-                            <div class="panel-heading">
-                                <div class="row">
-                                    <div class="col-xs-3">
-                                        <i class="fa fa-comments fa-5x"></i>
-                                    </div>
-                                    <div class="col-xs-9 text-right">
+                            <!--Dashbord.................................................--> 
+                            <h1>Dashboard</h1>
+                            <div class="row">
+                                <!--faculty panel..........................--> 
+                                <div class="col-lg-3 col-md-6">
+                                    <div class="panel panel-primary">
+                                        <div class="panel-heading">
+                                            <div class="row">
+                                                <div class="col-xs-3">
+                                                    <i class="fa fa-comments fa-5x"></i>
+                                                </div>
+                                                <div class="col-xs-9 text-right">
 
-                                        <div class="huge"><%out.print(count_fac); %></div>
-                                        <div>Faculties</div>
+                                                    <div class="huge"><%out.print(count_fac);%></div>
+                                                    <div>Faculties</div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <a href="#" id="task_fac">
+
+                                            <div class="panel-footer">
+                                                <span class="pull-left">View Details</span>
+                                                <span class="pull-right"><i class="fa fa-arrow-circle-right"></i></span>
+                                                <div class="clearfix"></div>
+                                            </div>
+                                        </a>
                                     </div>
                                 </div>
+
+
+                                <!--department panel..........................................--> 
+
+                                <div class="col-lg-3 col-md-6">
+                                    <div class="panel panel-green">
+                                        <div class="panel-heading">
+                                            <div class="row">
+                                                <div class="col-xs-3">
+                                                    <i class="fa fa-tasks fa-5x"></i>
+                                                </div>
+                                                <div class="col-xs-9 text-right">
+
+                                                    <div class="huge">${sessionScope.lecturers}</div>
+                                                    <div>Lecturers</div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <a href="#" id="task_dep">
+
+                                            <div class="panel-footer">
+                                                <span class="pull-left">View Details</span>
+                                                <span class="pull-right"><i class="fa fa-arrow-circle-right"></i></span>
+                                                <div class="clearfix"></div>
+                                            </div>
+                                        </a>
+                                    </div>
+                                </div>
+
+
+                                <div class="col-lg-3 col-md-6">
+                                    <div class="panel panel-yellow">
+                                        <div class="panel-heading">
+                                            <div class="row">
+                                                <div class="col-xs-3">
+                                                    <i class="fa fa-shopping-cart fa-5x"></i>
+                                                </div>
+                                                <div class="col-xs-9 text-right">
+
+                                                    <div class="huge">${sessionScope.halls}</div>
+                                                    <div>Halls</div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <a href="#">
+
+                                            <div class="panel-footer">
+                                                <span class="pull-left">View Details</span>
+                                                <span class="pull-right"><i class="fa fa-arrow-circle-right"></i></span>
+                                                <div class="clearfix"></div>
+                                            </div>
+                                        </a>
+                                    </div>
+                                </div>
+
+
                             </div>
-                            <a href="#" id="task_fac">
 
-                                <div class="panel-footer">
-                                    <span class="pull-left">View Details</span>
-                                    <span class="pull-right"><i class="fa fa-arrow-circle-right"></i></span>
-                                    <div class="clearfix"></div>
-                                </div>
-                            </a>
                         </div>
                     </div>
-
-                                        
-                                        <!--department panel..........................................--> 
-
-                    <div class="col-lg-3 col-md-6">
-                        <div class="panel panel-green">
-                            <div class="panel-heading">
-                                <div class="row">
-                                    <div class="col-xs-3">
-                                        <i class="fa fa-tasks fa-5x"></i>
-                                    </div>
-                                    <div class="col-xs-9 text-right">
-
-                                        <div class="huge"><%out.print(count_dep); %></div>
-                                        <div>Lecturers</div>
-                                    </div>
-                                </div>
-                            </div>
-                            <a href="#" id="task_dep">
-
-                                <div class="panel-footer">
-                                    <span class="pull-left">View Details</span>
-                                    <span class="pull-right"><i class="fa fa-arrow-circle-right"></i></span>
-                                    <div class="clearfix"></div>
-                                </div>
-                            </a>
-                        </div>
-                    </div>
-
-
-                    <div class="col-lg-3 col-md-6">
-                        <div class="panel panel-yellow">
-                            <div class="panel-heading">
-                                <div class="row">
-                                    <div class="col-xs-3">
-                                        <i class="fa fa-shopping-cart fa-5x"></i>
-                                    </div>
-                                    <div class="col-xs-9 text-right">
-
-                                        <div class="huge">124</div>
-                                        <div>Halls</div>
-                                    </div>
-                                </div>
-                            </div>
-                            <a href="#">
-
-                                <div class="panel-footer">
-                                    <span class="pull-left">View Details</span>
-                                    <span class="pull-right"><i class="fa fa-arrow-circle-right"></i></span>
-                                    <div class="clearfix"></div>
-                                </div>
-                            </a>
-                        </div>
-                    </div>
-
- 
                 </div>
-                
+                <!--Task panel--.................................................-->
+
+                <div id="task"  style="margin-left:2.5%;width:21%" >
+                    <div class="panel panel-default">
+                        <div class="panel-heading">
+                            <h3 class="panel-title"><i class="fa fa-clock-o fa-fw"></i> Tasks Panel</h3>
+                        </div>
+                        <div class="panel-body">
+                            <div class="list-group">
+                                <c:forEach var="faculty" items="${sessionScope.facultyList}">
+                                <a href="#" class="list-group-item">
+                                    <i class="fa fa-fw fa-calendar"></i> ${faculty.getName()}
+                                </a>
+                                </c:forEach>
+                            </div>
+                        </div>
                     </div>
+                </div>
+                <!--task Panel........-->
+                <div class="push"></div>
+                <footer class="footer">
+                    <p>&COPY;Team5 2015</p>
+                </footer>
+            </div>
+
+
+            <!-- Modal 
+            <!-- Add lecturer modal -->
+            <div id="addlecturerModal" class="modal fade" role="dialog">
+                <div class="modal-dialog">
+
+                    <!-- Modal content-->
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <button type="button" class="close" data-dismiss="modal">&times;</button>
+                            <h4 class="modal-title">Add Lecturer</h4>
+                        </div>
+                        <form action="TimeTableServlet" method="POST">
+                            <div class="modal-body">
+                                <div class="input-group form-group">
+                                    <span class="input-group-addon" id="full-name-addon">Full Name</span>
+                                    <input name="fullname" type="text" class="form-control" required="required" 
+                                           placeholder="Fullname" aria-describedby="full-name-addon">
+
+                                </div>
+                                <div class="input-group form-group">
+                                    <span class="input-group-addon" id="username-addon">Username</span>
+                                    <input name="username" type="text" class="form-control" required="required" placeholder="Username" aria-describedby="username-addon">
+
+                                </div >
+                                <div class="input-group form-group">
+                                    <span class="input-group-addon" id="password-addon">password</span>
+                                    <input name="password" type="password" class="form-control" required="required" placeholder="Password" aria-describedby="password-addon">
+                                </div>
+
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
+                                <button class="btn btn-success" type="submit" name="submit" value="addLect">Save</button>
+                            </div>
+                        </form>
+                    </div>
+
                 </div>
             </div>
-<!--Task panel--.................................................-->
 
-<div id="task"  style="margin-left:2.5%;width:21%" >
-                        <div class="panel panel-default">
-                            <div class="panel-heading">
-                                <h3 class="panel-title"><i class="fa fa-clock-o fa-fw"></i> Tasks Panel</h3>
-                            </div>
-                            <div class="panel-body">
-                                <div class="list-group">
-                                    <a href="#" class="list-group-item">
-                                        <span class="badge">just now</span>
-                                        <i class="fa fa-fw fa-calendar"></i> Calendar updated
-                                    </a>
-                                    <a href="#" class="list-group-item">
-                                        <span class="badge">4 minutes ago</span>
-                                        <i class="fa fa-fw fa-comment"></i> Commented on a post
-                                    </a>
-                                    <a href="#" class="list-group-item">
-                                        <span class="badge">23 minutes ago</span>
-                                        <i class="fa fa-fw fa-truck"></i> Order 392 shipped
-                                    </a>
-                                    <a href="#" class="list-group-item">
-                                        <span class="badge">46 minutes ago</span>
-                                        <i class="fa fa-fw fa-money"></i> Invoice 653 has been paid
-                                    </a>
-                                    <a href="#" class="list-group-item">
-                                        <span class="badge">1 hour ago</span>
-                                        <i class="fa fa-fw fa-user"></i> A new user has been added
-                                    </a>
-                                    <a href="#" class="list-group-item">
-                                        <span class="badge">2 hours ago</span>
-                                        <i class="fa fa-fw fa-check"></i> Completed task: "pick up dry cleaning"
-                                    </a>
-                                    <a href="#" class="list-group-item">
-                                        <span class="badge">yesterday</span>
-                                        <i class="fa fa-fw fa-globe"></i> Saved the world
-                                    </a>
-                                    <a href="#" class="list-group-item">
-                                        <span class="badge">two days ago</span>
-                                        <i class="fa fa-fw fa-check"></i> Completed task: "fix error on sales page"
-                                    </a>
-                                </div>
-                                <div class="text-right">
-                                    <a href="#">View All Activity <i class="fa fa-arrow-circle-right"></i></a>
-                                </div>
-                            </div>
+            <!-- Add lecture Hall modal -->
+            <div id="addlecturehallModal" class="modal fade" role="dialog">
+                <div class="modal-dialog">
+
+                    <!-- Modal content-->
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <button type="button" class="close" data-dismiss="modal">&times;</button>
+                            <h4 class="modal-title">Add Lecture Hall</h4>
                         </div>
+                        <form method="POST">
+                            <div class="modal-body">
+                                <div class="input-group form-group">
+                                    <span class="input-group-addon" id="full-name-addon">Name</span>
+                                    <input type="text" name="hall" class="form-control" required="required" placeholder="hall name" aria-describedby="full-name-addon">
+
+                                </div>
+                                <div class="input-group form-group">
+                                    <span class="input-group-addon" id="username-addon">Capacity</span>
+                                    <input type="text" name="capacity" class="form-control" required="required" placeholder="capacity" aria-describedby="username-addon">
+
+                                </div >
+
+
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
+                                <button type="submit" name="submit" value="addhall" class="btn btn-success" >Save</button>
+                            </div>
+                        </form>
                     </div>
-<!--task Panel........-->
-            <div class="push"></div>
-            <footer class="footer">
-                <p>&COPY;Team5 2015</p>
-            </footer>
+
+                </div>
+            </div>
         </div>
 
-
-        <!-- Modal 
-        <!-- Add lecturer modal -->
-        <div id="addlecturerModal" class="modal fade" role="dialog">
+        <!-- Add Faculty modal -->
+        <div id="addfacultyModal" class="modal fade" role="dialog" data-backdrop="static">
             <div class="modal-dialog">
 
                 <!-- Modal content-->
                 <div class="modal-content">
                     <div class="modal-header">
                         <button type="button" class="close" data-dismiss="modal">&times;</button>
-                        <h4 class="modal-title">Add Lecturer</h4>
+                        <h4 class="modal-title">Add Faculty</h4>
+                    </div>
+
+                    <!--Create Faculty form-->
+                    <form action="TimeTableServlet" method="POST" id="addfaculty">
+                        <div class="modal-body">
+                            <div class="input-group form-group">
+                                <span class="input-group-addon" id="name-addon">Name</span>
+                                <input name="name" type="text" class="form-control" required="required" 
+                                       placeholder="Name" aria-describedby="name-addon">
+
+                            </div>
+
+
+                            <div class="input-group form-group">
+
+                                <span class="input-group-addon" id="username-addon">Dean</span>
+                                <select class="form-control" name="dean" placeholder="Dean" required="required" id="dean" onChange="setDeanEmail(this.options.selectedIndex)" >
+
+                                </select>
+
+                            </div>
+
+
+                            <div class="input-group form-group">
+                                <span class="input-group-addon" id="email-addon">Email</span>
+                                <input name="deanemail" type="email" class="form-control" required="required" 
+                                       readonly="true" placeholder="Email" aria-describedby="email-addon" id="deanemail">
+                            </div>
+
+                            <!-- div class="input-group form-group">
+                                <span class="input-group-addon" id="department-addon">Department</span>
+                       
+                                        <button  data-toggle="modal" data-target="#adddepartmentModal" class="btn btn-primary form-control" type="button">
+                                            <span class="glyphicon glyphicon-plus"></span>
+                                             <span >Add Department</span>
+                                        </button>
+                                   
+                            </div -->
+
+
+
+                        </div>
+
+                        <div class="modal-footer">
+
+                            <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
+                            <button class="btn btn-success" type="submit" name="submit" value="addFac">Save</button>
+                        </div>
+                    </form>
+                </div>
+                <!--end of create Faculty form-->
+            </div>
+        </div>
+
+
+        <!-- Add Department modal -->
+        <div id="adddepartmentModal" class="modal fade" role="dialog" style="margin-top: 4%" data-backdrop="static">
+            <div class="modal-dialog">
+
+                <!-- Modal content-->
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal">&times;</button>
+                        <h4 class="modal-title">Add Department</h4>
                     </div>
                     <form action="TimeTableServlet" method="POST">
                         <div class="modal-body">
                             <div class="input-group form-group">
-                                <span class="input-group-addon" id="full-name-addon">Full Name</span>
-                                <input name="fullname" type="text" class="form-control" required="required" 
-                                       placeholder="Fullname" aria-describedby="full-name-addon">
+                                <span class="input-group-addon" id="dept-name-addon">Name</span>
+                                <input name="deptname" type="text" class="form-control" required="required" 
+                                       placeholder="Department Name" aria-describedby="dept-name-addon">
 
                             </div>
                             <div class="input-group form-group">
-                                <span class="input-group-addon" id="username-addon">Username</span>
-                                <input name="username" type="text" class="form-control" required="required" placeholder="Username" aria-describedby="username-addon">
+                                <span class="input-group-addon" id="hod-addon">Faculty</span>
 
-                            </div >
-                            <div class="input-group form-group">
-                                <span class="input-group-addon" id="password-addon">password</span>
-                                <input name="password" type="password" class="form-control" required="required" placeholder="Password" aria-describedby="password-addon">
+                                <select class="form-control" name="depart-fac" id="depart-fac" placeholder="Select Faculty" required="required">
+                                    <option value="" disabled="true">Select faculty</option>
+                                    <option value="1">FET</option>
+                                    <option value="2">Education</option> 
+                                    <option value="3">ART</option> 
+                                    <option value="4">SMS</option> 
+                                </select>
                             </div>
+                            <div class="input-group form-group">
+                                <span class="input-group-addon" id="hod-addon">HOD</span>
 
+                                <select class="form-control" name="hod" id="hod" placeholder="Head of Department" required="required"
+                                        onChange="setHodEmail(this.options.selectedIndex)" >
+
+                                </select>
+                            </div>
+                            <div class="input-group form-group">
+                                <span class="input-group-addon" id="email-addon">Email</span>
+                                <input name="hodemail" type="text" class="form-control" required="required" 
+                                       readonly="true" placeholder="Email" aria-describedby="email-addon" id="hodemail">
+                            </div>
                         </div>
                         <div class="modal-footer">
                             <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
@@ -301,304 +424,172 @@ and open the template in the editor.
             </div>
         </div>
 
-        <!-- Add lecture Hall modal -->
-        <div id="addlecturehallModal" class="modal fade" role="dialog">
-            <div class="modal-dialog">
-
-                <!-- Modal content-->
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <button type="button" class="close" data-dismiss="modal">&times;</button>
-                        <h4 class="modal-title">Add Lecture Hall</h4>
-                    </div>
-                    <form method="POST">
-                        <div class="modal-body">
-                            <div class="input-group form-group">
-                                <span class="input-group-addon" id="full-name-addon">Name</span>
-                                <input type="text" name="hall" class="form-control" required="required" placeholder="hall name" aria-describedby="full-name-addon">
-
-                            </div>
-                            <div class="input-group form-group">
-                                <span class="input-group-addon" id="username-addon">Capacity</span>
-                                <input type="text" name="capacity" class="form-control" required="required" placeholder="capacity" aria-describedby="username-addon">
-
-                            </div >
-
-
-                        </div>
-                        <div class="modal-footer">
-                            <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
-                            <button type="submit" name="submit" value="addhall" class="btn btn-success" >Save</button>
-                        </div>
-                    </form>
-                </div>
-
-            </div>
-        </div>
-    </div>
-
-    <!-- Add Faculty modal -->
-    <div id="addfacultyModal" class="modal fade" role="dialog" data-backdrop="static">
-        <div class="modal-dialog">
-
-            <!-- Modal content-->
-            <div class="modal-content">
-                <div class="modal-header">
-                    <button type="button" class="close" data-dismiss="modal">&times;</button>
-                    <h4 class="modal-title">Add Faculty</h4>
-                </div>
-                
-                <!--Create Faculty form-->
-                <form action="TimeTableServlet" method="POST" id="addfaculty">
-                    <div class="modal-body">
-                        <div class="input-group form-group">
-                            <span class="input-group-addon" id="name-addon">Name</span>
-                            <input name="name" type="text" class="form-control" required="required" 
-                                   placeholder="Name" aria-describedby="name-addon">
-
-                        </div>
-                        
-                        
-                         <div class="input-group form-group">
-                                                        
-                                <span class="input-group-addon" id="username-addon">Dean</span>
-                                <select class="form-control" name="dean" placeholder="Dean" required="required" id="dean" onChange="setDeanEmail(this.options.selectedIndex)" >
-                                   
-                                </select>
-                               
-                            </div>
-             
-                        
-                        <div class="input-group form-group">
-                            <span class="input-group-addon" id="email-addon">Email</span>
-                            <input name="deanemail" type="email" class="form-control" required="required" 
-                                   readonly="true" placeholder="Email" aria-describedby="email-addon" id="deanemail">
-                        </div>
-                        
-                        <!-- div class="input-group form-group">
-                            <span class="input-group-addon" id="department-addon">Department</span>
-                   
-                                    <button  data-toggle="modal" data-target="#adddepartmentModal" class="btn btn-primary form-control" type="button">
-                                        <span class="glyphicon glyphicon-plus"></span>
-                                         <span >Add Department</span>
-                                    </button>
-                               
-                        </div -->
-                        
-                       
-                       
-                    </div>
-                    
-                    <div class="modal-footer">
-                        
-                        <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
-                        <button class="btn btn-success" type="submit" name="submit" value="addFac">Save</button>
-                    </div>
-                </form>
-            </div>
-<!--end of create Faculty form-->
-        </div>
-    </div>
-
-    
-    <!-- Add Department modal -->
-    <div id="adddepartmentModal" class="modal fade" role="dialog" style="margin-top: 4%" data-backdrop="static">
-        <div class="modal-dialog">
-
-            <!-- Modal content-->
-            <div class="modal-content">
-                <div class="modal-header">
-                    <button type="button" class="close" data-dismiss="modal">&times;</button>
-                    <h4 class="modal-title">Add Department</h4>
-                </div>
-                <form action="TimeTableServlet" method="POST">
-                    <div class="modal-body">
-                        <div class="input-group form-group">
-                            <span class="input-group-addon" id="dept-name-addon">Name</span>
-                            <input name="deptname" type="text" class="form-control" required="required" 
-                                   placeholder="Department Name" aria-describedby="dept-name-addon">
-
-                        </div>
-                        <div class="input-group form-group">
-                            <span class="input-group-addon" id="hod-addon">Faculty</span>
-                           
-                            <select class="form-control" name="depart-fac" id="depart-fac" placeholder="Select Faculty" required="required">
-                                <option value="" disabled="true">Select faculty</option>
-                                <option value="1">FET</option>
-                                <option value="2">Education</option> 
-                                <option value="3">ART</option> 
-                                <option value="4">SMS</option> 
-                                </select>
-                        </div>
-                        <div class="input-group form-group">
-                            <span class="input-group-addon" id="hod-addon">HOD</span>
-                           
-                            <select class="form-control" name="hod" id="hod" placeholder="Head of Department" required="required"
-                                    onChange="setHodEmail(this.options.selectedIndex)" >
-                                    
-                                </select>
-                        </div>
-                        <div class="input-group form-group">
-                            <span class="input-group-addon" id="email-addon">Email</span>
-                            <input name="hodemail" type="text" class="form-control" required="required" 
-                                   readonly="true" placeholder="Email" aria-describedby="email-addon" id="hodemail">
-                        </div>
-                    </div>
-                    <div class="modal-footer">
-                        <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
-                        <button class="btn btn-success" type="submit" name="submit" value="addLect">Save</button>
-                    </div>
-                </form>
-            </div>
-
-        </div>
-    </div>
 
 
 
 
 
 
+        <!-- Jquery CDN which will be incoporated when hosting the app-->
+        <!--  <script src="//code.jquery.com/jquery-1.11.3.min.js"></script>
+          <script src="//code.jquery.com/jquery-migrate-1.2.1.min.js"></script> -->
 
-    <!-- Jquery CDN which will be incoporated when hosting the app-->
-    <!--  <script src="//code.jquery.com/jquery-1.11.3.min.js"></script>
-      <script src="//code.jquery.com/jquery-migrate-1.2.1.min.js"></script> -->
+        <!-- Bootstrap CDN which will be incoporated when hosting the app
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>-->
 
-    <!-- Bootstrap CDN which will be incoporated when hosting the app
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>-->
 
-    
-    
-    <script type="text/javascript">
-        var lecturerList = {lec:[{id:1, name:"Proff Tanyi", email:"tanhyi@ubuea.cm"},{id:2, name:"Dr Nguti", email:"ngutii@ubuea.cm"},
-                        {id:3,name:"Dr Akana", email:"akana@ubuea.cm"}, {id:4,name:"Dr Tsafack" , email:"tsafack@ubuea.cm"}]};
-                
-        $(document).ready(function (){   
-                
-           
+
+        <script type="text/javascript">
+            var lecturerList = {lec: [{id: 1, name: "Proff Tanyi", email: "tanhyi@ubuea.cm"}, {id: 2, name: "Dr Nguti", email: "ngutii@ubuea.cm"},
+                    {id: 3, name: "Dr Akana", email: "akana@ubuea.cm"}, {id: 4, name: "Dr Tsafack", email: "tsafack@ubuea.cm"}]};
+
+            $(document).ready(function () {
+
+
                 var deanList = document.getElementById("dean");
                 var hodList = document.getElementById("hod");
-                
+
                 for (var m = deanList.options.length - 1; m >= 0; m--)
                     deanList.options[m] = null;
-                
+
                 for (var m = hodList.options.length - 1; m >= 0; m--)
                     hodList.options[m] = null;
-            
+
                 deanList.options[0] = new Option("Select dean", "", true);
                 deanList.options[0].disabled = true;
                 hodList.options[0] = new Option("Select HOD", "", true);
-                 hodList.options[0].disabled = true;
-               
-               //Initialise the list of Deans
-                for(var i=0; i<lecturerList.lec.length; i++){
-                   deanList.options[i+1] = new Option(lecturerList.lec[i].name, lecturerList.lec[i].id);
-                   
-                   
-               } 
-               
-               //Initailise list of HODs
-                for(var i=0; i<lecturerList.lec.length; i++){
-                   hodList.options[i+1] = new Option(lecturerList.lec[i].name, lecturerList.lec[i].id);
-                   
-               }
-               
-                
-            //This method respond to the submit event of the add department modal
-        $( "#adddepartmentModal" ).submit(function( event ) {
-            alert( "Handler for .submit() called." );
-            
-             $(this).modal('toggle');
-             event.preventDefault();
-        });
-        
-        //This method respond to the submit event of the add faculty method
-      $( "#addfacultyModal" ).submit(function( event ) {
-            alert( "Handler for .submit() called." );
-            
-            $(this).modal('toggle');
-            event.preventDefault();
-        });
-        
-         
-        });
-        //This function set the Selected Dean Email
-        function setDeanEmail(SelectedIndex){          
-            $("#deanemail").val(lecturerList.lec[SelectedIndex-1].email);
-        }
-       
-        //This fucntion set the selected HOD Email
-        function setHodEmail(SelectedIndex){
-            $("#hodemail").val(lecturerList.lec[SelectedIndex-1].email);
-        }
-        
-        
-//        Display task panel
-    
-    $(document).ready(
-    function(){
-    $("#task").hide();
-    
-    $("#task_fac").click(function (){
-//    alert("FFFFF");"
+                hodList.options[0].disabled = true;
 
-$.ajax({ //only showed when result is displayed
-    url:"TimeTableServlet",
-    async:false,
-    data:{"id":"task_fac"}
-}).done(function (results){
-
-    
-});
-     $("#task").css({
-            "margin-left":"3%"
-            
-        });
-        $("#task").show("slow");
-        
-    });
-
-    
-    
-    $("#task").hide("slow");
-    
-    $("#task_dep").click(function (){
-//    alert("FFFFF");"
+                //Initialise the list of Deans
+                for (var i = 0; i < lecturerList.lec.length; i++) {
+                    deanList.options[i + 1] = new Option(lecturerList.lec[i].name, lecturerList.lec[i].id);
 
 
- $("#task").css({
-            "margin-left":"27%"
-            
-        });
-        $("#task").show("slow");
-       
-    });
+                }
 
-    
-     
-     $("#task").hide("slow");
-    $("#task_teach").click(function (){
-//    alert("FFFFF");"
-      $("#task").css({
-            "margin-left":"52%"
-            
-        });
-        $("#task").show("slow");
-        
-    });
+                //Initailise list of HODs
+                for (var i = 0; i < lecturerList.lec.length; i++) {
+                    hodList.options[i + 1] = new Option(lecturerList.lec[i].name, lecturerList.lec[i].id);
 
-     $("#task").hide("slow");
- $("#task_class").click(function (){
-//    alert("FFFFF");"
-      $("#task").css({
-            "margin-left":"77%"
-            
-        });
-        $("#task").show("slow");
-        
-    });
-    });
-</script>
+                }
 
-</body>
+
+                //This method respond to the submit event of the add department modal
+                $("#adddepartmentModal").submit(function (event) {
+                    alert("Handler for .submit() called.");
+
+                    $(this).modal('toggle');
+                    event.preventDefault();
+                });
+
+                //This method respond to the submit event of the add faculty method
+                $("#addfacultyModal").submit(function (event) {
+                    alert("Handler for .submit() called.");
+
+                    $(this).modal('toggle');
+                    event.preventDefault();
+                });
+
+
+            });
+            //This function set the Selected Dean Email
+            function setDeanEmail(SelectedIndex) {
+                $("#deanemail").val(lecturerList.lec[SelectedIndex - 1].email);
+            }
+
+            //This fucntion set the selected HOD Email
+            function setHodEmail(SelectedIndex) {
+                $("#hodemail").val(lecturerList.lec[SelectedIndex - 1].email);
+            }
+
+
+            //        Display task panel
+
+            $(document).ready(
+                    function () {
+                        $("#task").hide();
+
+                        $("#task_fac").click(function () {
+                            //    alert("FFFFF");"
+
+                            $.ajax({//only showed when result is displayed
+                                url: "TimeTableServlet",
+                                async: false,
+                                data: {"submit": "getFaculties"}
+                            }).done(function (results) {
+                                alert("Done");
+
+                            });
+                            $("#task").css({
+                                "margin-left": "3%"
+
+                            });
+                            $("#task").show("slow");
+
+                        });
+
+
+
+                        $("#task").hide("slow");
+
+                        $("#task_dep").click(function () {
+                            //    alert("FFFFF");"
+
+
+                            $("#task").css({
+                                "margin-left": "27%"
+
+                            });
+                            $("#task").show("slow");
+
+                        });
+
+
+
+                        $("#task").hide("slow");
+                        $("#task_teach").click(function () {
+                            //    alert("FFFFF");"
+                            $("#task").css({
+                                "margin-left": "52%"
+
+                            });
+                            $("#task").show("slow");
+
+                        });
+
+                        $("#task").hide("slow");
+                        $("#task_class").click(function () {
+                            //    alert("FFFFF");"
+                            $("#task").css({
+                                "margin-left": "77%"
+
+                            });
+                            $("#task").show("slow");
+
+                        });
+                    });
+        </script>
+
+    </body>
 </html>
+<!--var response = JSON.parse(results);
+                            var contents = '<div id="task"  style="margin-left:2.5%;width:21%" >' +
+                            '< div class = "panel panel-default" >' +
+                            '< div class = "panel-heading" >' +
+                            '< h3 class = "panel-title" > < i class = "fa fa-clock-o fa-fw" > < /i> Tasks Panel</h3 >' +
+                            '< /div>';
+                            for (var i = 0, i < response.length; i++
+                                    ) {
+
+
+                    contents += ' <div class = "panel-body" >' +
+                            '< div class = "list-group" >' +
+                            '< a href = "#" class = "list-group-item" >' +
+                            '< span class = "badge" >' + response[i].name + '< /span>' +
+                            '< i class = "fa fa-fw fa-calendar" > < /i> Calendar updated' +
+                            '< /a>' +
+                            '< /div>' +
+                            '< /div>'
+                    }
+                    content += '< /div>'
+                            '< /div>'-->

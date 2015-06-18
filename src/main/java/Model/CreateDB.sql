@@ -32,7 +32,8 @@ CREATE  TABLE IF NOT EXISTS `timetable`.`lecturer` (
   `full name` VARCHAR(45) NULL ,
   `name` VARCHAR(40) NULL ,
   `password` VARCHAR(45) NULL ,
-  `role` VARCHAR(30) NULL ,
+  `role` VARCHAR(30) NOT NULL DEFAULT 'Lecturer' ,
+  `email` VARCHAR(45) NULL ,
   PRIMARY KEY (`id`) ,
   UNIQUE INDEX `name_UNIQUE` (`name` ASC) )
 ENGINE = InnoDB;

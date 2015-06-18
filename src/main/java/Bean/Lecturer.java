@@ -16,6 +16,7 @@ public class Lecturer {
     private String userName;
     private String password;
     private String lectureRole;
+    private String email;
 
     public int getId() {
         return id;
@@ -56,6 +57,12 @@ public class Lecturer {
     public void setLectureRole(String lectureRole) {
         this.lectureRole = lectureRole;
     }
-    
-    
+
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
 }

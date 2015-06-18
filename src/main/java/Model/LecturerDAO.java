@@ -28,6 +28,7 @@ public class LecturerDAO {
         String username = lecturer.getUserName();
         String password = lecturer.getPassword();
         String role = lecturer.getLectureRole();
+        String email = lecturer.getEmail();
         Connection connection = dataManager.getConnection();
         
         if (connection != null) {
@@ -36,7 +37,8 @@ public class LecturerDAO {
                 String query = "INSERT INTO lecturer values(null,'" + name + "', '" 
                         + username + "', '" 
                         + password + "', '" 
-                        + role + "')";
+                        + role + "', '"
+                        + email + "')";
                 try {
                     statement.executeUpdate(query);
                 } finally {
@@ -159,7 +161,7 @@ public class LecturerDAO {
         return lecturer;
     }
     
-    public int countLecturer(DataManager dataManager){
+    public static int countLecturer(DataManager dataManager){
          Connection connection = dataManager.getConnection();
          Integer count=0;
          if (connection != null){
