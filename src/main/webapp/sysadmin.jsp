@@ -162,7 +162,7 @@ and open the template in the editor.
                                                 </div>
                                             </div>
                                         </div>
-                                        <a href="#" id="task_dep">
+                                        <a href="#" id="task_lec">
 
                                             <div class="panel-footer">
                                                 <span class="pull-left">View Details</span>
@@ -188,7 +188,7 @@ and open the template in the editor.
                                                 </div>
                                             </div>
                                         </div>
-                                        <a href="#">
+                                        <a href="#" id="task_hall">
 
                                             <div class="panel-footer">
                                                 <span class="pull-left">View Details</span>
@@ -528,7 +528,7 @@ and open the template in the editor.
                                 $("#panel_list").html("Faculties");
                                 $("#panel_list_items").html(content);
                                 
-                                alert(results);
+                                
 
                             });
                             $("#task").css({
@@ -538,19 +538,34 @@ and open the template in the editor.
                             $("#task").show("slow");
                         });
                         $("#task").hide("slow");
-                        $("#task_dep").click(function () {
-                            //    alert("FFFFF");"
 
-
+                        $("#task_lec").click(function () {
+                                                               
+                                $.ajax({//only showed when result is displayed
+                                url: "TimeTableServlet",
+                                async: false,
+                                data: {"submit": "getLecturers"}
+                            }).done(function (results) {
+                                alert(results);
+                                //var response = JSON.parse(results);
+                            });
+                            
+                            $("#panel_list").html("Lecturers");
+                            
                             $("#task").css({
                                 "margin-left": "27%"
 
                             });
                             $("#task").show("slow");
                         });
+
                         $("#task").hide("slow");
-                        $("#task_teach").click(function () {
+                        
+                        
+                        $("#task_hall").click(function () {
                             //    alert("FFFFF");"
+                            
+                            $("#panel_list").html("Halls");
                             $("#task").css({
                                 "margin-left": "52%"
 
@@ -558,14 +573,7 @@ and open the template in the editor.
                             $("#task").show("slow");
                         });
                         $("#task").hide("slow");
-                        $("#task_class").click(function () {
-                            //    alert("FFFFF");"
-                            $("#task").css({
-                                "margin-left": "77%"
-
-                            });
-                            $("#task").show("slow");
-                        });
+                        
                     });
         </script>
 
