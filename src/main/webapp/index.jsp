@@ -160,7 +160,7 @@ and open the template in the editor.
 
             //This function is used to load the faculties and departement
             function loadFaculties() {
-                alert("calling load fac");
+                
                 var request = $.ajax({
                     url: "TimeTableServlet",
                     data: {"submit": "loadFaculties"},

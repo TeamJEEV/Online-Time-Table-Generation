@@ -575,10 +575,22 @@ and open the template in the editor.
                              $.ajax({//only showed when result is displayed
                                 url: "TimeTableServlet",
                                 async: false,
-                                data: {"submit": "getLecturers"}
+                                data: {"submit": "getHalls"}
                             }).done(function (results) {
+             
+                                 var response = JSON.parse(results);
                                 
+                                 var content = "";
+                                for (var i = 0; i < response.halls.length; i++) {
+                                    
+                                    content += '<a href="#" class="list-group-item">' +
+                                                    '<i class="fa fa-fw fa-calendar"></i>' +  response.halls[i].name +
+                                               '</a>';
+                                    
+                                }
                                 $("#panel_list").html("Halls");
+                                $("#panel_list_items").html(content);                               
+                               
                             });
                             
                             $("#task").css({
