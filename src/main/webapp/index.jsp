@@ -160,14 +160,14 @@ and open the template in the editor.
 
             //This function is used to load the faculties and departement
             function loadFaculties() {
-                alert("calling load fac");
+                
                 var request = $.ajax({
                     url: "TimeTableServlet",
                     data: {"submit": "loadFaculties"},
                     method: "POST"
                 });
                 request.done(function (msg) {
-                   //                   alert(msg);
+                   
                     var response = JSON.parse(msg);
 
                     var contents = '<ul class="sidebar-nav">' +
@@ -193,7 +193,7 @@ and open the template in the editor.
                     contents += '</ul>';
 
                     
-                    $("#accordion").html(contents);alert(contents);
+                    $("#accordion").html(contents);
                 });
 
                 request.fail(function (jqXHR, textStatus) {

@@ -163,7 +163,7 @@ public class TimeTableServlet extends HttpServlet {
                     getLecturers(request, response);
                     return;
                 case "getHalls":
-                    getLecturers(request, response);
+                    getHalls(request, response);
                     return;
             }
 //            System.out.println(request.getRequestURI());

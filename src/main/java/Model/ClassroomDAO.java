@@ -55,7 +55,7 @@ public class ClassroomDAO {
         if (connection != null) {
             try {
                 Statement statement = connection.createStatement();
-                String query = "SELECT * FROM classroom";
+                String query = "SELECT * FROM classrooms";
                 try {
                     ResultSet rs = statement.executeQuery(query);
                     while (rs.next()) {
@@ -63,6 +63,7 @@ public class ClassroomDAO {
                         classroom.setId(Integer.parseInt(rs.getString("id")));
                         classroom.setName(rs.getString("name"));
                         classroom.setCapacity(Integer.parseInt(rs.getString("capacity")));
+                        classrooms.add(classroom);
                     }
                 } finally {
                     statement.close();
