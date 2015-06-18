@@ -132,6 +132,7 @@ public class TimeTableServlet extends HttpServlet {
                         return;
                     }
                     addLecturer(request, response);
+                    url = base + "sysadmin.jsp";
                     break;
                 case "addhall":
                     if (request.getSession().getAttribute("user") == null) {
