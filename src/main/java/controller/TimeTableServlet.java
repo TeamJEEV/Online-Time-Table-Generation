@@ -216,7 +216,7 @@ public class TimeTableServlet extends HttpServlet {
         lecturer.setUserName(request.getParameter("username"));
         lecturer.setPassword(request.getParameter("password"));
         lecturer.setLectureRole(request.getParameter("role"));
-        String message = LecturerDAO.addLecturer(dataManager, lecturer);
+        String message = LecturerDAO.addEditLecturer(dataManager, lecturer, "add");
 //        response.setContentType("text/html;charset=UTF-8");
 //        try (PrintWriter out = response.getWriter()) {
 //            /* TODO output your page here. You may use following sample code. */
@@ -234,6 +234,7 @@ public class TimeTableServlet extends HttpServlet {
 
     public void getHalls(HttpServletRequest request, HttpServletResponse response) throws IOException {
         List<Classroom> classes = ClassroomDAO.getClasses(dataManager);
+        JSONObject obj = new JSONObject();
         JSONArray halls = new JSONArray();
         for (Classroom classroom : classes) {
             JSONObject de = new JSONObject();
@@ -241,21 +242,20 @@ public class TimeTableServlet extends HttpServlet {
             de.put("name", classroom.getName());
             halls.add(de);
         }
+        obj.put("halls", halls);
         ObjectMapper mapper = new ObjectMapper();
-        mapper.writeValue(response.getOutputStream(), halls);
+        mapper.writeValue(response.getOutputStream(), obj);
     }
 
     public void getLecturers(HttpServletRequest request, HttpServletResponse response) throws IOException {
         List<Lecturer> lecturers = LecturerDAO.getLecturers(dataManager);
         JSONObject obj = new JSONObject();
         JSONArray profs = new JSONArray();
-        
         for (Lecturer lecturer : lecturers) {
             JSONObject de = new JSONObject();
             de.put("id", lecturer.getId());
             de.put("name", lecturer.getName());
             de.put("email", lecturer.getEmail());
-            
             profs.add(de);
         }
         obj.put("lec", profs);
@@ -265,9 +265,12 @@ public class TimeTableServlet extends HttpServlet {
 
     public void addFaculty(HttpServletRequest request) {
         Faculty faculty = new Faculty();
+        int deanId = Integer.parseInt(request.getParameter("dean"));  
+        Lecturer lecturer = LecturerDAO.getLecturerById(dataManager, deanId);
+        LecturerDAO.addEditLecturer(dataManager, lecturer, "edit");
         faculty.setName(request.getParameter("name"));
         String message = FacultyDAO.addFaculty(dataManager, faculty);
-        request.setAttribute("message", message);
+        request.getSession().setAttribute("message", message);
     }
 
     public void getFacultiesAndDepts(HttpServletRequest request, HttpServletResponse httpresponse) throws IOException {
