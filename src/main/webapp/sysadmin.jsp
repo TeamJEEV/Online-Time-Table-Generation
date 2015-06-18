@@ -205,20 +205,21 @@ and open the template in the editor.
                         </div>
                     </div>
                 </div>
+                                                    
                 <!--Task panel--.................................................-->
 
                 <div id="task"  style="margin-left:2.5%;width:21%" >
                     <div class="panel panel-default">
                         <div class="panel-heading">
-                            <h3 class="panel-title"><i class="fa fa-clock-o fa-fw"></i> Tasks Panel</h3>
+                            <h3 id="panel_list" class="panel-title"><i class="fa fa-clock-o fa-fw"></i> Tasks Panel</h3>
                         </div>
                         <div class="panel-body">
-                            <div class="list-group">
-                                <c:forEach var="faculty" items="${sessionScope.facultyList}">
+                            <div class="list-group" id="panel_list_items">
+                              <!--  <c:forEach var="faculty" items="${sessionScope.faculties}">
                                 <a href="#" class="list-group-item">
                                     <i class="fa fa-fw fa-calendar"></i> ${faculty.getName()}
                                 </a>
-                                </c:forEach>
+                                </c:forEach>-->
                             </div>
                         </div>
                     </div>
@@ -516,15 +517,31 @@ and open the template in the editor.
                     function () {
                         $("#task").hide();
 
-                        $("#task_fac").click(function () {
-                            //    alert("FFFFF");"
+                        $("#task_fac").click(function () {                          
 
                             $.ajax({//only showed when result is displayed
                                 url: "TimeTableServlet",
                                 async: false,
-                                data: {"submit": "getFaculties"}
+                                data: {"submit": "loadFaculties"}
                             }).done(function (results) {
-                                alert("Done");
+                                var response = JSON.parse(results);
+                                var content = "";
+                                for (var i = 0; i < response.length; i++) {
+                                    
+                                    content += '<a href="#" class="list-group-item">' +
+                                                    '<i class="fa fa-fw fa-calendar"></i>' +  response[i].name +
+                                               '</a>';
+                                    for (var j = 0; j < response[i].departments.length; j++) {
+                                        content += '<a href="#" class="list-group-item">' +
+                                                    '<i class="fa fa-fw fa-calendar"></i>' +  response[i].departments[j].name +
+                                                    '</a>';
+                                    }
+                                }
+                                
+                                $("#panel_list").html("Faculties");
+                                $("#panel_list_items").html(content);
+                                
+                                alert(results);
 
                             });
                             $("#task").css({
