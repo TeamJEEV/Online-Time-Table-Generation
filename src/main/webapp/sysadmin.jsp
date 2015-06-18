@@ -27,7 +27,7 @@ and open the template in the editor.
     </head>
     <body>
         <%
-        //     class declarations
+            //     class declarations
             DataManager dataManager = new DataManager();
             dataManager.setDbUrl("jdbc:mysql://localhost:3306/timetable");
             dataManager.setUserName("root");
@@ -256,13 +256,13 @@ and open the template in the editor.
                                     <input name="username" type="text" class="form-control" required="required" placeholder="Username" aria-describedby="username-addon">
 
                                 </div >
-                                
+
                                 <div class="input-group form-group">
                                     <span class="input-group-addon" id="username-addon">Email   </span>
                                     <input name="email" type="email" class="form-control" required="required" placeholder="Email" aria-describedby="emailname-addon">
 
                                 </div >
-                                
+
                                 <div class="input-group form-group">
                                     <span class="input-group-addon" id="password-addon">password</span>
                                     <input name="password" type="password" class="form-control" required="required" placeholder="Password" aria-describedby="password-addon">
@@ -353,18 +353,6 @@ and open the template in the editor.
                                        readonly="true" placeholder="Email" aria-describedby="email-addon" id="deanemail">
                             </div>
 
-                            <!-- div class="input-group form-group">
-                                <span class="input-group-addon" id="department-addon">Department</span>
-                       
-                                        <button  data-toggle="modal" data-target="#adddepartmentModal" class="btn btn-primary form-control" type="button">
-                                            <span class="glyphicon glyphicon-plus"></span>
-                                             <span >Add Department</span>
-                                        </button>
-                                   
-                            </div -->
-
-
-
                         </div>
 
                         <div class="modal-footer">
@@ -402,10 +390,9 @@ and open the template in the editor.
 
                                 <select class="form-control" name="depart-fac" id="depart-fac" placeholder="Select Faculty" required="required">
                                     <option value="" disabled="true">Select faculty</option>
-                                    <option value="1">FET</option>
-                                    <option value="2">Education</option> 
-                                    <option value="3">ART</option> 
-                                    <option value="4">SMS</option> 
+                                    <c:forEach var="faculty" items="${sessionScope.faculties}">
+                                        <option value="1">${faculty.getName()}</option>
+                                    </c:forEach>
                                 </select>
                             </div>
                             <div class="input-group form-group">
@@ -448,66 +435,66 @@ and open the template in the editor.
 
 
         <script type="text/javascript">
-            var lecturerList = {lec: [{id: 1, name: "Proff Tanyi", email: "tanhyi@ubuea.cm"}, {id: 2, name: "Dr Nguti", email: "ngutii@ubuea.cm"},
-                    {id: 3, name: "Dr Akana", email: "akana@ubuea.cm"}, {id: 4, name: "Dr Tsafack", email: "tsafack@ubuea.cm"}]};
+            var response = "";
+            function loadLecturers() {
+                var request = $.ajax({
+                    url: "TimeTableServlet",
+                    data: {"submit": "getLecturers"},
+                    method: "POST"
+                });
+                request.done(function (msg) {
+//                                        alert(msg);
+                    response = JSON.parse(msg);
+                    var deanList = document.getElementById("dean");
+                    var hodList = document.getElementById("hod");
+
+
+                    for (var m = deanList.options.length - 1; m >= 0; m--) {
+                        deanList.options[m] = null;
+                    }
+                    for (var m = hodList.options.length - 1; m >= 0; m--)
+                        hodList.options[m] = null;
+
+                    deanList.options[0] = new Option("Select dean", "", true);
+                    deanList.options[0].disabled = true;
+                    hodList.options[0] = new Option("Select HOD", "", true);
+                    hodList.options[0].disabled = true;
+                    //Initailise list of HODs and Deans
+                    for (var i = 0; i < response.lec.length; i++) {
+                        hodList.options[i + 1] = new Option(response.lec[i].name, response.lec[i].id);
+                        deanList.options[i + 1] = new Option(response.lec[i].name, response.lec[i].id);
+                    }
+                });
+            }
+            ;
 
             $(document).ready(function () {
-
-
-                var deanList = document.getElementById("dean");
-                var hodList = document.getElementById("hod");
-
-                for (var m = deanList.options.length - 1; m >= 0; m--)
-                    deanList.options[m] = null;
-
-                for (var m = hodList.options.length - 1; m >= 0; m--)
-                    hodList.options[m] = null;
-
-                deanList.options[0] = new Option("Select dean", "", true);
-                deanList.options[0].disabled = true;
-                hodList.options[0] = new Option("Select HOD", "", true);
-                hodList.options[0].disabled = true;
-
-                //Initialise the list of Deans
-                for (var i = 0; i < lecturerList.lec.length; i++) {
-                    deanList.options[i + 1] = new Option(lecturerList.lec[i].name, lecturerList.lec[i].id);
-
-
-                }
-
-                //Initailise list of HODs
-                for (var i = 0; i < lecturerList.lec.length; i++) {
-                    hodList.options[i + 1] = new Option(lecturerList.lec[i].name, lecturerList.lec[i].id);
-
-                }
+                loadLecturers();
 
 
                 //This method respond to the submit event of the add department modal
                 $("#adddepartmentModal").submit(function (event) {
                     alert("Handler for .submit() called.");
-
                     $(this).modal('toggle');
                     event.preventDefault();
-                });
-
+                }
+                );
                 //This method respond to the submit event of the add faculty method
                 $("#addfacultyModal").submit(function (event) {
                     alert("Handler for .submit() called.");
-
                     $(this).modal('toggle');
                     event.preventDefault();
                 });
-
-
-            });
+            }
+            );
             //This function set the Selected Dean Email
             function setDeanEmail(SelectedIndex) {
-                $("#deanemail").val(lecturerList.lec[SelectedIndex - 1].email);
+                $("#deanemail").val(response.lec[SelectedIndex - 1].email);
             }
 
             //This fucntion set the selected HOD Email
             function setHodEmail(SelectedIndex) {
-                $("#hodemail").val(lecturerList.lec[SelectedIndex - 1].email);
+                $("#hodemail").val(response.lec[SelectedIndex - 1].email);
             }
 
 
@@ -549,11 +536,7 @@ and open the template in the editor.
 
                             });
                             $("#task").show("slow");
-
                         });
-
-
-
                         $("#task").hide("slow");
 
                         $("#task_lec").click(function () {
@@ -574,7 +557,6 @@ and open the template in the editor.
 
                             });
                             $("#task").show("slow");
-
                         });
 
                         $("#task").hide("slow");
@@ -589,9 +571,7 @@ and open the template in the editor.
 
                             });
                             $("#task").show("slow");
-
                         });
-
                         $("#task").hide("slow");
                         
                     });
@@ -599,24 +579,3 @@ and open the template in the editor.
 
     </body>
 </html>
-<!--var response = JSON.parse(results);
-                            var contents = '<div id="task"  style="margin-left:2.5%;width:21%" >' +
-                            '< div class = "panel panel-default" >' +
-                            '< div class = "panel-heading" >' +
-                            '< h3 class = "panel-title" > < i class = "fa fa-clock-o fa-fw" > < /i> Tasks Panel</h3 >' +
-                            '< /div>';
-                            for (var i = 0, i < response.length; i++
-                                    ) {
-
-
-                    contents += ' <div class = "panel-body" >' +
-                            '< div class = "list-group" >' +
-                            '< a href = "#" class = "list-group-item" >' +
-                            '< span class = "badge" >' + response[i].name + '< /span>' +
-                            '< i class = "fa fa-fw fa-calendar" > < /i> Calendar updated' +
-                            '< /a>' +
-                            '< /div>' +
-                            '< /div>'
-                    }
-                    content += '< /div>'
-                            '< /div>'-->

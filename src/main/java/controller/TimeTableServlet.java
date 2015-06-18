@@ -160,10 +160,10 @@ public class TimeTableServlet extends HttpServlet {
                     return;
 //                    break;
                 case "getLecturers":
-                    populateLectList(request);
+                    getLecturers(request, response);
                     return;
                 case "getHalls":
-                    populateClassList(request);
+                    getLecturers(request, response);
                     return;
             }
 //            System.out.println(request.getRequestURI());
@@ -236,20 +236,31 @@ public class TimeTableServlet extends HttpServlet {
         List<Classroom> classes = ClassroomDAO.getClasses(dataManager);
         JSONArray halls = new JSONArray();
         for (Classroom classroom : classes) {
-            halls.add(classroom.getName());
+            JSONObject de = new JSONObject();
+            de.put("id", classroom.getId());
+            de.put("name", classroom.getName());
+            halls.add(de);
         }
         ObjectMapper mapper = new ObjectMapper();
-        mapper.writeValue(response.getOutputStream(), response);
+        mapper.writeValue(response.getOutputStream(), halls);
     }
 
     public void getLecturers(HttpServletRequest request, HttpServletResponse response) throws IOException {
         List<Lecturer> lecturers = LecturerDAO.getLecturers(dataManager);
+        JSONObject obj = new JSONObject();
         JSONArray profs = new JSONArray();
+        
         for (Lecturer lecturer : lecturers) {
-            profs.add(lecturer);
+            JSONObject de = new JSONObject();
+            de.put("id", lecturer.getId());
+            de.put("name", lecturer.getName());
+            de.put("email", lecturer.getEmail());
+            
+            profs.add(de);
         }
+        obj.put("lec", profs);
         ObjectMapper mapper = new ObjectMapper();
-        mapper.writeValue(response.getOutputStream(), response);
+        mapper.writeValue(response.getOutputStream(), obj);
     }
 
     public void addFaculty(HttpServletRequest request) {
@@ -292,15 +303,15 @@ public class TimeTableServlet extends HttpServlet {
         mapper.writeValue(httpresponse.getOutputStream(), response);
     }
 
-    public void populateLectList(HttpServletRequest request) {
-        List<Lecturer> lecturers = LecturerDAO.getLecturers(dataManager);
-        request.getSession().setAttribute("lecturerList", lecturers);
-    }
-
-    public void populateClassList(HttpServletRequest request) {
-        List<Classroom> classrooms = ClassroomDAO.getClasses(dataManager);
-        request.getSession().setAttribute("hallList", classrooms);
-    }
+//    public void populateLectList(HttpServletRequest request) {
+//        List<Lecturer> lecturers = LecturerDAO.getLecturers(dataManager);
+//        request.getSession().setAttribute("lecturerList", lecturers);
+//    }
+//
+//    public void populateClassList(HttpServletRequest request) {
+//        List<Classroom> classrooms = ClassroomDAO.getClasses(dataManager);
+//        request.getSession().setAttribute("hallList", classrooms);
+//    }
 
     public void populateFacultyList(HttpServletRequest request) {
         List<Faculty> faculties = FacultyDAO.getFaculties(dataManager);
