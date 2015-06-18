@@ -167,7 +167,7 @@ and open the template in the editor.
                     method: "POST"
                 });
                 request.done(function (msg) {
-                   //                   alert(msg);
+                   
                     var response = JSON.parse(msg);
 
                     var contents = '<ul class="sidebar-nav">' +
@@ -193,7 +193,7 @@ and open the template in the editor.
                     contents += '</ul>';
 
                     
-                    $("#accordion").html(contents);alert(contents);
+                    $("#accordion").html(contents);
                 });
 
                 request.fail(function (jqXHR, textStatus) {
