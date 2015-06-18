@@ -67,7 +67,8 @@ public class DepartmentDAO {
                         Department department = new Department();
                         department.setId(Integer.parseInt(rs.getString("id")));
                         department.setName(rs.getString("name"));
-                        department.setHOD(Integer.parseInt(rs.getString("HOD_ID")));
+                        department.setHOD(Integer.parseInt(rs.getString("hod_id")));
+                        department.setFaculty(Integer.parseInt(rs.getString("faculty_id")));
                         departments.add(department);
                     }
                 } finally {

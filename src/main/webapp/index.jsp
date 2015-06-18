@@ -52,7 +52,7 @@ and open the template in the editor.
             <div class="pagecontent_left">
                 <div class="panel-group" id="accordion">
 
-
+<!--
                     <ul class="sidebar-nav">
                         <li class="sidebar-brand">
                             <span >Faculties  </span>
@@ -63,9 +63,9 @@ and open the template in the editor.
                                     ${faculty.getName()} <i class="glyphicon glyphicon-menu-down glyphicon-align-right"></i></a>
                             </li>
 
-                        </c:forEach>
+                        </c:forEach> 
 
-                    </ul>
+                    </ul> -->
                 </div>
             </div>
 
@@ -154,21 +154,20 @@ and open the template in the editor.
         <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>-->
         <script>
             // This script will be executed when the page loads
-
             $(document).ready(function () {
                 loadFaculties();
             });
 
             //This function is used to load the faculties and departement
             function loadFaculties() {
-//                alert("calling load fac");
+                alert("calling load fac");
                 var request = $.ajax({
                     url: "TimeTableServlet",
                     data: {"submit": "loadFaculties"},
                     method: "POST"
                 });
                 request.done(function (msg) {
-                    //                    alert(msg);
+                   //                   alert(msg);
                     var response = JSON.parse(msg);
 
                     var contents = '<ul class="sidebar-nav">' +
@@ -178,14 +177,14 @@ and open the template in the editor.
 
                     for (var i = 0; i < response.length; i++) {
                         contents += '<li class="panel panel-default">' +
-                                '<a href="#FET" data-toggle="collapse" data-parent="#accordion">' +
+                                '<a href="#' + response[i].name + '" data-toggle="collapse" data-parent="#accordion">' +
                                 response[i].name + ' <i class="glyphicon glyphicon-menu-down glyphicon-align-right"></i></a>' +
                                 '<ul id="' + response[i].name + '" class="panel-collapse collapse inner-list">';
 
                         for (var j = 0; j < response[i].departments.length; j++) {
                             contents += '<li>' +
-                                    '<a href="#">' + response[i].departments[j].name + '</a>' +
-                                    '</li>';
+                                            '<a href="#">' + response[i].departments[j].name + '</a>' +
+                                        '</li>';
                         }
 
                         contents += '</ul>' +
@@ -193,8 +192,8 @@ and open the template in the editor.
                     }
                     contents += '</ul>';
 
-                    //alert(contents);
-                    $("#accordion").html(contents);
+                    
+                    $("#accordion").html(contents);alert(contents);
                 });
 
                 request.fail(function (jqXHR, textStatus) {

@@ -273,10 +273,8 @@ public class TimeTableServlet extends HttpServlet {
     public void getFacultiesAndDepts(HttpServletRequest request, HttpServletResponse httpresponse) throws IOException {
         List<Faculty> faculties = FacultyDAO.getFaculties(dataManager);
         List<Department> departments = DepartmentDAO.getDepartments(dataManager);
-        request.setAttribute("facultyList", faculties);
-        request.setAttribute("departmentList", departments);
-        HttpSession session = request.getSession();
-        session.setAttribute("faculties", faculties);
+//        HttpSession session = request.getSession();
+//        session.setAttribute("faculties", faculties);
         JSONArray response = new JSONArray();
 
         for (Faculty faculty : faculties) {
