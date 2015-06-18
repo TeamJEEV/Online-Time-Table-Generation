@@ -223,6 +223,7 @@ public class TimeTableServlet extends HttpServlet {
         lecturer.setUserName(request.getParameter("username"));
         lecturer.setPassword(request.getParameter("password"));
         lecturer.setLectureRole(request.getParameter("role"));
+        lecturer.setEmail(request.getParameter("email"));
         String message = LecturerDAO.addEditLecturer(dataManager, lecturer, "add");
 //        response.setContentType("text/html;charset=UTF-8");
 //        try (PrintWriter out = response.getWriter()) {
