@@ -152,9 +152,9 @@ public class TimeTableServlet extends HttpServlet {
                     addFaculty(request);
                     url = base + "sysadmin.jsp";
                     break;
-                case "loadFaculties":
+                case "loadFaculties": //gets Faculties and correspondind departments from request 
                     getFacultiesAndDepts(request, response);
-                    Enumeration<String> attributeNames = request.getAttributeNames();
+                    Enumeration<String> attributeNames = request.getAttributeNames(); //gets attributes available in request
                     break;
                 case "getFaculties":
                     populateFacultyList(request);
@@ -281,33 +281,35 @@ public class TimeTableServlet extends HttpServlet {
         String message = FacultyDAO.addFaculty(dataManager, faculty);
         request.getSession().setAttribute("message", message);
     }
-
+/**
+ * Adds to request Faculties and corresponding departments in well formed JSON syntax 
+ */
     public void getFacultiesAndDepts(HttpServletRequest request, HttpServletResponse httpresponse) throws IOException {
         List<Faculty> faculties = FacultyDAO.getFaculties(dataManager);
         List<Department> departments = DepartmentDAO.getDepartments(dataManager);
 //        HttpSession session = request.getSession();
 //        session.setAttribute("faculties", faculties);
-        JSONArray response = new JSONArray();
+        JSONArray response = new JSONArray();// This outputs as the ordered json list
 
-        for (Faculty faculty : faculties) {
+        for (Faculty faculty : faculties) { //Iterate through the faulty list retriving each faculty for output in JSON Format
             JSONObject fac = new JSONObject();
-            fac.put("name", faculty.getName());
-            fac.put("id", faculty.getId());
+            fac.put("name", faculty.getName());//adds key value pair to the list
+            fac.put("id", faculty.getId());//adds key value pair to the list
             JSONArray depart = new JSONArray();
 
             for (Department department : departments) {
-                if (faculty.getId() == department.getFaculty()) {
+                if (faculty.getId() == department.getFaculty()) {//if faculty id 'Primary key' and department's foreign key match
                     JSONObject de = new JSONObject();
                     de.put("id", department.getId());
-                    de.put("name", department.getName());
+                    de.put("name", department.getName()); 
 
-                    depart.add(de);
+                    depart.add(de);//Nests department and names in JSON text format
 
                 }
             }
 
-            fac.put("departments", depart);
-            response.add(fac);
+            fac.put("departments", depart); //Nests faculties and departments in JSON text format
+            response.add(fac); //Add "faculties->departments" to response
         }
 
 //        System.out.print(response.toString());

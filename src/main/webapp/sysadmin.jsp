@@ -437,7 +437,7 @@ and open the template in the editor.
                 $.ajax({//only showed when result is displayed
                     url: "TimeTableServlet",
                     async: false,
-                    data: {"submit": "loadFaculties"}
+                    data: {"submit": "loadFaculties"} //gets request
                 }).done(function (results) {
                     var response = JSON.parse(results);
                     var facultyList = document.getElementById("depart-fac");
@@ -450,7 +450,8 @@ and open the template in the editor.
                     for (var i = 0; i < response.length; i++)
                         facultyList.options[i + 1] = new Option(response[i].name, response[i].id);
 
-                });
+                }//end of result function
+                        );
             }
 
             function loadLecturers() {
@@ -501,15 +502,15 @@ and open the template in the editor.
 
             $(document).ready(
                     function () {
-                        $("#task").hide();
-                        $("#task_fac").click(function () {
+                        $("#task").hide();//hide task panel
+                        $("#task_fac").click(function () { //when detail is clicked on faculty panel 
 
                             $.ajax({//only showed when result is displayed
                                 url: "TimeTableServlet",
                                 async: false,
                                 data: {"submit": "loadFaculties"}
                             }).done(function (results) {
-                                var response = JSON.parse(results);
+                                var response = JSON.parse(results);//parse request for JSON list
                                 var content = "";
                                 for (var i = 0; i < response.length; i++) {
 
