@@ -109,12 +109,10 @@ and open the template in the editor.
 
 
 
-<<<<<<< Updated upstream
-                                    <li class="active"><a href="#monday" id="day1" data-toggle="tab">Monday</a></li>
-=======
+
                                     <li class="active"><a href="#" action="TimeTableServlet" 
                                                           type="submit" id="day1" data-toggle="tab">Monday</a></li>
->>>>>>> Stashed changes
+
                                     <li><a href="#tuesday" id="day2" data-toggle="tab">Tuesday</a></li>
                                     <li><a href="#wednesday" id="day3" data-toggle="tab">Wednesday</a></li>
                                     <li><a href="#thursday" id="day4" data-toggle="tab">Thursday</a></li>
@@ -303,7 +301,7 @@ and open the template in the editor.
                         </div>
 
                     </div>
-<<<<<<< Updated upstream
+
 
                     <!-- Modal 
                     <!-- Add lecturer modal -->
@@ -518,7 +516,7 @@ and open the template in the editor.
 
 
 
->>>>>>> Stashed changes
+
                     <!-- Jquery CDN which will be incoporated when hosting the app-->
 
                     <!--  <script src="//code.jquery.com/jquery-1.11.3.min.js"></script>
