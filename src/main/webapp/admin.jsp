@@ -59,7 +59,7 @@ and open the template in the editor.
                     </li>
 
                     <li >
-                        <a href="#" >My Schedule
+                        <a href="#"  id="myschedule">My Schedule
                             <i class="glyphicon glyphicon-menu-right glyphicon-align-right"></i></a>
                     </li>
 
@@ -79,7 +79,7 @@ and open the template in the editor.
                     </li>
 
                     <li >
-                        <a href="#" >Free List
+                        <a href="#" id="freelist">Free List
                             <i class="glyphicon glyphicon-menu-right glyphicon-align-right"></i></a>
                     </li>
 
@@ -102,6 +102,7 @@ and open the template in the editor.
                     <div class="row">
                         <div class="col-md-12">
                             <h1></h1>
+                            <div id="freelistdisplay">
                                          
                                                 <ul class="nav nav-tabs">
                                                     <!----tab interface-->
@@ -213,10 +214,11 @@ and open the template in the editor.
 
                                     </table>
                                 </div><!-- @end #hello -->
-                                
+                                                </div>
+                            </div>
                                 <!-- start of personal schedule -->
                                 
-                            <div class="panel panel-default" style="width: 85%">
+                            <div class="panel panel-default" style="width: 85%" id="myscheduledisplay">
                                 <div class="panel-heading">
                                     <h1 class="panel-title" style="text-align: center">My Schedule</h1>
                                 </div>
@@ -288,7 +290,7 @@ and open the template in the editor.
 
                             
                         </div>
-                    </div>
+                    
                     <div class="push"></div>
                     <footer class="footer">
                         <p>&COPY;Team5 2015</p>
@@ -386,6 +388,23 @@ and open the template in the editor.
                         //                                $("#panel_list_items").html(content);
 
                     });
+                    
+                    //Initialising the page content
+                      $("#freelistdisplay").hide();
+                      $("#myscheduledisplay").show("slow");
+                    
+                    $("#myschedule").click(function () { //when tab is clicked
+                       $("#freelistdisplay").hide("slow");
+                       $("#myscheduledisplay").show("slow");
+                       
+                    });
+                    $("#freelist").click(function () { //when tab is clicked
+                       $("#myscheduledisplay").hide("slow");
+                       $("#freelistdisplay").show("slow");
+                       
+                                                      
+                    });
+                    
                 });//end ready
 
             </script>
