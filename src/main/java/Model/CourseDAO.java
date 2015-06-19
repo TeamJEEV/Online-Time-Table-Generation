@@ -96,29 +96,65 @@ public class CourseDAO {
         }
         return courses;
     }
-    
-    public int countCourse(DataManager dataManager){
-         Connection connection = dataManager.getConnection();
-         Integer count=0;
-         if (connection != null){
-             try {
-                 
-              Statement statement = connection.createStatement();
-              String query = "SELECT Count(*) as COUNT FROM course";
-             try{
-                 ResultSet rs;
-                 rs= statement.executeQuery(query);
-                 rs.next();
-                 count= rs.getInt(1);
-                 
-             }catch (SQLException e ) {
-                 e.printStackTrace();
-             }
-         } catch (SQLException e){
-                 } //end catch block
-        
-    } //end of if loop
-  return count;
+
+    /**
+     * Gets the courses of a given department
+     *
+     * @param dataManager
+     * @param deptId
+     * @return list of courses
+     */
+    public static List<Course> getCourseByDepartment(DataManager dataManager, int deptId) {
+        Connection connection = dataManager.getConnection();
+        if (connection != null) {
+            try {
+                List<Course> courses = new ArrayList<>();
+                Statement statement = connection.createStatement();
+                String query = "SELECT code, title, semester FROM courses INNER JOIN"
+                        + " department_has_courses ON courses.code = department.courses_code";
+                try {
+                    ResultSet resultSet = statement.executeQuery(query);
+                    while (resultSet.next()) {
+                        Course course = new Course();
+                        course.setId(resultSet.getString("code"));
+                        course.setName(resultSet.getString("title"));
+                        course.setSemester(Integer.parseInt(resultSet.getString("semester")));
+                        courses.add(course);
+                    }
+                } catch (SQLException e) {
+                    Logger.getGlobal().log(Level.INFO, "Could not get courses");
+                }//end try catch
+                finally {
+                    statement.close();
+                }
+            } catch (SQLException e) {
+            }
+        }
+        return null;
+    }
+
+    public int countCourse(DataManager dataManager) {
+        Connection connection = dataManager.getConnection();
+        Integer count = 0;
+        if (connection != null) {
+            try {
+
+                Statement statement = connection.createStatement();
+                String query = "SELECT Count(*) as COUNT FROM course";
+                try {
+                    ResultSet rs;
+                    rs = statement.executeQuery(query);
+                    rs.next();
+                    count = rs.getInt(1);
+
+                } catch (SQLException e) {
+                    e.printStackTrace();
+                }
+            } catch (SQLException e) {
+            } //end catch block
+
+        } //end of if loop
+        return count;
 
     }
 

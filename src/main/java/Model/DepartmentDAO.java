@@ -40,7 +40,7 @@ public class DepartmentDAO {
                 try {
                     statement.executeUpdate(query);
                 } catch (SQLException e) {
-                    Logger.getGlobal().log(Level.WARNING,e.getMessage());
+                    Logger.getGlobal().log(Level.WARNING, e.getMessage());
                 } finally {
                     statement.close();
                 }
@@ -93,6 +93,8 @@ public class DepartmentDAO {
                     department.setId(Integer.parseInt(rs.getString("id")));
                     department.setName(rs.getString("name"));
                     department.setHOD(Integer.parseInt(rs.getString("HOD_ID")));
+                } catch (SQLException e) {
+                    Logger.getGlobal().log(Level.SEVERE, e.getMessage());
                 } finally {
                     statement.close();
                 }
@@ -119,6 +121,8 @@ public class DepartmentDAO {
                         department.setHOD(Integer.parseInt(rs.getString("HOD_ID")));
                         departments.add(department);
                     }
+                } catch (SQLException e) {
+                    Logger.getGlobal().log(Level.SEVERE, e.getMessage());
                 } finally {
                     statement.close();
                 }
@@ -128,30 +132,57 @@ public class DepartmentDAO {
         }
         return departments;
     }
-    public static int countDepartment(DataManager dataManager){
-         Connection connection = dataManager.getConnection();
-         Integer count=0;
-         if (connection != null){
-             try {
-                 
-              Statement statement = connection.createStatement();
-              String query = "SELECT Count(*) as COUNT FROM department";
-             try{
-                 ResultSet rs;
-                 rs= statement.executeQuery(query);
-                 rs.next();
-                 count= rs.getInt(1);
-                 
-             }catch (SQLException e ) {
-                 e.printStackTrace();
-             }
-         } catch (SQLException e){
-                 } //end catch block
-        
-    } //end of if loop
-  return count;
+
+    /**
+     * Returns the department id of a department
+     * @param dataManager
+     * @param hodId
+     * @return
+     */
+    public static int getDepartmentIdByHOD(DataManager dataManager, int hodId) {
+        Connection connection = dataManager.getConnection();
+        if (connection != null) {
+            try {
+                Statement statement = connection.createStatement();
+                String query = "SELECT id FROM department where hod_id = " + hodId;
+                try {
+                    ResultSet resultSet = statement.executeQuery(query);
+                    resultSet.next();
+                    return Integer.parseInt(resultSet.getString("id"));
+                } catch (SQLException e) {
+                    Logger.getGlobal().log(Level.SEVERE, e.getMessage());
+                } finally {
+                    statement.close();
+                }
+            } catch (SQLException e) {
+                Logger.getGlobal().log(Level.SEVERE, e.getMessage());
+            }
+        }
+        return -1;
+    }
+
+    public static int countDepartment(DataManager dataManager) {
+        Connection connection = dataManager.getConnection();
+        Integer count = 0;
+        if (connection != null) {
+            try {
+
+                Statement statement = connection.createStatement();
+                String query = "SELECT Count(*) as COUNT FROM department";
+                try {
+                    ResultSet rs;
+                    rs = statement.executeQuery(query);
+                    rs.next();
+                    count = rs.getInt(1);
+
+                } catch (SQLException e) {
+                    e.printStackTrace();
+                }
+            } catch (SQLException e) {
+            } //end catch block
+
+        } //end of if loop
+        return count;
 
     }
-    
-    
 }
