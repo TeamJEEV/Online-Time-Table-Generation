@@ -202,7 +202,7 @@ public class LecturerDAO {
         return lecturers;
     }
 
-    public List<Lecturer> searchLecturerByName(DataManager dataManager, String name) {
+    public List<Lecturer> getLecturerIdByRole(DataManager dataManager, String name) {
         Connection connection = dataManager.getConnection();
         List<Lecturer> faculties = new ArrayList<>();
         if (connection != null) {

@@ -6,16 +6,19 @@
 package controller;
 
 import Bean.Classroom;
+import Bean.Course;
 import Bean.Department;
 import Bean.Faculty;
 import Bean.Lecturer;
 import Model.ClassroomDAO;
+import Model.CourseDAO;
 import Model.DepartmentDAO;
 import Model.FacultyDAO;
 import Utilities.DataManager;
 import Model.LecturerDAO;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import java.io.IOException;
+import java.sql.SQLException;
 import java.util.Enumeration;
 import java.util.List;
 import java.util.logging.Level;
@@ -202,7 +205,7 @@ public class TimeTableServlet extends HttpServlet {
         } else if ("Sysadmin".equals(lecturer.getLectureRole())) {
             url = base + "sysadmin.jsp";
             HttpSession session = request.getSession();
-            
+
             session.setAttribute("halls", ClassroomDAO.countHalls(dataManager));
             session.setAttribute("lecturers", LecturerDAO.countLecturer(dataManager));
         } else {
@@ -213,7 +216,7 @@ public class TimeTableServlet extends HttpServlet {
             request.getSession().setAttribute("user", userName);
             request.getSession().setAttribute("id", lecturer.getId());
             request.getSession().setAttribute("role", lecturer.getLectureRole());
-             request.getSession().setAttribute("email", lecturer.getEmail());
+            request.getSession().setAttribute("email", lecturer.getEmail());
         }
 
         return url;
@@ -265,7 +268,7 @@ public class TimeTableServlet extends HttpServlet {
         mapper.writeValue(response.getOutputStream(), obj);
     }
 
-    public void getLecturers(HttpServletRequest request, HttpServletResponse response) throws IOException {
+    public JSONObject getLecturers(HttpServletRequest request, HttpServletResponse response) throws IOException {
         List<Lecturer> lecturers = LecturerDAO.getLecturers(dataManager);
         JSONObject obj = new JSONObject();
         JSONArray profs = new JSONArray();
@@ -279,6 +282,7 @@ public class TimeTableServlet extends HttpServlet {
         obj.put("lec", profs);
         ObjectMapper mapper = new ObjectMapper();
         mapper.writeValue(response.getOutputStream(), obj);
+        return obj;
     }
 
     public void addFaculty(HttpServletRequest request) {
@@ -290,9 +294,11 @@ public class TimeTableServlet extends HttpServlet {
         String message = FacultyDAO.addFaculty(dataManager, faculty);
         request.getSession().setAttribute("message", message);
     }
-/**
- * Adds to request Faculties and corresponding departments in well formed JSON syntax 
- */
+
+    /**
+     * Adds to request Faculties and corresponding departments in well formed
+     * JSON syntax
+     */
     public void getFacultiesAndDepts(HttpServletRequest request, HttpServletResponse httpresponse) throws IOException {
         List<Faculty> faculties = FacultyDAO.getFaculties(dataManager);
         List<Department> departments = DepartmentDAO.getDepartments(dataManager);
@@ -310,7 +316,7 @@ public class TimeTableServlet extends HttpServlet {
                 if (faculty.getId() == department.getFaculty()) {//if faculty id 'Primary key' and department's foreign key match
                     JSONObject de = new JSONObject();
                     de.put("id", department.getId());
-                    de.put("name", department.getName()); 
+                    de.put("name", department.getName());
 
                     depart.add(de);//Nests department and names in JSON text format
 
@@ -330,7 +336,7 @@ public class TimeTableServlet extends HttpServlet {
     /**
      * Add to request lecturer names and corresponding hours in well formed JSON syntax
      */
-    public void getLecturesHours(HttpServletRequest request, HttpServletResponse response) throws IOException{
+    public void getLecturesHours(HttpServletRequest request, HttpServletResponse response, int day) throws IOException, SQLException{
         List<Lecturer> lecturers= LecturerDAO.getDistinctLecturers(dataManager, day);
         JSONObject obj = new JSONObject();
         JSONArray profs = new JSONArray();
@@ -387,7 +393,45 @@ public class TimeTableServlet extends HttpServlet {
         request.getSession().setAttribute("message", message);
     }
 
-    public void getCourses(HttpServletRequest request) {
+    /**
+     * Called when a Lecturer with the HOD role wants to schedule a course
+     *
+     * @param request
+     * @param response
+     * @throws java.io.IOException
+     */
+    public void hodSchedule(HttpServletRequest request, HttpServletResponse response) throws IOException {
+//        if (request.getSession().getAttribute("role").equals("HOD")) {
+            JSONObject lectAndCourses = new JSONObject();
+//            object containing a jsonarray of lecturer(id, name)
+            JSONObject lecturers = getLecturers(request, response);
+            JSONObject jsonObjCourses = new JSONObject();
+            List<Course> courses = CourseDAO.getCourseByDepartment(dataManager,
+                    DepartmentDAO.getDepartmentIdByHOD(dataManager,
+                            Integer.parseInt((String) request.getParameter("id"))));
+            JSONArray jsonCourses = new JSONArray();
+            for (Course course : courses) {
+                JSONObject jsonCourse = new JSONObject();
+                jsonCourse.put("id", course.getId());
+                jsonCourse.put("name", course.getName());
+                jsonCourses.add(jsonCourse);
+            }
+//            object containing an jsonarray of course(id, name)
+            jsonObjCourses.put("courses", jsonCourses);
+//            JSONObject conataining json two objects: object of courses and object of lecturers
+            lectAndCourses.put("lecturers", lecturers);
+            lectAndCourses.put("courses", jsonObjCourses);
+            System.out.println(lectAndCourses);
+//        }
+    }
+
+    /**
+     * Called when a Lecturer with the Dean role wants to schedule a Course
+     *
+     * @param request
+     * @param response
+     */
+    public void deanSchedule(HttpServletRequest request, HttpServletResponse response) {
         if (request.getSession().getAttribute("role").equals("Dean")) {
             int departments = DepartmentDAO.countDepartment(dataManager);
 
