@@ -101,7 +101,7 @@ and open the template in the editor.
             <div class="pagecontent_right">
                 <div class="container-fluid">
 
-                    <div class="row" style="background-color: white">
+                    <div class="row" style="background-color: white" id="row">
                         <div class="col-md-12">
                             <h1></h1>
                             <div id="freelistdisplay">
@@ -298,8 +298,8 @@ and open the template in the editor.
 
                             <div id="courselist" class="alert-info">
                                 
-                                <h1>Courses &nbsp;<button>Add</button></h1>
-                            <div class="row">
+                                <h1>Courses &nbsp;<button class="btn btn-default">Add</button></h1>
+                                <div class="row">
                                 <!--faculty panel..........................--> 
                                 <div class="col-lg-3 col-md-6">
                                     <div class="panel panel-primary">
@@ -602,19 +602,22 @@ and open the template in the editor.
                                 $("#courselist").hide("slow");
                                 $("#freelistdisplay").hide("slow");
                                 $("#myscheduledisplay").show("slow");
+                                $("#row").css({"background-color":"white"});
 
                             });
                             $("#freelist").click(function () { //when tab is clicked
                                 $("#courselist").hide("slow");
                                 $("#myscheduledisplay").hide("slow");
                                 $("#freelistdisplay").show("slow");
+                                $("#row").css({"background-color":"white"});
 
                             });
                             
                             $("#courses").click(function () { //when tab is clicked
                                 $("#myscheduledisplay").hide("slow");
-                                $("#freelistdisplay").hide("slow");
+                                $("#freelistdisplay").hide();
                                 $("#courselist").show("slow");
+                                $("#row").css({"background-color":"transparent"});
 
                             });
                             
