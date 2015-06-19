@@ -16,7 +16,6 @@ import Utilities.DataManager;
 import Model.LecturerDAO;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import java.io.IOException;
-import java.util.ArrayList;
 import java.util.Enumeration;
 import java.util.List;
 import java.util.logging.Level;
@@ -200,9 +199,6 @@ public class TimeTableServlet extends HttpServlet {
                     + "Password: {1} not found", new Object[]{userName, password});
         } else if (lecturer.getLectureRole().equals("HOD") || lecturer.getLectureRole().equals("Dean")) {
             url = base + "admin.jsp";
-            request.getSession().setAttribute("user", userName);
-            request.getSession().setAttribute("id", lecturer.getId());
-            request.getSession().setAttribute("role", lecturer.getLectureRole());
         } else if ("Sysadmin".equals(lecturer.getLectureRole())) {
             url = base + "sysadmin.jsp";
             HttpSession session = request.getSession();
@@ -211,8 +207,13 @@ public class TimeTableServlet extends HttpServlet {
             session.setAttribute("lecturers", LecturerDAO.countLecturer(dataManager));
         } else {
             url = base + "lecturer.jsp";
-            request.getSession().setAttribute("user", userName);
         }
+        if (lecturer != null) {
+            request.getSession().setAttribute("user", userName);
+            request.getSession().setAttribute("id", lecturer.getId());
+            request.getSession().setAttribute("role", lecturer.getLectureRole());
+        }
+
         return url;
     }
 
@@ -327,14 +328,13 @@ public class TimeTableServlet extends HttpServlet {
 //        List<Classroom> classrooms = ClassroomDAO.getClasses(dataManager);
 //        request.getSession().setAttribute("hallList", classrooms);
 //    }
-
     public void populateFacultyList(HttpServletRequest request) {
         List<Faculty> faculties = FacultyDAO.getFaculties(dataManager);
         request.getSession().setAttribute("facultyList", faculties);
     }
 
     private void getLectsForDropDown(HttpServletRequest request, HttpServletResponse response) throws IOException {
-         List<Lecturer> lecturers = LecturerDAO.getLectsForDrop(dataManager);
+        List<Lecturer> lecturers = LecturerDAO.getLectsForDrop(dataManager);
         JSONObject obj = new JSONObject();
         JSONArray profs = new JSONArray();
         for (Lecturer lecturer : lecturers) {
@@ -355,8 +355,15 @@ public class TimeTableServlet extends HttpServlet {
         department.setHOD(Integer.parseInt(request.getParameter("hod")));
         department.setName(request.getParameter("dept"));
         LecturerDAO.setHod(dataManager, Integer.parseInt(request.getParameter("hod")));
-        
+
         String message = DepartmentDAO.addDepartment(dataManager, department);
         request.getSession().setAttribute("message", message);
+    }
+
+    public void getCourses(HttpServletRequest request) {
+        if (request.getSession().getAttribute("role").equals("Dean")) {
+            int departments = DepartmentDAO.countDepartment(dataManager);
+
+        }
     }
 }

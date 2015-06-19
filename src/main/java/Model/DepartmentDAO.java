@@ -128,7 +128,7 @@ public class DepartmentDAO {
         }
         return departments;
     }
-    public int countDepartment(DataManager dataManager){
+    public static int countDepartment(DataManager dataManager){
          Connection connection = dataManager.getConnection();
          Integer count=0;
          if (connection != null){
