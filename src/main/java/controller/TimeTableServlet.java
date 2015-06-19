@@ -117,68 +117,77 @@ public class TimeTableServlet extends HttpServlet {
         Enumeration<String> parameterNames = request.getParameterNames();
         String action = request.getParameter("submit");
         if (action != null) {
-            switch (action) {
-                case "loginPage":
-                    url = base + "login.jsp";
-                    break;
-                case "login":
-                    url = login(request, url);
-                    break;
-                case "logout":
-                    logOut(request);
-                    break;
-                case "addLect"://Add Lecturer
-                    if (request.getSession().getAttribute("user") == null) {
-                        // Not logged in. Redirect to login page.
-                        response.sendRedirect("index.jsp");
+            try {
+                switch (action) {
+                    case "loginPage":
+                        url = base + "login.jsp";
+                        break;
+                    case "login":
+                        url = login(request, url);
+                        break;
+                    case "logout":
+                        logOut(request);
+                        break;
+                    case "addLect"://Add Lecturer
+                        if (request.getSession().getAttribute("user") == null) {
+                            // Not logged in. Redirect to login page.
+                            response.sendRedirect("index.jsp");
+                            return;
+                        }
+                        addLecturer(request, response);
+                        url = base + "sysadmin.jsp";
+                        break;
+                    case "addhall":
+                        if (request.getSession().getAttribute("user") == null) {
+                            // Not logged in. Redirect to login page.
+                            response.sendRedirect("index.jsp");
+                            return;
+                        }
+                        addHall(request);
+                        url = base + "sysadmin.jsp";
+                        break;
+                    case "addFac":
+                        if (request.getSession().getAttribute("user") == null) {
+                            // Not logged in. Redirect to login page.
+                            response.sendRedirect("index.jsp");
+                            return;
+                        }
+                        addFaculty(request);
+                        url = base + "sysadmin.jsp";
+                        break;
+                    case "loadFaculties": //gets Faculties and correspondind departments from request
+                        getFacultiesAndDepts(request, response);
+                        Enumeration<String> attributeNames = request.getAttributeNames(); //gets attributes available in request
+                        break;
+                    case "getFaculties":
+                        populateFacultyList(request);
                         return;
-                    }
-                    addLecturer(request, response);
-                    url = base + "sysadmin.jsp";
-                    break;
-                case "addhall":
-                    if (request.getSession().getAttribute("user") == null) {
-                        // Not logged in. Redirect to login page.
-                        response.sendRedirect("index.jsp");
-                        return;
-                    }
-                    addHall(request);
-                    url = base + "sysadmin.jsp";
-                    break;
-                case "addFac":
-                    if (request.getSession().getAttribute("user") == null) {
-                        // Not logged in. Redirect to login page.
-                        response.sendRedirect("index.jsp");
-                        return;
-                    }
-                    addFaculty(request);
-                    url = base + "sysadmin.jsp";
-                    break;
-                case "loadFaculties": //gets Faculties and correspondind departments from request 
-                    getFacultiesAndDepts(request, response);
-                    Enumeration<String> attributeNames = request.getAttributeNames(); //gets attributes available in request
-                    break;
-                case "getFaculties":
-                    populateFacultyList(request);
-                    return;
 //                    break;
-                case "getLecturers":
-                    getLecturers(request, response);
-                    return;
-                case "getHalls":
-                    getHalls(request, response);
-                    return;
-                case "getLectsForCombo":
-                    getLectsForDropDown(request, response);
-                    break;
-                case "addDept"://add Department
-                    addDepartment(request);
-                    url = base + "sysadmin.jsp";
-                    break;
-            }
+                    case "getLecturers":
+                        getLecturers(request, response);
+                        return;
+                    case "getHalls":
+                        getHalls(request, response);
+                        return;
+                    case "getLectsForCombo":
+                        getLectsForDropDown(request, response);
+                        break;
+                    case "addDept"://add Department
+                        addDepartment(request);
+                        url = base + "sysadmin.jsp";
+                        break;
+                    case "getMondayLectureHours":
+                        int day=2;
+                        System.out.println("MONDAY!!");
+                        getLecturesHours(request, response, day);
+                        
+                }
 //            System.out.println(request.getRequestURI());
-            RequestDispatcher dispatcher = getServletContext().getRequestDispatcher(url);
-            dispatcher.forward(request, response);
+                RequestDispatcher dispatcher = getServletContext().getRequestDispatcher(url);
+                dispatcher.forward(request, response);
+            } catch (SQLException ex) {
+                Logger.getLogger(TimeTableServlet.class.getName()).log(Level.SEVERE, null, ex);
+            }
         } else {
 //            System.out.println(request.getRequestURL());
 //            if (request.getRequestURI().equals("/TimeTableProject/index.jsp")) {
@@ -335,6 +344,11 @@ public class TimeTableServlet extends HttpServlet {
     
     /**
      * Add to request lecturer names and corresponding hours in well formed JSON syntax
+     * @param request
+     * @param response
+     * @param day
+     * @throws java.io.IOException
+     * @throws java.sql.SQLException
      */
     public void getLecturesHours(HttpServletRequest request, HttpServletResponse response, int day) throws IOException, SQLException{
         List<Lecturer> lecturers= LecturerDAO.getDistinctLecturers(dataManager, day);
@@ -347,7 +361,7 @@ public class TimeTableServlet extends HttpServlet {
             profs.add(de);
             System.out.println(profs.toString());
         }
-        obj.put("",profs);
+        obj.put("blocked_lecturers",profs);
        ObjectMapper mapper = new ObjectMapper();
         mapper.writeValue(response.getOutputStream(), obj);
     }

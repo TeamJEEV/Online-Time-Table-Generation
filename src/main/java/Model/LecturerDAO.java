@@ -294,7 +294,7 @@ public class LecturerDAO {
             try {
                 PreparedStatement pstatement = connection.prepareStatement(query);
                 pstatement.setInt(1, day);
-                for(int hour=7; hour<17;hour++){
+                for(int hour=6; hour<18;hour++){
                 
                 pstatement.setInt(2, hour);
                 try {
