@@ -9,6 +9,7 @@ import Utilities.DataManager;
 import Bean.Lecturer;
 import com.mysql.jdbc.exceptions.MySQLIntegrityConstraintViolationException;
 import java.sql.Connection;
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
@@ -74,12 +75,16 @@ public class LecturerDAO {
                 try {
                     statement.executeUpdate(query);
                 } catch (SQLException ex) {
+
                     Logger.getGlobal().log(Level.SEVERE, ex.getMessage());
+
                 } finally {
                     statement.close();
                 }
             } catch (SQLException ex) {
+
                 Logger.getGlobal().log(Level.SEVERE, ex.getMessage());
+
             }
         }
     }
@@ -93,12 +98,16 @@ public class LecturerDAO {
                 try {
                     statement.executeUpdate(query);
                 } catch (SQLException ex) {
+
                     Logger.getGlobal().log(Level.SEVERE, ex.getMessage());
+
                 } finally {
                     statement.close();
                 }
             } catch (SQLException ex) {
+
                 Logger.getGlobal().log(Level.SEVERE, ex.getMessage());
+
             }
         }
     }
@@ -274,5 +283,42 @@ public class LecturerDAO {
         return count;
 
     }
-
+/**
+ * Get the lecture names and hours
+ */
+    public static List<Lecturer> getDistinctLecturers(DataManager dataManager, int day) throws SQLException {
+        Connection connection = dataManager.getConnection();
+        String query = "select name from lecturer join lecturer_has_courses on lecturer.id=lecturer_has_courses.lecturer_id   where (DAYOFWEEK(lecturer_has_courses.date)=? AND HOUR(lecturer_has_courses.date)=?)";
+        List<Lecturer> lecturers_name= new ArrayList<>();
+        if (connection != null) {
+            try {
+                PreparedStatement pstatement = connection.prepareStatement(query);
+                pstatement.setInt(1, day);
+                for(int hour=7; hour<17;hour++){
+                
+                pstatement.setInt(2, hour);
+                try {
+                    ResultSet rs = pstatement.executeQuery(query);
+                    while (rs.next()){
+                        Lecturer lecturer=new Lecturer();
+                        lecturer.setName(rs.getString(1));
+                        lecturer.setHour(hour);
+                        lecturers_name.add(lecturer);
+                    }//end while loop
+                
+                }catch (SQLException e ){
+                    throw(e); 
+                } finally {
+                    pstatement.close();
+                }  
+               }//end of for loop
+              
+            }catch (SQLException e) {
+                throw(e);
+            }
+        }//end of if loop
+    
+    return lecturers_name;
+}//end of method
+    
 }

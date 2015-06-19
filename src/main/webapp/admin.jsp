@@ -98,153 +98,229 @@ and open the template in the editor.
             </div>
             <div class="pagecontent_right">
                 <div class="container-fluid">
+                    
                     <div class="row">
                         <div class="col-md-12">
-                             <h1></h1>
-                             <div class="panel panel-default" style="width: 85%">
-                              <div class="panel-heading">
-                                  <h1 class="panel-title" style="text-align: center">My Schedule</h1>
-                              </div>
-                              <div class="panel-body">
-                                <table style="text-align: center"class="table table-bordered table-striped table-hover table-responsive table-condensed">
-                                <thead>
-                                    <tr>
-                                        <th></th>
-                                        <th>07:00 - 09:00</th>
-                                        <th>09:00 - 11:00</th>
-                                        <th>11:00 - 13:00</th>
-                                        <th>13:00 - 15:00</th>
-                                        <th>15:00 - 17:00</th>
-                                        <th>17:00 - 19:00</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    <tr>
-                                        <td>MON</td>
-                                        <td>CEF 502<br> Ublock A</td>
-                                        <td></td>
-                                        <td></td>
-                                        <td>CEF 506<br> ClBLK II 50D</td>
-                                        <td>CEF XXX</td>
-                                        <td>CEF XXX</td>
+                            <h1></h1>
+                                         
+                                                <ul class="nav nav-tabs">
+                                                    <!----tab interface-->
 
-                                    </tr>
 
-                                    <tr>
-                                        <td>TUE</td>
-                                        <td>CEF 502<br> Ublock A</td>
-                                        <td>CEF 510<br> Ublock C</td>
-                                        <td></td>
-                                        <td>CEF 506<br> ClBLK I 50A</td>
-                                        <td></td>
-                                        <td>CEF 504<br> Ublock D</td>
 
-                                    </tr>
-                                    <tr>
-                                        <td>WED</td>
-                                        <td></td>
-                                        <td></td>
-                                        <td>CEF 514<br> ClBLK I 50A</td>
-                                        <td></td>
-                                        <td>CEF 506<br> Restau 2</td>
-                                        <td></td>
+                                                    <li class="active"><a href="#monday" id="day1" data-toggle="tab">Monday</a></li>
+                                                    <li><a href="#tuesday" id="day2" data-toggle="tab">Tuesday</a></li>
+                                                    <li><a href="#wednesday" id="day3" data-toggle="tab">Wednesday</a></li>
+                                                    <li><a href="#thursday" id="day4" data-toggle="tab">Thursday</a></li>
+                                                    <li><a href="#friday" id="day5"data-toggle="tab">Friday</a></li>
+                                                    <li><a href="#saturday" id="day6" data-toggle="tab">Saturday</a></li>
+                                                </ul>
 
-                                    </tr>
-                                    <tr>
-                                        <td>THURS</td>
-                                        <td>CEF 502<br> Ublock A</td>
-                                        <td></td>
-                                        <td></td>
-                                        <td>CEF 506<br> ClBLK II 50D</td>
-                                        <td>CEF XXX</td>
-                                        <td>CEF XXX</td>
+                                                <div class="tab-content">
+                                                    <div class="tab-pane active" id="tuesday">
+                                                    </div>
+                                                    <div class="tab-pane active" id="monday">
+                                                        <table style="width: 85%; text-align: center"class="table table-bordered table-striped table-hover table-responsive table-condensed">
+                                                            <thead>
+                                                                <tr>
 
-                                    </tr>
-                                    <tr>
-                                        <td>FRI</td>
-                                        <td>CEF 502<br> Ublock A</td>
-                                        <td>CEF 510<br> Ublock C</td>
-                                        <td></td>
-                                        <td>CEF 506<br> ClBLK I 50A</td>
-                                        <td></td>
-                                        <td>CEF 504<br> Ublock D</td>
+                                                                    <th>7am</th>
+                                                                    <th>8am</th>
+                                                                    <th>9am</th>
+                                                                    <th>10am</th>
+                                                                    <th>11am</th>
+                                                                    <th>12pm</th>
+                                                                    <th>1pm</th>
+                                                                    <th>2pm</th>
+                                                                    <th>3pm</th>
+                                                                    <th>4pm</th>
+                                                                    <th>5pm</th>
+                                                                    <th>6pm</th>
+                                                                   
+                                                                </tr>
+                                                            </thead>
+                                                            <tbody>
+                                                                <tr>
+                                                                 
+                                                                    <td>CEF 502<br> Ublock A</td>
+                                                                    <td></td>
+                                                                    <td></td>
+                                                                    <td>CEF 506<br> ClBLK II 50D</td>
+                                                                    <td>CEF XXX</td>
+                                                                    <td>CEF XXX</td>
+                                                                </tr>
+                                                                <tr>
+                                                                   
+                                                                    <td>CEF XXX</td>
+                                                                    <td>CEF XXX</td>
+                                                                    <td>CEF XXX</td>
+                                                                    <td>CEF XXX</td>
+                                                                    <td>CEF XXX</td>
+                                                                    <td>CEF XXX</td>
 
-                                    </tr>
-                                    <tr>
-                                        <td>SAT</td>
-                                        <td></td>
-                                        <td></td>
-                                        <td>CEF 514<br> ClBLK I 50A</td>
-                                        <td></td>
-                                        <td>CEF 506<br> Restau 2</td>
-                                        <td></td>
+                                                                </tr>
+                                                                <tr>
 
-                                    </tr>
-                                </tbody>
+                                                                    
+                                                                    <td>CEF 502<br> Ublock A</td>
+                                                                    <td></td>
+                                                                    <td></td>
+                                                                    <td>CEF 506<br> ClBLK II 50D</td>
+                                                                    <td>CEF XXX</td>
+                                                                    <td>CEF XXX</td>
 
-                            </table>
-                              </div>
+                                                                </tr>
+                                                                
+
+                                                                <tr>
+                                                                    <td>9AM</td>
+                                                                    
+                                                                    <td>CEF 502<br> Ublock A</td>
+                                                                    <td>CEF 510<br> Ublock C</td>
+                                                                    <td></td>
+                                                                    <td>CEF 506<br> ClBLK I 50A</td>
+                                                                    <td></td>
+                                                                    <td>CEF 504<br> Ublock D</td>
+
+                                                                </tr>
+                                                  
+
+                                            </tbody>
+
+                                    </table>
+                                </div><!-- @end #hello -->
+                                
+                                <!-- start of personal schedule -->
+                                
+                            <div class="panel panel-default" style="width: 85%">
+                                <div class="panel-heading">
+                                    <h1 class="panel-title" style="text-align: center">My Schedule</h1>
+                                </div>
+                                <div class="panel-body">
+                                    <table style="text-align: center"class="table table-bordered table-striped table-hover table-responsive table-condensed">
+                                        <thead>
+                                            <tr>
+                                                <th></th>
+                                                <th>07:00 - 09:00</th>
+                                                <th>09:00 - 11:00</th>
+                                                <th>11:00 - 13:00</th>
+                                                <th>13:00 - 15:00</th>
+                                                <th>15:00 - 17:00</th>
+                                                <th>17:00 - 19:00</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <tr>
+                                                <td>MON</td>
+                                            </tr>
+                                            
+
+                                                                <tr>
+                                                                    <td>TUE</td>
+                                                                    <td>CEF 502<br> Ublock A</td>
+                                                                    <td>CEF 510<br> Ublock C</td>
+                                                                    <td></td>
+                                                                    <td>CEF 506<br> ClBLK I 50A</td>
+                                                                    <td></td>
+                                                                    <td>CEF 504<br> Ublock D</td>
+
+                                                                </tr>
+                                                                <tr>
+                                                                    <td>WED</td>
+                                                                    <td></td>
+                                                                    <td></td>
+                                                                    <td>CEF 514<br> ClBLK I 50A</td>
+                                                                    <td></td>
+                                                                    <td>CEF 506<br> Restau 2</td>
+                                                                    <td></td>
+
+                                                                </tr>
+                                                                <tr>
+                                                                    <td>THURS</td>
+                                                                </tr>
+                                                                <tr>
+                                                                    <td>FRI</td>
+                                                                    <td>CEF 502<br> Ublock A</td>
+                                                                    <td>CEF 510<br> Ublock C</td>
+                                                                    <td></td>
+                                                                    <td>CEF 506<br> ClBLK I 50A</td>
+                                                                    <td></td>
+                                                                    <td>CEF 504<br> Ublock D</td>
+                                                                </tr>
+                                                                <tr>
+                                                                    <td>SAT</td>
+                                                                    <td></td>
+                                                                    <td></td>
+                                                                    <td>CEF 514<br> ClBLK I 50A</td>
+                                                                    <td></td>
+                                                                    <td>CEF 506<br> Restau 2</td>
+                                                                    <td></td>
+
+                                                                </tr>
+                                        </tbody>
+                                    </table>
                             </div>
+
+
                             
-                           
                         </div>
                     </div>
+                    <div class="push"></div>
+                    <footer class="footer">
+                        <p>&COPY;Team5 2015</p>
+                    </footer>
                 </div>
-                <div class="push"></div>
-                <footer class="footer">
-                    <p>&COPY;Team5 2015</p>
-                </footer>
+                    
             </div>
-        </div>
 
-        <!-- Modal 
-        <!-- Add lecturer modal -->
-        <div id="addlecturerModal" class="modal fade" role="dialog">
-            <div class="modal-dialog">
+            <!-- Modal 
+            <!-- Add lecturer modal -->
+            <div id="addlecturerModal" class="modal fade" role="dialog">
+                <div class="modal-dialog">
 
-                <!-- Modal content-->
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <button type="button" class="close" data-dismiss="modal">&times;</button>
-                        <h4 class="modal-title">Add Lecturer</h4>
+                    <!-- Modal content-->
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <button type="button" class="close" data-dismiss="modal">&times;</button>
+                            <h4 class="modal-title">Add Lecturer</h4>
+                        </div>
+                        <form action="TimeTableServlet" method="POST" id="newLecForm">
+                            <div class="modal-body">
+                                <div class="input-group form-group">
+                                    <span class="input-group-addon" id="full-name-addon">Full Name</span>
+                                    <input name="fullname" type="text" class="form-control" required="required" 
+                                           placeholder="Fullname" aria-describedby="full-name-addon">
+
+                                </div>
+                                <div class="input-group form-group">
+                                    <span class="input-group-addon" id="username-addon">Username</span>
+                                    <input name="username" type="text" class="form-control" required="required" placeholder="Username" aria-describedby="username-addon">
+
+                                </div >
+
+                                <div class="input-group form-group">
+                                    <span class="input-group-addon" id="username-addon">Email   </span>
+                                    <input name="email" type="email" class="form-control" required="required" placeholder="Email" aria-describedby="emailname-addon">
+
+                                </div >
+
+                                <div class="input-group form-group">
+                                    <span class="input-group-addon" id="password-addon">password</span>
+                                    <input name="password" type="password" class="form-control" required="required" placeholder="Password" aria-describedby="password-addon">
+                                </div>
+
+                                <input name="id" type="hidden">
+
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
+                                <button class="btn btn-success" type="submit" name="submit" value="addLect">Save</button>
+                            </div>
+                        </form>
                     </div>
-                    <form action="TimeTableServlet" method="POST" id="newLecForm">
-                        <div class="modal-body">
-                            <div class="input-group form-group">
-                                <span class="input-group-addon" id="full-name-addon">Full Name</span>
-                                <input name="fullname" type="text" class="form-control" required="required" 
-                                       placeholder="Fullname" aria-describedby="full-name-addon">
 
-                            </div>
-                            <div class="input-group form-group">
-                                <span class="input-group-addon" id="username-addon">Username</span>
-                                <input name="username" type="text" class="form-control" required="required" placeholder="Username" aria-describedby="username-addon">
-
-                            </div >
-
-                            <div class="input-group form-group">
-                                <span class="input-group-addon" id="username-addon">Email   </span>
-                                <input name="email" type="email" class="form-control" required="required" placeholder="Email" aria-describedby="emailname-addon">
-
-                            </div >
-
-                            <div class="input-group form-group">
-                                <span class="input-group-addon" id="password-addon">password</span>
-                                <input name="password" type="password" class="form-control" required="required" placeholder="Password" aria-describedby="password-addon">
-                            </div>
-
-                             <input name="id" type="hidden">
-                            
-                        </div>
-                        <div class="modal-footer">
-                            <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
-                            <button class="btn btn-success" type="submit" name="submit" value="addLect">Save</button>
-                        </div>
-                    </form>
                 </div>
-
             </div>
-        </div>
 
 
 
@@ -253,34 +329,42 @@ and open the template in the editor.
 
 
 
-        <!-- Jquery CDN which will be incoporated when hosting the app-->
-        <!--  <script src="//code.jquery.com/jquery-1.11.3.min.js"></script>
-          <script src="//code.jquery.com/jquery-migrate-1.2.1.min.js"></script> -->
+            <!-- Jquery CDN which will be incoporated when hosting the app-->
+           
+            <!--  <script src="//code.jquery.com/jquery-1.11.3.min.js"></script>
+              <script src="//code.jquery.com/jquery-migrate-1.2.1.min.js"></script> -->
 
-        <!-- Bootstrap CDN which will be incoporated when hosting the app
-        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>-->
-        <script>
-            
-            $(document).ready(function (){
-                var role = "${sessionScope.role}";
-               
-                if(role === "HOD"){
-                    $("#assignHodTask").hide();
-                    
-                }
-                
-                $("#accountsetting").click(function (){
-                    var docForm = document.getElementById("newLecForm");
-                    docForm.fullname.value="${sessionScope.name}";
-                    docForm.username.value="${sessionScope.user}";
-                    docForm.email.value="${sessionScope.email}";
-                    docForm.password.value="";
-                    docForm.id.value=${sessionScope.id};                    
-                    
-                   
-                });
-            });
+            <!-- Bootstrap CDN which will be incoporated when hosting the app
+            <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>-->
+            <script>
 
-        </script>
+                $(document).ready(function () {
+                    var role = "${sessionScope.role}";
+
+                    if (role === "HOD") {
+                        $("#assignHodTask").hide();
+
+                    }
+
+                    $("#accountsetting").click(function () {
+                        var docForm = document.getElementById("newLecForm");
+                        docForm.fullname.value = "${sessionScope.name}";
+                        docForm.username.value = "${sessionScope.user}";
+                        docForm.email.value = "${sessionScope.email}";
+                        docForm.password.value = "";
+                        docForm.id.value =${sessionScope.id};
+
+
+                    });
+                    $("#day1").click(function () { //when tab is clicked 
+                        alert("Get JSON Object!");
+                        //                                $("#panel_list").html("Faculties");
+                        //                                $("#panel_list_items").html(content);
+
+                    });
+                });//end ready
+
+            </script>
+
     </body>
 </html>

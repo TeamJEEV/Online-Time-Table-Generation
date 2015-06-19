@@ -326,6 +326,25 @@ public class TimeTableServlet extends HttpServlet {
         ObjectMapper mapper = new ObjectMapper();
         mapper.writeValue(httpresponse.getOutputStream(), response);
     }
+    
+    /**
+     * Add to request lecturer names and corresponding hours in well formed JSON syntax
+     */
+    public void getLecturesHours(HttpServletRequest request, HttpServletResponse response) throws IOException{
+        List<Lecturer> lecturers= LecturerDAO.getDistinctLecturers(dataManager, day);
+        JSONObject obj = new JSONObject();
+        JSONArray profs = new JSONArray();
+        for (Lecturer lecturer :lecturers) {
+            JSONObject de = new JSONObject();
+            de.put("name", lecturer.getName());
+            de.put("hour", lecturer.getHour());
+            profs.add(de);
+            System.out.println(profs.toString());
+        }
+        obj.put("",profs);
+       ObjectMapper mapper = new ObjectMapper();
+        mapper.writeValue(response.getOutputStream(), obj);
+    }
 
 //    public void populateLectList(HttpServletRequest request) {
 //        List<Lecturer> lecturers = LecturerDAO.getLecturers(dataManager);
