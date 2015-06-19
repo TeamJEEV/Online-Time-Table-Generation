@@ -303,7 +303,7 @@ and open the template in the editor.
                         </div>
 
                     </div>
-<<<<<<< Updated upstream
+
 
                     <!-- Modal 
                     <!-- Add lecturer modal -->
@@ -452,73 +452,9 @@ and open the template in the editor.
                             </div>
 
                         </div>
-                    </div> <!-- End of Add lecturer modal
+                    </div> <!-- End of Add lecturer modal-->
         
         
-        
-        
-        
-        
-        
-=======
-
-                    <!-- Modal 
-                    <!-- Add lecturer modal -->
-                    <div id="addlecturerModal" class="modal fade" role="dialog">
-                        <div class="modal-dialog">
-
-                            <!-- Modal content-->
-                            <div class="modal-content">
-                                <div class="modal-header">
-                                    <button type="button" class="close" data-dismiss="modal">&times;</button>
-                                    <h4 class="modal-title">Add Lecturer</h4>
-                                </div>
-                                <form action="TimeTableServlet" method="POST" id="newLecForm">
-                                    <div class="modal-body">
-                                        <div class="input-group form-group">
-                                            <span class="input-group-addon" id="full-name-addon">Full Name</span>
-                                            <input name="fullname" type="text" class="form-control" required="required" 
-                                                   placeholder="Fullname" aria-describedby="full-name-addon">
-
-                                        </div>
-                                        <div class="input-group form-group">
-                                            <span class="input-group-addon" id="username-addon">Username</span>
-                                            <input name="username" type="text" class="form-control" required="required" placeholder="Username" aria-describedby="username-addon">
-
-                                        </div >
-
-                                        <div class="input-group form-group">
-                                            <span class="input-group-addon" id="username-addon">Email   </span>
-                                            <input name="email" type="email" class="form-control" required="required" placeholder="Email" aria-describedby="emailname-addon">
-
-                                        </div >
-
-                                        <div class="input-group form-group">
-                                            <span class="input-group-addon" id="password-addon">password</span>
-                                            <input name="password" type="password" class="form-control" required="required" placeholder="Password" aria-describedby="password-addon">
-                                        </div>
-
-                                        <input name="id" type="hidden">
-
-                                    </div>
-                                    <div class="modal-footer">
-                                        <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
-                                        <button class="btn btn-success" type="submit" name="submit" value="addLect">Save</button>
-                                    </div>
-                                </form>
-                            </div>
-
-                        </div>
-                    </div>
-
-
-
-
-
-
-
-
->>>>>>> Stashed changes
                     <!-- Jquery CDN which will be incoporated when hosting the app-->
 
                     <!--  <script src="//code.jquery.com/jquery-1.11.3.min.js"></script>
