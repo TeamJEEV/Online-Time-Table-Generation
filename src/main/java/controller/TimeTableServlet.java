@@ -16,6 +16,7 @@ import Utilities.DataManager;
 import Model.LecturerDAO;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import java.io.IOException;
+import java.sql.SQLException;
 import java.util.Enumeration;
 import java.util.List;
 import java.util.logging.Level;
@@ -330,7 +331,7 @@ public class TimeTableServlet extends HttpServlet {
     /**
      * Add to request lecturer names and corresponding hours in well formed JSON syntax
      */
-    public void getLecturesHours(HttpServletRequest request, HttpServletResponse response) throws IOException{
+    public void getLecturesHours(HttpServletRequest request, HttpServletResponse response, int day) throws IOException, SQLException{
         List<Lecturer> lecturers= LecturerDAO.getDistinctLecturers(dataManager, day);
         JSONObject obj = new JSONObject();
         JSONArray profs = new JSONArray();
