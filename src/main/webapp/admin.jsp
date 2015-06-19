@@ -148,6 +148,12 @@ and open the template in the editor.
                                                                     <td>CEF 506<br> ClBLK II 50D</td>
                                                                     <td>CEF XXX</td>
                                                                     <td>CEF XXX</td>
+                                                                    <td></td>
+                                                                    <td></td>
+                                                                    <td></td>
+                                                                    <td></td>
+                                                                    <td></td>
+                                                                    <td></td>
                                                                 </tr>
                                                                 <tr>
                                                                    
@@ -157,6 +163,12 @@ and open the template in the editor.
                                                                     <td>CEF XXX</td>
                                                                     <td>CEF XXX</td>
                                                                     <td>CEF XXX</td>
+                                                                    <td></td>
+                                                                    <td></td>
+                                                                    <td></td>
+                                                                    <td></td>
+                                                                    <td></td>
+                                                                    <td></td>
 
                                                                 </tr>
                                                                 <tr>
@@ -168,6 +180,12 @@ and open the template in the editor.
                                                                     <td>CEF 506<br> ClBLK II 50D</td>
                                                                     <td>CEF XXX</td>
                                                                     <td>CEF XXX</td>
+                                                                    <td></td>
+                                                                    <td></td>
+                                                                    <td></td>
+                                                                    <td></td>
+                                                                    <td></td>
+                                                                    <td></td>
 
                                                                 </tr>
                                                                 
@@ -181,6 +199,12 @@ and open the template in the editor.
                                                                     <td>CEF 506<br> ClBLK I 50A</td>
                                                                     <td></td>
                                                                     <td>CEF 504<br> Ublock D</td>
+                                                                    <td></td>
+                                                                    <td></td>
+                                                                    <td></td>
+                                                                    <td></td>
+                                                                    <td></td>
+                                                                    
 
                                                                 </tr>
                                                   
