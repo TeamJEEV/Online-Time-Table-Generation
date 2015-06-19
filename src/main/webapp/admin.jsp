@@ -35,7 +35,7 @@ and open the template in the editor.
                                 <input type="hidden" name="username"  class="form-control">
                             </div>
 
-                            <button type="submit" name="login" class="btn btn-success">LogOut</button>
+                            <button type="submit" name="submit" value="logout" class="btn btn-success">LogOut</button>
                         </form>
                     </div><!--/.navbar-collapse -->
                 </div>
@@ -49,12 +49,12 @@ and open the template in the editor.
 
                 <ul class="sidebar-nav">
                     <li class="sidebar-brand">
-                        <i class="glyphicon glyphicon-user" style="color: #FFF"></i><span> Username </span>
+                        <i class="glyphicon glyphicon-user" style="color: #FFF"></i><span> ${sessionScope.user} </span>
                     </li>
 
                     <li>
 
-                        <a href="#" >
+                        <a href="#" data-toggle="modal" data-target="#addlecturerModal" id="accountsetting">
                             Account Setting <i class="glyphicon glyphicon-menu-right glyphicon-align-right"></i></a>
                     </li>
 
@@ -88,7 +88,7 @@ and open the template in the editor.
                             <i class="glyphicon glyphicon-menu-right glyphicon-align-right"></i></a>
                     </li>
 
-                    <li >
+                    <li id="assignHodTask">
                         <a href="#" >Assign HOD
                             <i class="glyphicon glyphicon-menu-right glyphicon-align-right"></i></a>
                     </li>
@@ -125,7 +125,7 @@ and open the template in the editor.
                         <button type="button" class="close" data-dismiss="modal">&times;</button>
                         <h4 class="modal-title">Add Lecturer</h4>
                     </div>
-                    <form action="TimeTableServlet" method="POST">
+                    <form action="TimeTableServlet" method="POST" id="newLecForm">
                         <div class="modal-body">
                             <div class="input-group form-group">
                                 <span class="input-group-addon" id="full-name-addon">Full Name</span>
@@ -150,6 +150,8 @@ and open the template in the editor.
                                 <input name="password" type="password" class="form-control" required="required" placeholder="Password" aria-describedby="password-addon">
                             </div>
 
+                             <input name="id" type="hidden">
+                            
                         </div>
                         <div class="modal-footer">
                             <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
@@ -175,6 +177,26 @@ and open the template in the editor.
         <!-- Bootstrap CDN which will be incoporated when hosting the app
         <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>-->
         <script>
+            
+            $(document).ready(function (){
+                var role = "${sessionScope.role}";
+               
+                if(role === "HOD"){
+                    $("#assignHodTask").hide();
+                    
+                }
+                
+                $("#accountsetting").click(function (){
+                    var docForm = document.getElementById("newLecForm");
+                    docForm.fullname.value="${sessionScope.name}";
+                    docForm.username.value="${sessionScope.user}";
+                    docForm.email.value="${sessionScope.email}";
+                    docForm.password.value="";
+                    docForm.id.value=${sessionScope.id};                    
+                    
+                   
+                });
+            });
 
         </script>
     </body>

@@ -28,7 +28,6 @@ public class LecturerDAO {
         String name = lecturer.getName();
         String username = lecturer.getUserName();
         String password = lecturer.getPassword();
-        String role = lecturer.getLectureRole();
         String email = lecturer.getEmail();
         Connection connection = dataManager.getConnection();
 
@@ -38,21 +37,21 @@ public class LecturerDAO {
 
                 String query;
                 if (choice.equals("add")) {
-                    query = "INSERT INTO lecturer values(null,'" + name + "', '"
+                    query = "INSERT INTO lecturer (`full name`, name, password, email) values('" + name + "', '"
                             + username + "', '"
                             + password + "', '"
-                            + role + "', '"
                             + email + "')";
                 } else {
                     query = "UPDATE lecturer set full name ='" + name
                             + "', name = '" + username
                             + "', password '" + password
-                            + "', role '" + role
                             + "', email '" + email
                             + "' where id = " + id + ")";
                 }
                 try {
                     statement.executeUpdate(query);
+                } catch (SQLException ex) {
+                    Logger.getGlobal().log(Level.SEVERE, ex.getMessage());
                 } finally {
                     statement.close();
                 }
@@ -60,50 +59,48 @@ public class LecturerDAO {
                 if (e.getClass().equals(MySQLIntegrityConstraintViolationException.class)) {
                     return "Username " + lecturer.getUserName() + "is already taken";
                 }
-                Logger.getGlobal().log(Level.INFO, e.getMessage());
+                Logger.getGlobal().log(Level.SEVERE, e.getMessage());
             }
         }
         return null;
     }
-    
-    public static void setDean(DataManager dataManager, int id){
-         Connection connection = dataManager.getConnection();
-         if (connection != null) {
+
+    public static void setDean(DataManager dataManager, int id) {
+        Connection connection = dataManager.getConnection();
+        if (connection != null) {
             try {
                 Statement statement = connection.createStatement();
                 String query = "Update lecturer set role = 'Dean' where id = " + id;
-                try{
+                try {
                     statement.executeUpdate(query);
-                }
-                catch(SQLException ex){
-                    Logger.getGlobal().log(Level.INFO, ex.getMessage());
-                }finally{
+                } catch (SQLException ex) {
+                    Logger.getGlobal().log(Level.SEVERE, ex.getMessage());
+                } finally {
                     statement.close();
                 }
-            }catch(SQLException ex){
-                Logger.getGlobal().log(Level.INFO, ex.getMessage());
+            } catch (SQLException ex) {
+                Logger.getGlobal().log(Level.SEVERE, ex.getMessage());
             }
-         }
+        }
     }
-    
-    public static void setHod(DataManager dataManager, int id){
-         Connection connection = dataManager.getConnection();
-         if (connection != null) {
+
+    public static void setHod(DataManager dataManager, int id) {
+        Connection connection = dataManager.getConnection();
+        if (connection != null) {
             try {
                 Statement statement = connection.createStatement();
                 String query = "Update lecturer set role = 'HOD' where id = " + id;
-                try{
+                try {
                     statement.executeUpdate(query);
-                }
-                catch(SQLException ex){
-                    Logger.getGlobal().log(Level.INFO, ex.getMessage());
-                }finally{
+                } catch (SQLException ex) {
+                    Logger.getGlobal().log(Level.SEVERE, ex.getMessage());
+                } finally {
                     statement.close();
                 }
-            }catch(SQLException ex){
-                Logger.getGlobal().log(Level.INFO, ex.getMessage());
+            } catch (SQLException ex) {
+                Logger.getGlobal().log(Level.SEVERE, ex.getMessage());
             }
-         }
+        }
     }
 
     public static List<Lecturer> getLecturers(DataManager dataManager) {
@@ -126,12 +123,12 @@ public class LecturerDAO {
                         lecturers.add(lecturer);
                     }
                 } catch (SQLException ex) {
-                    Logger.getGlobal().log(Level.INFO, ex.getMessage());
+                    Logger.getGlobal().log(Level.SEVERE, ex.getMessage());
                 } finally {
                     statement.close();
                 }
             } catch (SQLException e) {
-                Logger.getGlobal().log(Level.INFO, "Could not get lecturers");
+                Logger.getGlobal().log(Level.SEVERE, "Could not get lecturers");
             }
         }
         return lecturers;
@@ -153,12 +150,12 @@ public class LecturerDAO {
                     lecturer.setLectureRole(rs.getString("role"));
                     lecturer.setEmail(rs.getString("email"));
                 } catch (SQLException e) {
-                    Logger.getGlobal().log(Level.INFO, e.getMessage());
+                    Logger.getGlobal().log(Level.SEVERE, e.getMessage());
                 } finally {
                     statement.close();
                 }
             } catch (SQLException e) {
-                Logger.getGlobal().log(Level.INFO, "Could not find lecturer {0}", id);
+                Logger.getGlobal().log(Level.SEVERE, "Could not find lecturer {0}", id);
             }
         }
         return lecturer;
@@ -185,12 +182,12 @@ public class LecturerDAO {
                         lecturers.add(lecturer);
                     }
                 } catch (SQLException ex) {
-                    Logger.getGlobal().log(Level.INFO, ex.getMessage());
+                    Logger.getGlobal().log(Level.SEVERE, ex.getMessage());
                 } finally {
                     statement.close();
                 }
             } catch (SQLException e) {
-                Logger.getGlobal().log(Level.INFO, "Could not get lecturers");
+                Logger.getGlobal().log(Level.SEVERE, "Could not get lecturers");
             }
         }
         return lecturers;
@@ -219,7 +216,7 @@ public class LecturerDAO {
                     statement.close();
                 }
             } catch (SQLException e) {
-                Logger.getGlobal().log(Level.INFO, "Could not find lecturer {0}", name);
+                Logger.getGlobal().log(Level.SEVERE, "Could not find lecturer {0}", name);
             }
         }
         return faculties;

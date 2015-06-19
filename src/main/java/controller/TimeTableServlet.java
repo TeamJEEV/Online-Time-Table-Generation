@@ -202,16 +202,18 @@ public class TimeTableServlet extends HttpServlet {
         } else if ("Sysadmin".equals(lecturer.getLectureRole())) {
             url = base + "sysadmin.jsp";
             HttpSession session = request.getSession();
-            session.setAttribute("user", userName);
+            
             session.setAttribute("halls", ClassroomDAO.countHalls(dataManager));
             session.setAttribute("lecturers", LecturerDAO.countLecturer(dataManager));
         } else {
             url = base + "lecturer.jsp";
         }
         if (lecturer != null) {
+            request.getSession().setAttribute("name", lecturer.getName());
             request.getSession().setAttribute("user", userName);
             request.getSession().setAttribute("id", lecturer.getId());
             request.getSession().setAttribute("role", lecturer.getLectureRole());
+             request.getSession().setAttribute("email", lecturer.getEmail());
         }
 
         return url;
@@ -223,12 +225,16 @@ public class TimeTableServlet extends HttpServlet {
 
     public void addLecturer(HttpServletRequest request, HttpServletResponse response) throws IOException {
         Lecturer lecturer = new Lecturer();
+        if (request.getParameter("id") != null) {
+            lecturer.setId(Integer.parseInt(request.getParameter("id")));
+        }
         lecturer.setName(request.getParameter("fullname"));
         lecturer.setUserName(request.getParameter("username"));
         lecturer.setPassword(request.getParameter("password"));
-        lecturer.setLectureRole(request.getParameter("role"));
         lecturer.setEmail(request.getParameter("email"));
-        String message = LecturerDAO.addEditLecturer(dataManager, lecturer, "add");
+        String message;
+        message = LecturerDAO.addEditLecturer(dataManager, lecturer, "add");
+        message = LecturerDAO.addEditLecturer(dataManager, lecturer, "edit");
 //        response.setContentType("text/html;charset=UTF-8");
 //        try (PrintWriter out = response.getWriter()) {
 //            /* TODO output your page here. You may use following sample code. */
