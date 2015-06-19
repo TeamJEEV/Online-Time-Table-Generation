@@ -101,7 +101,7 @@ and open the template in the editor.
             <div class="pagecontent_right">
                 <div class="container-fluid">
 
-                    <div class="row">
+                    <div class="row" style="background-color: white">
                         <div class="col-md-12">
                             <h1></h1>
                             <div id="freelistdisplay">
