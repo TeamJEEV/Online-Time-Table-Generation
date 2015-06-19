@@ -296,23 +296,23 @@ public class LecturerDAO {
         if (connection != null) {
             try {
                 pstatement = connection.prepareStatement(query);
-                pstatement.setInt(1, 5);
-                pstatement.setInt(1, 23);
-//                pstatement.setInt(1, day);
-//                for (int hour = 6; hour < 18; hour++) {
+//                pstatement.setInt(1, 5);
+//                pstatement.setInt(1, 23);
+                pstatement.setInt(1, day);
+                for (int hour = 6; hour < 18; hour++) {
 //
-//                    pstatement.setInt(2, hour);
+                    pstatement.setInt(2, hour);
                    
-                        ResultSet rs = pstatement.executeQuery(query);
+                        ResultSet rs = pstatement.executeQuery();
                         while (rs.next()) {
                             Lecturer lecturer = new Lecturer();
                             lecturer.setName(rs.getString(1));
-//                            lecturer.setHour(hour);
+                            lecturer.setHour(hour);
                             lecturers_name.add(lecturer);
                         }//end while loop
 
                     
-//                }//end of for loop
+                }//end of for loop
 
             } catch (SQLException e) {
                 throw (e);

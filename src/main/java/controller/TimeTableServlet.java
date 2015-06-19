@@ -177,7 +177,7 @@ public class TimeTableServlet extends HttpServlet {
                         url = base + "sysadmin.jsp";
                         break;
                     case "getMondayLectureHours":
-                        int day=2;
+                        int day=6;
                         System.out.println("MONDAY!!");
                         getLecturesHours(request, response, day);
                         
