@@ -17,6 +17,16 @@ public class Lecturer {
     private String password;
     private String lectureRole;
     private String email;
+    
+    private int hour;//hour at which the lecturer does something
+
+    public int getHour() {
+        return hour;
+    }
+
+    public void setHour(int hour) {
+        this.hour = hour;
+    }
 
     public int getId() {
         return id;

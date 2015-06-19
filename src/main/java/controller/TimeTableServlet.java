@@ -18,6 +18,7 @@ import Utilities.DataManager;
 import Model.LecturerDAO;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import java.io.IOException;
+import java.sql.SQLException;
 import java.util.Enumeration;
 import java.util.List;
 import java.util.logging.Level;
@@ -330,6 +331,25 @@ public class TimeTableServlet extends HttpServlet {
         request.setAttribute("response", response);
         ObjectMapper mapper = new ObjectMapper();
         mapper.writeValue(httpresponse.getOutputStream(), response);
+    }
+    
+    /**
+     * Add to request lecturer names and corresponding hours in well formed JSON syntax
+     */
+    public void getLecturesHours(HttpServletRequest request, HttpServletResponse response, int day) throws IOException, SQLException{
+        List<Lecturer> lecturers= LecturerDAO.getDistinctLecturers(dataManager, day);
+        JSONObject obj = new JSONObject();
+        JSONArray profs = new JSONArray();
+        for (Lecturer lecturer :lecturers) {
+            JSONObject de = new JSONObject();
+            de.put("name", lecturer.getName());
+            de.put("hour", lecturer.getHour());
+            profs.add(de);
+            System.out.println(profs.toString());
+        }
+        obj.put("",profs);
+       ObjectMapper mapper = new ObjectMapper();
+        mapper.writeValue(response.getOutputStream(), obj);
     }
 
 //    public void populateLectList(HttpServletRequest request) {
