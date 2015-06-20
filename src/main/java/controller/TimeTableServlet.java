@@ -367,127 +367,67 @@ public class TimeTableServlet extends HttpServlet {
             //create an array for each hour
             hoursObject.add(new JSONArray());
         }
-        JSONObject free = new JSONObject();
-        free.put("name", "Free");
-        free.put("hour", "free");
         for (Lecturer lecturer : lecturers) {
             JSONObject de = new JSONObject();
             de.put("name", lecturer.getName());
             de.put("hour", lecturer.getHour());
             switch (lecturer.getHour()) {
-                case 6:
-                    ((JSONArray) hoursObject.get(0)).add(de);
-                    //to be revised
-                    for (int i = 1; i < 12; i++) {
-                        ((JSONArray) hoursObject.get(i)).add(free);
-                    }
-                    break;
                 case 7:
-                    ((JSONArray) hoursObject.get(0)).add(free);
-                    ((JSONArray) hoursObject.get(1)).add(de);
-                    for (int i = 2; i < 12; i++) {
-                        ((JSONArray) hoursObject.get(i)).add(free);
-                    }
+                    ((JSONArray) hoursObject.get(0)).add(de);
                     break;
                 case 8:
-                    for (int i = 0; i < 2; i++) {
-                        ((JSONArray) hoursObject.get(i)).add(free);
-                    }
-                    ((JSONArray) hoursObject.get(2)).add(de);
-                    for (int i = 3; i < 12; i++) {
-                        ((JSONArray) hoursObject.get(i)).add(free);
-                    }
+                    ((JSONArray) hoursObject.get(1)).add(de);
                     break;
                 case 9:
-                    for (int i = 0; i < 3; i++) {
-                        ((JSONArray) hoursObject.get(i)).add(free);
-                    }
-                    ((JSONArray) hoursObject.get(3)).add(de);
-                    for (int i = 4; i < 12; i++) {
-                        ((JSONArray) hoursObject.get(i)).add(free);
-                    }
+                    ((JSONArray) hoursObject.get(2)).add(de);
                     break;
                 case 10:
-                    for (int i = 0; i < 4; i++) {
-                        ((JSONArray) hoursObject.get(i)).add(free);
-                    }
-                    ((JSONArray) hoursObject.get(4)).add(de);
-                    for (int i = 5; i < 12; i++) {
-                        ((JSONArray) hoursObject.get(i)).add(free);
-                    }
+                    ((JSONArray) hoursObject.get(3)).add(de);
                     break;
                 case 11:
-                    for (int i = 0; i < 5; i++) {
-                        ((JSONArray) hoursObject.get(i)).add(free);
-                    }
-                    ((JSONArray) hoursObject.get(5)).add(de);
-                    for (int i = 6; i < 12; i++) {
-                        ((JSONArray) hoursObject.get(i)).add(free);
-                    }
+                    ((JSONArray) hoursObject.get(4)).add(de);
                     break;
                 case 12:
-                    for (int i = 0; i < 6; i++) {
-                        ((JSONArray) hoursObject.get(i)).add(free);
-                    }
-                    ((JSONArray) hoursObject.get(6)).add(de);
-                    for (int i = 7; i < 12; i++) {
-                        ((JSONArray) hoursObject.get(i)).add(free);
-                    }
+                    ((JSONArray) hoursObject.get(5)).add(de);
                     break;
                 case 13:
-                    for (int i = 0; i < 7; i++) {
-                        ((JSONArray) hoursObject.get(i)).add(free);
-                    }
-                    ((JSONArray) hoursObject.get(7)).add(de);
-                    for (int i = 8; i < 12; i++) {
-                        ((JSONArray) hoursObject.get(i)).add(free);
-                    }
+                    ((JSONArray) hoursObject.get(6)).add(de);
                     break;
                 case 14:
-                    for (int i = 0; i < 8; i++) {
-                        ((JSONArray) hoursObject.get(i)).add(free);
-                    }
-                    ((JSONArray) hoursObject.get(8)).add(de);
-                    for (int i = 9; i < 12; i++) {
-                        ((JSONArray) hoursObject.get(i)).add(free);
-                    }
+                    ((JSONArray) hoursObject.get(7)).add(de);
                     break;
                 case 15:
-                    for (int i = 0; i < 9; i++) {
-                        ((JSONArray) hoursObject.get(i)).add(free);
-                    }
-                    ((JSONArray) hoursObject.get(9)).add(de);
-                    ((JSONArray) hoursObject.get(10)).add(free);
+                    ((JSONArray) hoursObject.get(8)).add(de);
                     break;
                 case 16:
-                    for (int i = 0; i < 10; i++) {
-                        ((JSONArray) hoursObject.get(i)).add(free);
-                    }
+                    ((JSONArray) hoursObject.get(9)).add(de);
+                    break;
+                case 17:
                     ((JSONArray) hoursObject.get(10)).add(de);
+                    break;
+                case 18:
+                    ((JSONArray) hoursObject.get(11)).add(de);
                     break;
             }
 
         }
         System.out.println(hoursObject.toString());
-//        int longestArray = 0;
-//        for (int i = 0; i < 12; i++) {
-//            JSONArray array = (JSONArray) hoursObject.get(i);
-//            if (array.size() > longestArray) {
-//                longestArray = array.size();
-//            }
-//        }
-//        for (int i = 0; i < 12; i++) {
-//            JSONArray array = (JSONArray) hoursObject.get(i);
-//            for (int j = array.size(); j < longestArray; j++) {
-//                if (true) {
-//                    
-//                }
-//                JSONObject de = new JSONObject();
-//                de.put("name", "x");
-//                de.put("hour", " ");
-//                array.add(de);
-//            }
-//        }
+        int longestArray = 0;
+        for (int i = 0; i < 12; i++) {
+            JSONArray array = (JSONArray) hoursObject.get(i);
+            if (array.size() > longestArray) {
+                longestArray = array.size();
+            }
+        }
+        for (int i = 0; i < 12; i++) {
+            JSONArray array = (JSONArray) hoursObject.get(i);
+            for (int j = array.size(); j < longestArray; j++) {
+                JSONObject de = new JSONObject();
+                de.put("name", " ");
+                de.put("hour", " ");
+                array.add(de);
+            }
+        }
         System.out.println("\n" + hoursObject.toString());
         obj.put("blocked_lecturers", hoursObject);
         ObjectMapper mapper = new ObjectMapper();

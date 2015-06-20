@@ -489,7 +489,7 @@ and open the template in the editor.
                             data: {"submit": "getMondayLectureHours"},
                             method: "POST"
                         }).done(function (msg) {
-                            alert(msg);
+//                            alert(msg);
                             var response = JSON.parse(msg);
                             var content = '<table style = "width: 85%; text-align:center" ' +
                         'class = "table table-bordered table-striped table-hover table-responsive table-condensed" >' +
@@ -510,18 +510,20 @@ and open the template in the editor.
                                     '</tr>' +
                                     '</thead>' +
                                     '<tbody>';
-                            for (var i = 0; i < response.blocked_lecturers.length; i++) {
+//                            alert(response.blocked_lecturers.length );
+                            for (var i = 0; i < response.blocked_lecturers[0].length; i++) {
                                 content += "<tr>";
-                                for (var j = 0; j < response.blocked_lecturers[i].length; j++) {
+//                                alert(response.blocked_lecturers[i].length);
+                                for (var j = 0; j < response.blocked_lecturers.length; j++) {
                                     content += "<td>" +
-                                            response.blocked_lecturers[i][j].name +
+                                            response.blocked_lecturers[j][i].name +
                                             "</td>";
                                 }
                                 content += "</tr>";
                             }
                             content += '</tbody>' +
                                     '</table>';
-                            alert(content);
+//                            alert(content);
                             $("#monday").html(content);
                         });
 
