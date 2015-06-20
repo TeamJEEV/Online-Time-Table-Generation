@@ -291,7 +291,7 @@ public class LecturerDAO {
         Connection connection = dataManager.getConnection();
          PreparedStatement pstatement= null;
         List<Lecturer> lecturers_name = new ArrayList<>();
-        String query = "SELECT NAME FROM lecturer JOIN lecturer_has_courses ON lecturer.id = lecturer_has_courses.lecturer_id WHERE DAYOFWEEK (lecturer_has_courses.date) = ? AND HOUR (lecturer_has_courses.date) = ? ";
+        String query = "SELECT  `FULL NAME` FROM lecturer JOIN lecturer_has_courses ON lecturer.id = lecturer_has_courses.lecturer_id WHERE DAYOFWEEK (lecturer_has_courses.date) = ? AND HOUR (lecturer_has_courses.date) = ? ";
           
         if (connection != null) {
             try {
@@ -306,7 +306,8 @@ public class LecturerDAO {
                         ResultSet rs = pstatement.executeQuery();
                         while (rs.next()) {
                             Lecturer lecturer = new Lecturer();
-                            lecturer.setName(rs.getString(1));
+                            lecturer.setName(rs.getString(1));//retrieve the 1st column
+                            System.out.println(rs.getString(1));
                             lecturer.setHour(hour);
                             lecturers_name.add(lecturer);
                         }//end while loop

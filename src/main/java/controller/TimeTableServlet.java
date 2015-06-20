@@ -118,6 +118,7 @@ public class TimeTableServlet extends HttpServlet {
         Enumeration<String> parameterNames = request.getParameterNames();
         String action = request.getParameter("submit");
         if (action != null) {
+            int day;
             try {
                 switch (action) {
                     case "loginPage":
@@ -178,10 +179,40 @@ public class TimeTableServlet extends HttpServlet {
                         url = base + "sysadmin.jsp";
                         break;
                     case "getMondayLectureHours":
-                        int day = 2;
+                        day = 2;
                         System.out.println("MONDAY!!");
                         getLecturesHours(request, response, day);
-
+                        break;
+                    case "getTuesdayLectureHours":
+                    
+                        day = 3;
+                        System.out.println("TUESDAY!!");
+                        getLecturesHours(request, response, day);
+                        break;
+                    case "getWednesdayLectureHours":
+                    
+                        day = 4;
+                        System.out.println("WEDNESDAY!!");
+                        getLecturesHours(request, response, day);
+                        break;
+                    case "getThursdayLectureHours":
+                    
+                        day = 5;
+                        System.out.println("THURSDAY!!");
+                        getLecturesHours(request, response, day);
+                        break;
+                    case "getFridayLectureHours":
+                    
+                        day = 6;
+                        System.out.println("FRIDAY!!");
+                        getLecturesHours(request, response, day);
+                        break;
+                    case "getSaturdayLectureHours":
+                    
+                        day = 7;
+                        System.out.println("SATDAY!!");
+                        getLecturesHours(request, response, day);
+                        break;
                 }
 //            System.out.println(request.getRequestURI());
                 RequestDispatcher dispatcher = getServletContext().getRequestDispatcher(url);

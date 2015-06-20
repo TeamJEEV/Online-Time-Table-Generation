@@ -107,7 +107,7 @@ and open the template in the editor.
                             <div id="freelistdisplay">
 
                                 <ul class="nav nav-tabs">
-                                    <!----tab interface-->
+                                    <!----tab interface........................................................................-->
 
 
 
@@ -115,17 +115,26 @@ and open the template in the editor.
                                     <li class="active"><a href="#"
                                                           type="submit" id="day1" data-toggle="tab">Monday</a></li>
 
-                                    <li><a href="#tuesday" id="day2" data-toggle="tab">Tuesday</a></li>
-                                    <li><a href="#wednesday" id="day3" data-toggle="tab">Wednesday</a></li>
-                                    <li><a href="#thursday" id="day4" data-toggle="tab">Thursday</a></li>
-                                    <li><a href="#friday" id="day5"data-toggle="tab">Friday</a></li>
-                                    <li><a href="#saturday" id="day6" data-toggle="tab">Saturday</a></li>
+                                    <li class="active"><a href="#" 
+                                                          type="submit" id="day2"  data-toggle="tab">Tuesday</a></li>
+                                                          
+                                    <li class="active"><a href="#" 
+                                                          type="submit" id="day3" data-toggle="tab">Wednesday</a></li>
+                                                          
+                                    <li class="active"><a href="#" 
+                                                          type="submit" id="day4" data-toggle="tab">Thursday</a></li>
+                                                          
+                                    <li class="active"><a href="#"
+                                                          type="submit" id="day5"data-toggle="tab">Friday</a></li>
+                                                          
+                                    <li class="active"><a href="#"
+                                                          type="submit" id="day6" data-toggle="tab">Saturday</a></li>
                                 </ul>
+                                <!----end tab interface...........................................................................................-->
 
                                 <div class="tab-content">
-                                    <div class="tab-pane active" id="tuesday">
-                                    </div>
-                                    <div class="tab-pane active" id="monday">
+                                    
+                                   <div class="tab-pane active" id="timetable">
 
                                     </div><!-- @end #hello -->
                                 </div>
@@ -482,6 +491,7 @@ and open the template in the editor.
 
 
                     });
+                    //Monday Tab click............
                     $("#day1").click(function () { //when tab is clicked 
 
                         var request = $.ajax({
@@ -492,7 +502,7 @@ and open the template in the editor.
 //                            alert(msg);
                             var response = JSON.parse(msg);
                             var content = '<table style = "width: 85%; text-align:center" ' +
-                        'class = "table table-bordered table-striped table-hover table-responsive table-condensed" >' +
+                                    'class = "table table-bordered table-striped table-hover table-responsive table-condensed" >' +
                                     '<thead>' +
                                     '<tr>' +
                                     '<th> 7am </th>' +
@@ -524,18 +534,264 @@ and open the template in the editor.
                             content += '</tbody>' +
                                     '</table>';
 //                            alert(content);
-                            $("#monday").html(content);
+                            $("#timetable").html(content);
                         });
 
 
+                    }); // end of monday Click
+                    //
+//tuesday click......................................
+                    $("#day2").click(function () { //when tab is clicked 
+
+                        var request = $.ajax({
+                            url: "TimeTableServlet",
+                            data: {"submit": "getTuesdayLectureHours"},
+                            method: "POST"
+                        }).done(function (msg) {
+//                            alert(msg);
+                            var response = JSON.parse(msg);
+                            var content = '<table style = "width: 85%; text-align:center" ' +
+                                    'class = "table table-bordered table-striped table-hover table-responsive table-condensed" >' +
+                                    '<thead>' +
+                                    '<tr>' +
+                                    '<th> 7am </th>' +
+                                    '<th> 8am </th>' +
+                                    '<th> 9am </th>' +
+                                    '<th> 10am </th>' +
+                                    '<th> 11am </th>' +
+                                    '<th> 12pm </th>' +
+                                    '<th> 1pm </th>' +
+                                    '<th> 2pm </th>' +
+                                    '<th> 3pm </th>' +
+                                    '<th> 4pm </th>' +
+                                    '<th> 5pm </th>' +
+                                    '<th> 6pm </th>' +
+                                    '</tr>' +
+                                    '</thead>' +
+                                    '<tbody>';
+//                            alert(response.blocked_lecturers.length );
+                            for (var i = 0; i < response.blocked_lecturers[0].length; i++) {
+                                content += "<tr>";
+//                                alert(response.blocked_lecturers[i].length);
+                                for (var j = 0; j < response.blocked_lecturers.length; j++) {
+                                    content += "<td>" +
+                                            response.blocked_lecturers[j][i].name +
+                                            "</td>";
+                                }
+                                content += "</tr>";
+                            }
+                            content += '</tbody>' +
+                                    '</table>';
+//                            alert(content);
+                            $("#timetable").html(content);
+                        });
 
 
+                    }
+                    );
+            
+            //wednesday click......................................
+                    $("#day3").click(function () { //when tab is clicked 
 
-                        //                                $("#panel_list").html("Faculties");
-                        //                                $("#panel_list_items").html(content);
+                        var request = $.ajax({
+                            url: "TimeTableServlet",
+                            data: {"submit": "getWednesdayLectureHours"},
+                            method: "POST"
+                        }).done(function (msg) {
+//                            alert(msg);
+                            var response = JSON.parse(msg);
+                            var content = '<table style = "width: 85%; text-align:center" ' +
+                                    'class = "table table-bordered table-striped table-hover table-responsive table-condensed" >' +
+                                    '<thead>' +
+                                    '<tr>' +
+                                    '<th> 7am </th>' +
+                                    '<th> 8am </th>' +
+                                    '<th> 9am </th>' +
+                                    '<th> 10am </th>' +
+                                    '<th> 11am </th>' +
+                                    '<th> 12pm </th>' +
+                                    '<th> 1pm </th>' +
+                                    '<th> 2pm </th>' +
+                                    '<th> 3pm </th>' +
+                                    '<th> 4pm </th>' +
+                                    '<th> 5pm </th>' +
+                                    '<th> 6pm </th>' +
+                                    '</tr>' +
+                                    '</thead>' +
+                                    '<tbody>';
+//                            alert(response.blocked_lecturers.length );
+                            for (var i = 0; i < response.blocked_lecturers[0].length; i++) {
+                                content += "<tr>";
+//                                alert(response.blocked_lecturers[i].length);
+                                for (var j = 0; j < response.blocked_lecturers.length; j++) {
+                                    content += "<td>" +
+                                            response.blocked_lecturers[j][i].name +
+                                            "</td>";
+                                }
+                                content += "</tr>";
+                            }
+                            content += '</tbody>' +
+                                    '</table>';
+//                            alert(content);
+                            $("#timetable").html(content);
+                        });
 
-                    });
 
+                    }
+                    );
+//end wednesday click
+
+//thursday click......................................
+                    $("#day4").click(function () { //when tab is clicked 
+
+                        var request = $.ajax({
+                            url: "TimeTableServlet",
+                            data: {"submit": "getThursdayLectureHours"},
+                            method: "POST"
+                        }).done(function (msg) {
+//                            alert(msg);
+                            var response = JSON.parse(msg);
+                            var content = '<table style = "width: 85%; text-align:center" ' +
+                                    'class = "table table-bordered table-striped table-hover table-responsive table-condensed" >' +
+                                    '<thead>' +
+                                    '<tr>' +
+                                    '<th> 7am </th>' +
+                                    '<th> 8am </th>' +
+                                    '<th> 9am </th>' +
+                                    '<th> 10am </th>' +
+                                    '<th> 11am </th>' +
+                                    '<th> 12pm </th>' +
+                                    '<th> 1pm </th>' +
+                                    '<th> 2pm </th>' +
+                                    '<th> 3pm </th>' +
+                                    '<th> 4pm </th>' +
+                                    '<th> 5pm </th>' +
+                                    '<th> 6pm </th>' +
+                                    '</tr>' +
+                                    '</thead>' +
+                                    '<tbody>';
+//                            alert(response.blocked_lecturers.length );
+                            for (var i = 0; i < response.blocked_lecturers[0].length; i++) {
+                                content += "<tr>";
+//                                alert(response.blocked_lecturers[i].length);
+                                for (var j = 0; j < response.blocked_lecturers.length; j++) {
+                                    content += "<td>" +
+                                            response.blocked_lecturers[j][i].name +
+                                            "</td>";
+                                }
+                                content += "</tr>";
+                            }
+                            content += '</tbody>' +
+                                    '</table>';
+//                            alert(content);
+                            $("#timetable").html(content);
+                        });
+                        
+//                        end thursday click...................................
+
+//friday click......................................
+                    $("#day5").click(function () { //when tab is clicked 
+
+                        var request = $.ajax({
+                            url: "TimeTableServlet",
+                            data: {"submit": "getFridayLectureHours"},
+                            method: "POST"
+                        }).done(function (msg) {
+//                            alert(msg);
+                            var response = JSON.parse(msg);
+                            var content = '<table style = "width: 85%; text-align:center" ' +
+                                    'class = "table table-bordered table-striped table-hover table-responsive table-condensed" >' +
+                                    '<thead>' +
+                                    '<tr>' +
+                                    '<th> 7am </th>' +
+                                    '<th> 8am </th>' +
+                                    '<th> 9am </th>' +
+                                    '<th> 10am </th>' +
+                                    '<th> 11am </th>' +
+                                    '<th> 12pm </th>' +
+                                    '<th> 1pm </th>' +
+                                    '<th> 2pm </th>' +
+                                    '<th> 3pm </th>' +
+                                    '<th> 4pm </th>' +
+                                    '<th> 5pm </th>' +
+                                    '<th> 6pm </th>' +
+                                    '</tr>' +
+                                    '</thead>' +
+                                    '<tbody>';
+//                            alert(response.blocked_lecturers.length );
+                            for (var i = 0; i < response.blocked_lecturers[0].length; i++) {
+                                content += "<tr>";
+//                                alert(response.blocked_lecturers[i].length);
+                                for (var j = 0; j < response.blocked_lecturers.length; j++) {
+                                    content += "<td>" +
+                                            response.blocked_lecturers[j][i].name +
+                                            "</td>";
+                                }
+                                content += "</tr>";
+                            }
+                            content += '</tbody>' +
+                                    '</table>';
+//                            alert(content);
+                            $("#timetable").html(content);
+                        });
+
+
+                    }
+                    ); //end friday click
+           
+           //saturday click......................................
+                    $("#day6").click(function () { //when tab is clicked 
+
+                        var request = $.ajax({
+                            url: "TimeTableServlet",
+                            data: {"submit": "getSaturdayLectureHours"},
+                            method: "POST"
+                        }).done(function (msg) {
+//                            alert(msg);
+                            var response = JSON.parse(msg);
+                            var content = '<table style = "width: 85%; text-align:center" ' +
+                                    'class = "table table-bordered table-striped table-hover table-responsive table-condensed" >' +
+                                    '<thead>' +
+                                    '<tr>' +
+                                    '<th> 7am </th>' +
+                                    '<th> 8am </th>' +
+                                    '<th> 9am </th>' +
+                                    '<th> 10am </th>' +
+                                    '<th> 11am </th>' +
+                                    '<th> 12pm </th>' +
+                                    '<th> 1pm </th>' +
+                                    '<th> 2pm </th>' +
+                                    '<th> 3pm </th>' +
+                                    '<th> 4pm </th>' +
+                                    '<th> 5pm </th>' +
+                                    '<th> 6pm </th>' +
+                                    '</tr>' +
+                                    '</thead>' +
+                                    '<tbody>';
+//                            alert(response.blocked_lecturers.length );
+                            for (var i = 0; i < response.blocked_lecturers[0].length; i++) {
+                                content += "<tr>";
+//                                alert(response.blocked_lecturers[i].length);
+                                for (var j = 0; j < response.blocked_lecturers.length; j++) {
+                                    content += "<td>" +
+                                            response.blocked_lecturers[j][i].name +
+                                            "</td>";
+                                }
+                                content += "</tr>";
+                            }
+                            content += '</tbody>' +
+                                    '</table>';
+//                            alert(content);
+                            $("#timetable").html(content);
+                        });
+
+
+                    }
+                    ); //end of saturday click
+
+
+                    }
+                    );
                     //Initialising the page content
                     $("#courselist").hide();
                     $("#freelistdisplay").hide();
