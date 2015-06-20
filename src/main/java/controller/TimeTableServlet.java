@@ -180,6 +180,12 @@ public class TimeTableServlet extends HttpServlet {
                         int day=2;
                         System.out.println("MONDAY!!");
                         getLecturesHours(request, response, day);
+                        break;
+                        
+                    case "addCourse":
+                        addCourse(request);//Adds a course to the DB
+                        url = base + "admin.jsp";
+                        break;
                         
                 }
 //            System.out.println(request.getRequestURI());
@@ -450,5 +456,17 @@ public class TimeTableServlet extends HttpServlet {
             int departments = DepartmentDAO.countDepartment(dataManager);
 
         }
+    }
+    
+    //Called when needed to add a course
+    private void addCourse(HttpServletRequest request) throws IOException{
+        Course course = new Course();
+        course.setId(request.getParameter("code"));
+        course.setName(request.getParameter("title"));
+        course.setSemester(Integer.parseInt(request.getParameter("semester")));
+        
+        String msg = CourseDAO.addCourse(dataManager, course);
+        request.getSession().setAttribute("message", msg);
+        
     }
 }

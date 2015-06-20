@@ -7,6 +7,7 @@ package Model;
 
 import Utilities.DataManager;
 import Bean.Course;
+import com.mysql.jdbc.exceptions.MySQLIntegrityConstraintViolationException;
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -158,4 +159,40 @@ public class CourseDAO {
 
     }
 
+    
+    public static String addCourse(DataManager dataManager, Course course){
+         Connection connection = dataManager.getConnection();
+         
+           if (connection != null) {
+               String code = course.getId();
+               String title = course.getName();
+               int semester = course.getSemester();
+               
+               String query = "INSERT into courses values('" 
+                    + code + "', '"
+                    + title + "', "
+                    + semester + ")";
+               Statement statement;
+                try {
+                    statement = connection.createStatement();
+                    try {
+                       statement.executeUpdate(query);
+                    } catch (SQLException e) {
+                       Logger.getGlobal().log(Level.WARNING, e.getMessage());
+                    } finally {
+                       statement.close();
+                    }
+                    return "Course created";
+                
+                }
+                catch (SQLException e) {
+                     if (e.getClass().equals(MySQLIntegrityConstraintViolationException.class)) {
+                    return "Course with title " + code + " already exist.";  
+                     }
+                      Logger.getGlobal().log(Level.INFO, e.getMessage());
+                }
+               
+           }
+           return null;
+    }
 }
