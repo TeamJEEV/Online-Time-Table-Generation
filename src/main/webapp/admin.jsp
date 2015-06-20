@@ -298,7 +298,7 @@ and open the template in the editor.
 
                             <div id="courselist" class="alert-info">
                                 
-                                <h1>Courses &nbsp;<button data-toggle="modal" data-target="#addcourseModal" class="btn btn-default">Add</button></h1>
+                                <h1>Courses &nbsp;<button id="addcoursebutton" data-toggle="modal" data-target="#addcourseModal" class="btn btn-default">Add</button></h1>
                                 <div class="row">
                                 <!--faculty panel..........................--> 
                                 <div class="col-lg-3 col-md-6">
@@ -699,6 +699,9 @@ and open the template in the editor.
                             if (role === "HOD") {
                                 $("#assignHodTask").hide();
 
+                            }else{
+                                //hide the add courses button from the dean, only HOD can do that
+                                $("#addcoursebutton").hide();
                             }
 
                             $("#accountsetting").click(function () {
