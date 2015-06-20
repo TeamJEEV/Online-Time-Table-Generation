@@ -177,16 +177,19 @@ public class TimeTableServlet extends HttpServlet {
                         url = base + "sysadmin.jsp";
                         break;
                     case "getMondayLectureHours":
-                        int day=2;
+                        int day = 2;
                         System.out.println("MONDAY!!");
                         getLecturesHours(request, response, day);
                         break;
-                        
+
                     case "addCourse":
                         addCourse(request);//Adds a course to the DB
                         url = base + "admin.jsp";
                         break;
-                        
+                    case "getDepartCourseswithHodId": //Get all the department courses group by level
+                        getDepartmentCoursewithHodId(request, response);
+                        break;
+
                 }
 //            System.out.println(request.getRequestURI());
                 RequestDispatcher dispatcher = getServletContext().getRequestDispatcher(url);
@@ -347,28 +350,30 @@ public class TimeTableServlet extends HttpServlet {
         ObjectMapper mapper = new ObjectMapper();
         mapper.writeValue(httpresponse.getOutputStream(), response);
     }
-    
+
     /**
-     * Add to request lecturer names and corresponding hours in well formed JSON syntax
+     * Add to request lecturer names and corresponding hours in well formed JSON
+     * syntax
+     *
      * @param request
      * @param response
      * @param day
      * @throws java.io.IOException
      * @throws java.sql.SQLException
      */
-    public void getLecturesHours(HttpServletRequest request, HttpServletResponse response, int day) throws IOException, SQLException{
-        List<Lecturer> lecturers= LecturerDAO.getDistinctLecturers(dataManager, day);
+    public void getLecturesHours(HttpServletRequest request, HttpServletResponse response, int day) throws IOException, SQLException {
+        List<Lecturer> lecturers = LecturerDAO.getDistinctLecturers(dataManager, day);
         JSONObject obj = new JSONObject();
         JSONArray profs = new JSONArray();
-        for (Lecturer lecturer :lecturers) {
+        for (Lecturer lecturer : lecturers) {
             JSONObject de = new JSONObject();
             de.put("name", lecturer.getName());
             de.put("hour", lecturer.getHour());
             profs.add(de);
             System.out.println(profs.toString());
         }
-        obj.put("blocked_lecturers",profs);
-       ObjectMapper mapper = new ObjectMapper();
+        obj.put("blocked_lecturers", profs);
+        ObjectMapper mapper = new ObjectMapper();
         mapper.writeValue(response.getOutputStream(), obj);
     }
 
@@ -422,26 +427,26 @@ public class TimeTableServlet extends HttpServlet {
      */
     public void hodSchedule(HttpServletRequest request, HttpServletResponse response) throws IOException {
 //        if (request.getSession().getAttribute("role").equals("HOD")) {
-            JSONObject lectAndCourses = new JSONObject();
+        JSONObject lectAndCourses = new JSONObject();
 //            object containing a jsonarray of lecturer(id, name)
-            JSONObject lecturers = getLecturers(request, response);
-            JSONObject jsonObjCourses = new JSONObject();
-            List<Course> courses = CourseDAO.getCourseByDepartment(dataManager,
-                    DepartmentDAO.getDepartmentIdByHOD(dataManager,
-                            Integer.parseInt((String) request.getParameter("id"))));
-            JSONArray jsonCourses = new JSONArray();
-            for (Course course : courses) {
-                JSONObject jsonCourse = new JSONObject();
-                jsonCourse.put("id", course.getId());
-                jsonCourse.put("name", course.getName());
-                jsonCourses.add(jsonCourse);
-            }
+        JSONObject lecturers = getLecturers(request, response);
+        JSONObject jsonObjCourses = new JSONObject();
+        List<Course> courses = CourseDAO.getCourseByDepartment(dataManager,
+                DepartmentDAO.getDepartmentIdByHOD(dataManager,
+                        Integer.parseInt((String) request.getParameter("id"))));
+        JSONArray jsonCourses = new JSONArray();
+        for (Course course : courses) {
+            JSONObject jsonCourse = new JSONObject();
+            jsonCourse.put("id", course.getId());
+            jsonCourse.put("name", course.getName());
+            jsonCourses.add(jsonCourse);
+        }
 //            object containing an jsonarray of course(id, name)
-            jsonObjCourses.put("courses", jsonCourses);
+        jsonObjCourses.put("courses", jsonCourses);
 //            JSONObject conataining json two objects: object of courses and object of lecturers
-            lectAndCourses.put("lecturers", lecturers);
-            lectAndCourses.put("courses", jsonObjCourses);
-            System.out.println(lectAndCourses);
+        lectAndCourses.put("lecturers", lecturers);
+        lectAndCourses.put("courses", jsonObjCourses);
+        System.out.println(lectAndCourses);
 //        }
     }
 
@@ -457,17 +462,116 @@ public class TimeTableServlet extends HttpServlet {
 
         }
     }
-    
+
     //Called when needed to add a course
-    private void addCourse(HttpServletRequest request) throws IOException{
+    private void addCourse(HttpServletRequest request) {
         Course course = new Course();
         course.setId(request.getParameter("code"));
         course.setName(request.getParameter("title"));
         course.setSemester(Integer.parseInt(request.getParameter("semester")));
         int depart_id = Integer.parseInt(request.getParameter("depart_id"));
-        
+
         String msg = CourseDAO.addCourse(dataManager, course, depart_id);
         request.getSession().setAttribute("message", msg);
-        
+
+    }
+
+    private void getDepartmentCoursewithHodId(HttpServletRequest request, HttpServletResponse response) throws IOException {
+
+        int HOD_id = Integer.parseInt(request.getParameter("hod_id"));
+        int depart_id = DepartmentDAO.getDepartmentIdByHOD(dataManager, HOD_id);
+        List<Course> courses = CourseDAO.getCourseByDepartment(dataManager, depart_id);
+        JSONObject obj = new JSONObject();
+        JSONArray Level200 = new JSONArray();
+        JSONArray Level300 = new JSONArray();
+        JSONArray Level400 = new JSONArray();
+        JSONArray Level500 = new JSONArray();
+
+        for (Course course : courses) {
+            if (course.getId().startsWith("2", 3) || course.getId().startsWith(" 2", 3)) {
+                //is a level 200 course
+                JSONObject cou = new JSONObject();
+                cou.put("code", course.getId());
+                cou.put("title", course.getName());
+                Level200.add(cou);
+            }
+            if (course.getId().startsWith("3", 3) || course.getId().startsWith(" 3", 3)) {
+                //is a level 300 course
+                JSONObject cou = new JSONObject();
+                cou.put("code", course.getId());
+                cou.put("title", course.getName());
+                Level300.add(cou);
+            }
+            if (course.getId().startsWith("4", 3) || course.getId().startsWith(" 4", 3)) {
+                //is a level 400 course
+                JSONObject cou = new JSONObject();
+                cou.put("code", course.getId());
+                cou.put("title", course.getName());
+                Level400.add(cou);
+            }
+            if (course.getId().startsWith("5", 3) || course.getId().startsWith(" 5", 3)) {
+                //is a level 500 course
+                JSONObject cou = new JSONObject();
+                cou.put("code", course.getId());
+                cou.put("title", course.getName());
+                Level500.add(cou);
+            }
+
+        }
+
+        int longestLength = Level200.size();
+        if (Level300.size() > longestLength) {
+            longestLength = Level300.size();
+        }
+        if (Level400.size() > longestLength) {
+            longestLength = Level400.size();
+        }
+        if (Level500.size() > longestLength) {
+            longestLength = Level500.size();
+        }
+        for (int i = 1; i <= 4; i++) {
+            switch (i) {
+                case 1:
+                    for (int j = longestLength; j > Level200.size(); j--) {
+                        JSONObject cou = new JSONObject();
+                        cou.put("code", "");
+                        cou.put("title", "");
+                        Level200.add(cou);
+                    }
+                    break;
+                case 2:
+                    for (int j = longestLength; j > Level300.size(); j--) {
+                        JSONObject cou = new JSONObject();
+                        cou.put("code", "");
+                        cou.put("title", "");
+                        Level300.add(cou);
+                    }
+                    break;
+                case 3:
+                    for (int j = longestLength; j > Level400.size(); j--) {
+                        JSONObject cou = new JSONObject();
+                        cou.put("code", "");
+                        cou.put("title", "");
+                        Level400.add(cou);
+                    }
+                    break;
+                     case 4:
+                   for(int j=longestLength; j>Level500.size(); j--){
+                       JSONObject cou = new JSONObject();
+                       cou.put("code", "");
+                       cou.put("title", "");
+                       Level500.add(cou);
+                   }
+           break;
+            }
+        }
+        obj.put("level200", Level200);
+        obj.put("level300", Level300);
+        obj.put("level400", Level400);
+        obj.put("level500", Level500);
+
+        ObjectMapper mapper = new ObjectMapper();
+        mapper.writeValue(response.getOutputStream(), obj);
+
     }
 }
