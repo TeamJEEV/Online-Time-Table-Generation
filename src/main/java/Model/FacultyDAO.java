@@ -76,6 +76,10 @@ public class FacultyDAO {
         return facultys;
     }
 
+    public static Faculty getFacultyByDeanId(DataManager dataManager, int deanId) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
     public Faculty getFacultyById(DataManager dataManager, int id) {
         Connection connection = dataManager.getConnection();
         Faculty faculty = new Faculty();

@@ -185,4 +185,8 @@ public class DepartmentDAO {
         return count;
 
     }
+
+    public static List<Department> getDepartmentsByFacultyId(DataManager dataManager, int dean) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
 }
