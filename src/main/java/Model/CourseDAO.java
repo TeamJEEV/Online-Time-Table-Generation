@@ -116,7 +116,8 @@ public class CourseDAO {
                 List<Course> courses = new ArrayList<>();
                 Statement statement = connection.createStatement();
                 String query = "SELECT code, title, semester FROM courses INNER JOIN"
-                        + " department_has_courses ON courses.code = department.courses_code";
+                        + " department_has_courses ON courses.code = department_has_courses.courses_code"
+                        +" GROUP BY code";
                 try {
                     ResultSet resultSet = statement.executeQuery(query);
                     while (resultSet.next()) {
