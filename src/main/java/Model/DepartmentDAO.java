@@ -87,12 +87,13 @@ public class DepartmentDAO {
         if (connection != null) {
             try {
                 Statement statement = connection.createStatement();
-                String query = "SELECT * FROM department where id = " + id;
+                String query = "SELECT * FROM department where id = 1";
                 try {
                     ResultSet rs = statement.executeQuery(query);
                     department.setId(Integer.parseInt(rs.getString("id")));
                     department.setName(rs.getString("name"));
-                    department.setHOD(Integer.parseInt(rs.getString("HOD_ID")));
+                    department.setHOD(Integer.parseInt(rs.getString("hod_id")));
+                    department.setFaculty(Integer.parseInt(rs.getString("faculty_id")));
                 } catch (SQLException e) {
                     Logger.getGlobal().log(Level.SEVERE, e.getMessage());
                 } finally {

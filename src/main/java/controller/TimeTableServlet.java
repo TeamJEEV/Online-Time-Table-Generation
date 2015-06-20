@@ -670,6 +670,9 @@ public class TimeTableServlet extends HttpServlet {
 
         int HOD_id = Integer.parseInt(request.getParameter("hod_id"));
         int depart_id = DepartmentDAO.getDepartmentIdByHOD(dataManager, HOD_id);
+        
+        Department department = DepartmentDAO.getDepartmentById(dataManager, depart_id);
+        
         List<Course> courses = CourseDAO.getCourseByDepartment(dataManager, depart_id);
         JSONObject obj = new JSONObject();
         JSONArray Level200 = new JSONArray();
@@ -710,6 +713,7 @@ public class TimeTableServlet extends HttpServlet {
         }
 
         int longestLength = Level200.size();
+       
         if (Level300.size() > longestLength) {
             longestLength = Level300.size();
         }
@@ -719,6 +723,8 @@ public class TimeTableServlet extends HttpServlet {
         if (Level500.size() > longestLength) {
             longestLength = Level500.size();
         }
+        int numofCourses = Level200.size() + Level300.size() + Level400.size() +Level500.size();
+        
         for (int i = 1; i <= 4; i++) {
             switch (i) {
                 case 1:
@@ -759,6 +765,8 @@ public class TimeTableServlet extends HttpServlet {
         obj.put("level300", Level300);
         obj.put("level400", Level400);
         obj.put("level500", Level500);
+        obj.put("len", numofCourses);
+        obj.put("depart_name", department.getName());
 
         ObjectMapper mapper = new ObjectMapper();
         mapper.writeValue(response.getOutputStream(), obj);

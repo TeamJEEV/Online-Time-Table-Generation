@@ -633,9 +633,7 @@ and open the template in the editor.
                                  content += '</tbody></table>';
                                  $("#courselistcontent").html(content);
 
-                            });
-                            
-                             var depart_card = '<div class="col-lg-3 col-md-6">' +
+var depart_card = '<div class="col-lg-3 col-md-6">' +
                                         '<div class="panel panel-primary">' +
                                             '<div class="panel-heading">' +
                                                 '<div class="row">'+
@@ -643,9 +641,9 @@ and open the template in the editor.
                                                         '<i class="fa fa-comments fa-5x"></i>'+
                                                     '</div>'+
                                                     '<div class="col-xs-9 text-right">'+
-                                                        '<span class="pull-left text-center less_huge">' + 'Electrical Engineering' +'</span>'+
+                                                        '<span class="pull-left text-center less_huge">' + response.depart_name +'</span>'+
 
-                                                        '<div class="huge">2</div>'+
+                                                        '<div class="huge">' + response.len +'</div>'+
                                                         '<div>Courses</div>'+
                                                     '</div>'+
                                                 '</div>'+
@@ -662,10 +660,14 @@ and open the template in the editor.
                                     '</div>';
                             
                              $("#departments-cards").html(depart_card);
+                            });
+                            
+                             
                         }
                         else if (role === "Dean") {
                             //Query for the dean courses
                         }
+                        
 
                         $("#row").css({"background-color": "transparent"});
                         $("#courselist").show("slow");
