@@ -160,7 +160,7 @@ public class CourseDAO {
     }
 
     
-    public static String addCourse(DataManager dataManager, Course course){
+    public static String addCourse(DataManager dataManager, Course course, int depart_id){
          Connection connection = dataManager.getConnection();
          
            if (connection != null) {
@@ -172,11 +172,18 @@ public class CourseDAO {
                     + code + "', '"
                     + title + "', "
                     + semester + ")";
+               
+               String query1 = "INSERT into department_has_courses values("
+                       + depart_id + ", '"
+                       + code + "')";
+               
                Statement statement;
                 try {
                     statement = connection.createStatement();
                     try {
                        statement.executeUpdate(query);
+                       statement.executeUpdate(query1);
+                       
                     } catch (SQLException e) {
                        Logger.getGlobal().log(Level.WARNING, e.getMessage());
                     } finally {

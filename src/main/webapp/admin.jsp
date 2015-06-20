@@ -648,7 +648,7 @@ and open the template in the editor.
                                     <button type="button" class="close" data-dismiss="modal">&times;</button>
                                     <h4 class="modal-title">Add Course</h4>
                                 </div>
-                                <form action="TimeTableServlet" method="POST" id="newLecForm">
+                                <form action="TimeTableServlet" method="POST" id="newcourseform">
                                     <div class="modal-body">
                                         <div class="input-group form-group">
                                             <span class="input-group-addon" id="full-name-addon">Code</span>
@@ -670,8 +670,8 @@ and open the template in the editor.
                                                  <option value="2">2</option>
                                             </select>
                                            
-
                                         </div >
+                                        <input name="depart_id" required="required" type="hidden">
 
                                     </div>
                                     <div class="modal-footer">
@@ -754,6 +754,10 @@ and open the template in the editor.
                             $("#courses").click(function () { //when tab is clicked
                                 $("#myscheduledisplay").hide("slow");
                                 $("#freelistdisplay").hide();
+                                
+                                var docForm = document.getElementById("newcourseform");
+                                docForm.depart_id.value = ${sessionScope.id};
+                                
                                 
                                 var role= "${sessionScope.role}";
                                 if(role === "HOD"){

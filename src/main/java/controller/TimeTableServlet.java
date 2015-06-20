@@ -464,8 +464,9 @@ public class TimeTableServlet extends HttpServlet {
         course.setId(request.getParameter("code"));
         course.setName(request.getParameter("title"));
         course.setSemester(Integer.parseInt(request.getParameter("semester")));
+        int depart_id = Integer.parseInt(request.getParameter("depart_id"));
         
-        String msg = CourseDAO.addCourse(dataManager, course);
+        String msg = CourseDAO.addCourse(dataManager, course, depart_id);
         request.getSession().setAttribute("message", msg);
         
     }
