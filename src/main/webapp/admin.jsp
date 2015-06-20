@@ -323,10 +323,7 @@ and open the template in the editor.
                         </div>
 
 
-                        <!-- Modal -->
-                        <!-- Add lecturer modal -->
-                        <div id="addlecturerModal" class="modal fade" data-backdrop="static" role="dialog">
-                            <div class="modal-dialog">
+                       
 
             <!-- Modal -->
             <!-- Add lecturer modal -->
