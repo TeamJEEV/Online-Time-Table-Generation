@@ -287,7 +287,7 @@ public class LecturerDAO {
     /**
      * Get the lecture names and hours
      */
-    public static List<Lecturer> getDistinctLecturers(DataManager dataManager, int day) throws SQLException {
+    public static List<Lecturer> getBlockedLecturers(DataManager dataManager, int day) throws SQLException {
         Connection connection = dataManager.getConnection();
          PreparedStatement pstatement= null;
         List<Lecturer> lecturers_name = new ArrayList<>();
@@ -325,4 +325,43 @@ public class LecturerDAO {
         return lecturers_name;
     }//end of method
 
+    
+    public static List<Lecturer> getFreeLecturers(DataManager dataManager, int day) throws SQLException {
+        Connection connection = dataManager.getConnection();
+         PreparedStatement pstatement= null;
+        List<Lecturer> lecturers_name = new ArrayList<>();
+        String query = "SELECT  `FULL NAME` FROM lecturer where lecturer.`FULL NAME` not in (SELECT  `FULL NAME` FROM lecturer JOIN lecturer_has_courses ON lecturer.id = lecturer_has_courses.lecturer_id WHERE DAYOFWEEK (lecturer_has_courses.date) = ? AND HOUR (lecturer_has_courses.date) = ?);";
+          
+        if (connection != null) {
+            try {
+                pstatement = connection.prepareStatement(query);
+//                pstatement.setInt(1, 5);
+//                pstatement.setInt(1, 23);
+                pstatement.setInt(1, day);
+                for (int hour = 6; hour < 18; hour++) {
+//
+                    pstatement.setInt(2, hour);
+                   
+                        ResultSet rs = pstatement.executeQuery();
+                        while (rs.next()) {
+                            Lecturer lecturer = new Lecturer();
+                            lecturer.setName(rs.getString(1));//retrieve the 1st column
+                            System.out.println(rs.getString(1));
+                            lecturer.setHour(hour);
+                            lecturers_name.add(lecturer);
+                        }//end while loop
+
+                    
+                }//end of for loop
+
+            } catch (SQLException e) {
+                throw (e);
+            }finally {
+                        pstatement.close();
+                    }
+        }//end of if loop
+
+        return lecturers_name;
+    }//end of method
+    
 }

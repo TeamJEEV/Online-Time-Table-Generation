@@ -181,38 +181,38 @@ public class TimeTableServlet extends HttpServlet {
                     case "getMondayLectureHours":
                         day = 2;
                         System.out.println("MONDAY!!");
-                        getLecturesHours(request, response, day);
+                        getBlockedLecturerInfo(request, response, day);
                         break;
 
                     case "getTuesdayLectureHours":
                     
                         day = 3;
                         System.out.println("TUESDAY!!");
-                        getLecturesHours(request, response, day);
+                        getBlockedLecturerInfo(request, response, day);
                         break;
                     case "getWednesdayLectureHours":
                     
                         day = 4;
                         System.out.println("WEDNESDAY!!");
-                        getLecturesHours(request, response, day);
+                        getBlockedLecturerInfo(request, response, day);
                         break;
                     case "getThursdayLectureHours":
                     
                         day = 5;
                         System.out.println("THURSDAY!!");
-                        getLecturesHours(request, response, day);
+                        getBlockedLecturerInfo(request, response, day);
                         break;
                     case "getFridayLectureHours":
                     
                         day = 6;
                         System.out.println("FRIDAY!!");
-                        getLecturesHours(request, response, day);
+                        getBlockedLecturerInfo(request, response, day);
                         break;
                     case "getSaturdayLectureHours":
                     
                         day = 7;
-                        System.out.println("SATDAY!!");
-                        getLecturesHours(request, response, day);
+                        System.out.println("SATURDAY!!");
+                        getBlockedLecturerInfo(request, response, day);
                         break;
 
                         
@@ -388,7 +388,7 @@ public class TimeTableServlet extends HttpServlet {
     }
 
     /**
-     * Add to request lecturer names and corresponding hours in well formed JSON
+     * Add to request blocked lecturer names and corresponding hours in well formed JSON
      * syntax
      *
      * @param request
@@ -397,8 +397,8 @@ public class TimeTableServlet extends HttpServlet {
      * @throws java.io.IOException
      * @throws java.sql.SQLException
      */
-    public void getLecturesHours(HttpServletRequest request, HttpServletResponse response, int day) throws IOException, SQLException {
-        List<Lecturer> lecturers = LecturerDAO.getDistinctLecturers(dataManager, day);
+    public void getBlockedLecturerInfo(HttpServletRequest request, HttpServletResponse response, int day) throws IOException, SQLException {
+        List<Lecturer> lecturers = LecturerDAO.getBlockedLecturers(dataManager, day);
         JSONObject obj = new JSONObject();
 //        contains a list of json arrays, each array representing
 //        an hour of the day
@@ -459,9 +459,11 @@ public class TimeTableServlet extends HttpServlet {
                 longestArray = array.size();
             }
         }
-        for (int i = 0; i < 12; i++) { //fill up table with empty string
+        for (int i = 0; i < 12; i++) { //parse all hour arrays
             JSONArray array = (JSONArray) hoursObject.get(i);
-            for (int j = array.size(); j < longestArray; j++) {
+                //fill up arrays with length< longestArray with empty string to give them the same length
+            for (int j = array.size(); j < longestArray; j++) { 
+                
                 JSONObject de = new JSONObject();
                 de.put("name", " ");
                 de.put("hour", " ");
@@ -474,6 +476,95 @@ public class TimeTableServlet extends HttpServlet {
         mapper.writeValue(response.getOutputStream(), obj);
     }
 
+    
+    /**
+     * Add to request free lecturer names and corresponding hours in well formed JSON
+     * syntax 
+     * @param request
+     * @param response
+     * @param day
+     * @throws java.io.IOException
+     * @throws java.sql.SQLException*/
+    public void getFreeLecturerInfo(HttpServletRequest request, HttpServletResponse response, int day) throws IOException, SQLException {
+        List<Lecturer> lecturers = LecturerDAO.getFreeLecturers(dataManager, day);
+        JSONObject obj = new JSONObject();
+//        contains a list of json arrays, each array representing
+//        an hour of the day
+        JSONArray hoursObject = new JSONArray();
+        for (int i = 0; i < 12; i++) {
+            //create an array for each hour
+            hoursObject.add(new JSONArray());
+        }
+        for (Lecturer lecturer : lecturers) {
+            JSONObject de = new JSONObject();
+            de.put("name", lecturer.getName());
+            de.put("hour", lecturer.getHour());
+            switch (lecturer.getHour()) {
+                case 7:
+                    ((JSONArray) hoursObject.get(0)).add(de);
+                    break;
+                case 8:
+                    ((JSONArray) hoursObject.get(1)).add(de);
+                    break;
+                case 9:
+                    ((JSONArray) hoursObject.get(2)).add(de);
+                    break;
+                case 10:
+                    ((JSONArray) hoursObject.get(3)).add(de);
+                    break;
+                case 11:
+                    ((JSONArray) hoursObject.get(4)).add(de);
+                    break;
+                case 12:
+                    ((JSONArray) hoursObject.get(5)).add(de);
+                    break;
+                case 13:
+                    ((JSONArray) hoursObject.get(6)).add(de);
+                    break;
+                case 14:
+                    ((JSONArray) hoursObject.get(7)).add(de);
+                    break;
+                case 15:
+                    ((JSONArray) hoursObject.get(8)).add(de);
+                    break;
+                case 16:
+                    ((JSONArray) hoursObject.get(9)).add(de);
+                    break;
+                case 17:
+                    ((JSONArray) hoursObject.get(10)).add(de);
+                    break;
+                case 18:
+                    ((JSONArray) hoursObject.get(11)).add(de);
+                    break;
+            }
+
+        }
+        System.out.println(hoursObject.toString());
+        int longestArray = 0; //get arraylist of lecturers with greatest len
+        for (int i = 0; i < 12; i++) { //parse inner and get longest list of lecturer
+            JSONArray array = (JSONArray) hoursObject.get(i);
+            if (array.size() > longestArray) {
+                longestArray = array.size();
+            }
+        }
+        for (int i = 0; i < 12; i++) { //parse all hour arrays
+            JSONArray array = (JSONArray) hoursObject.get(i);
+                //fill up arrays with length< longestArray with empty string to give them the same length
+            for (int j = array.size(); j < longestArray; j++) { 
+                
+                JSONObject de = new JSONObject();
+                de.put("name", " ");
+                de.put("hour", " ");
+                array.add(de);
+            }
+        }
+        System.out.println("\n" + hoursObject.toString());
+        obj.put("blocked_lecturers", hoursObject);
+        ObjectMapper mapper = new ObjectMapper();
+        mapper.writeValue(response.getOutputStream(), obj);
+    }
+    
+    
 //    public void populateLectList(HttpServletRequest request) {
 //        List<Lecturer> lecturers = LecturerDAO.getLecturers(dataManager);
 //        request.getSession().setAttribute("lecturerList", lecturers);
