@@ -607,7 +607,7 @@ and open the template in the editor.
                                 data: {"submit": "getDepartCourseswithHodId", "hod_id": "${sessionScope.id}"}
 
                             }).done(function (msg) {
-                                alert(msg);
+                                
                                 var response = JSON.parse(msg);
                                 var content = "";
 
