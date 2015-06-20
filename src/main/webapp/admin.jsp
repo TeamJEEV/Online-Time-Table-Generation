@@ -101,7 +101,7 @@ and open the template in the editor.
             <div class="pagecontent_right">
                 <div class="container-fluid">
 
-                    <div class="row" style="background-color: white">
+                    <div class="row" style="background-color: white" id="row">
                         <div class="col-md-12">
                             <h1></h1>
                             <div id="freelistdisplay">
@@ -216,32 +216,36 @@ and open the template in the editor.
 
                             <div id="courselist" class="alert-info">
 
-                                <h1>Courses &nbsp;<button>Add</button></h1>
+                                
+                                <h1>Courses &nbsp;<button id="addcoursebutton" data-toggle="modal" data-target="#addcourseModal" class="btn btn-default">Add</button></h1>
                                 <div class="row">
-                                    <!--faculty panel..........................--> 
-                                    <div class="col-lg-3 col-md-6">
-                                        <div class="panel panel-primary">
-                                            <div class="panel-heading">
-                                                <div class="row">
-                                                    <div class="col-xs-3">
-                                                        <i class="fa fa-comments fa-5x"></i>
-                                                    </div>
-                                                    <div class="col-xs-9 text-right">
-
-                                                        <div class="huge">2</div>
-                                                        <div>Faculties</div>
-                                                    </div>
+                                <!--faculty panel..........................--> 
+                                <div class="col-lg-3 col-md-6">
+                                    <div class="panel panel-primary">
+                                        <div class="panel-heading">
+                                            <div class="row">
+                                                <div class="col-xs-3">
+                                                    <i class="fa fa-comments fa-5x"></i>
                                                 </div>
-                                            </div>
-                                            <a href="#" id="task_fac">
+                                                <div class="col-xs-9 text-right">
+<span class="pull-left text-center less_huge">Electrical Engineering</span>
+                                               
+                                                    <div class="huge">2</div>
+                                                    <div>Courses</div>
 
-                                                <div class="panel-footer">
-                                                    <span class="pull-left">View Details</span>
-                                                    <span class="pull-right"><i class="fa fa-arrow-circle-right"></i></span>
-                                                    <div class="clearfix"></div>
                                                 </div>
                                             </a>
                                         </div>
+
+                                        <a href="#" id="task_fac">
+
+                                            <div class="panel-footer">
+                                                <span class="pull-left">&nbsp;</span>
+                                                <span class="pull-right"><i class="fa fa-arrow-circle-right"></i></span>
+                                                <div class="clearfix"></div>
+                                            </div>
+                                        </a>
+
                                     </div>
 
 
@@ -256,9 +260,10 @@ and open the template in the editor.
                                                     </div>
                                                     <div class="col-xs-9 text-right">
 
-                                                        <div class="huge">3</div>
-                                                        <div>Lecturers</div>
-                                                    </div>
+
+                                                    <div class="huge">3</div>
+                                                    <div>Courses</div>
+
                                                 </div>
                                             </div>
                                             <a href="#" id="task_lec">
@@ -282,9 +287,9 @@ and open the template in the editor.
                                                     </div>
                                                     <div class="col-xs-9 text-right">
 
-                                                        <div class="huge">3</div>
-                                                        <div>Halls</div>
-                                                    </div>
+
+                                                    <div class="huge">3</div>
+                                                    <div>department name</div>
                                                 </div>
                                             </div>
                                             <a href="#" id="task_hall">
@@ -301,6 +306,101 @@ and open the template in the editor.
 
                                 </div>
                             </div>
+                                
+                                <div class="panel panel-default" style="width: 85%" id="myscheduledisplay">
+                                <div class="panel-heading">
+                                    <h1 class="panel-title" style="text-align: center"><b>Course List</b></h1>
+                                </div>
+                                    <div class="panel-body">
+                                    <table style="text-align: center"class="table table-bordered table-striped table-hover table-responsive table-condensed">
+                                        <thead>
+                                            <tr>
+                                                
+                                                <th>Level 200</th>
+                                                <th>Level 300</th>
+                                                <th>Level 400</th>
+                                                <th>Level 500</th>
+                                                
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <tr>
+                                                <td>CEF201: Linear Algebra</td>
+                                                <td>CEF306: OO Programming</td>
+                                                <td>CEF406: Database Administration</td>
+                                                <td>CEF502: Java EE</td>
+                                            </tr>
+
+
+                                            <tr>
+                                                <td>CEF201: Linear Algebra</td>
+                                                <td>CEF306: OO Programming</td>
+                                                <td>CEF406: Database Administration</td>
+                                                <td>CEF502: Java EE</td>
+                                            </tr>
+                                            <tr>
+                                                <td>CEF201: Linear Algebra</td>
+                                                <td>CEF306: OO Programming</td>
+                                                <td>CEF406: Database Administration</td>
+                                                <td>CEF502: Java EE</td>
+
+                                            </tr>
+                                            <tr>
+                                              <td>CEF201: Linear Algebra</td>
+                                                <td>CEF306: OO Programming</td>
+                                                <td>CEF406: Database Administration</td>
+                                                <td>CEF502: Java EE</td>
+                                            </tr>
+                                            <tr>
+                                               <td>CEF201: Linear Algebra</td>
+                                                <td>CEF306: OO Programming</td>
+                                                <td>CEF406: Database Administration</td>
+                                                <td>CEF502: Java EE</td>
+                                            </tr>
+                                            <tr>
+                                                <td>CEF201: Linear Algebra</td>
+                                                <td>CEF306: OO Programming</td>
+                                                <td>CEF406: Database Administration</td>
+                                                <td>CEF502: Java EE</td>
+
+                                            </tr>
+                                             <tr>
+                                                <td>CEF201: Linear Algebra</td>
+                                                <td>CEF306: OO Programming</td>
+                                                <td>CEF406: Database Administration</td>
+                                                <td>CEF502: Java EE</td>
+
+                                            </tr>
+                                             <tr>
+                                                <td>CEF201: Linear Algebra</td>
+                                                <td>CEF306: OO Programming</td>
+                                                <td>CEF406: Database Administration</td>
+                                                <td>CEF502: Java EE</td>
+
+                                            </tr>
+                                             <tr>
+                                                <td>CEF201: Linear Algebra</td>
+                                                <td>CEF306: OO Programming</td>
+                                                <td>CEF406: Database Administration</td>
+                                                <td>CEF502: Java EE</td>
+
+                                            </tr>
+                                             <tr>
+                                                <td>CEF201: Linear Algebra</td>
+                                                <td>CEF306: OO Programming</td>
+                                                <td>CEF406: Database Administration</td>
+                                                <td>CEF502: Java EE</td>
+
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+
+
+
+                            </div>
+                            </div>
+                            
 
                             <div class="push"></div>
                             <footer class="footer">
@@ -430,23 +530,62 @@ and open the template in the editor.
                                             <option value="1">01</option>
                                         </select>
                                     </div>
-                                </div>
-                                <br/>
-                                <div class="form-inline">
-                                    <div class="form-group">
-                                        <label>End Time &nbsp;</label>
-                                        <select name="endhour" required="required" class="form-control">
-                                            <option selected="true"  disabled="true" value="">Hour</option>
-                                            <option value="7">07</option>
-                                            <option value="9">09</option>
-                                        </select>
-                                        <select name="endminute" required="required" class="form-control">
-                                            <option selected="true" disabled="true" value="">Minute</option>
-                                            <option value="0">00</option>
-                                            <option value="1">01</option>
-                                        </select>
+                                    <div class="modal-footer">
+                                        <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
+                                        <button class="btn btn-success" type="submit" name="submit" value="addClass">Save</button>
+
                                     </div>
                                 </div>
+
+
+                        </div>
+                    </div> <!-- End of Add class modal-->
+        
+                    <!-- Add course modal -->
+                    <div id="addcourseModal" class="modal fade" data-backdrop="static" role="dialog">
+                        <div class="modal-dialog">
+
+                            <!-- Modal content-->
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                                    <h4 class="modal-title">Add Course</h4>
+                                </div>
+                                <form action="TimeTableServlet" method="POST" id="newcourseform">
+                                    <div class="modal-body">
+                                        <div class="input-group form-group">
+                                            <span class="input-group-addon" id="full-name-addon">Code</span>
+                                            <input name="code" type="text" class="form-control" required="required" 
+                                                   placeholder="course code" aria-describedby="full-name-addon">
+
+                                        </div>
+                                        <div class="input-group form-group">
+                                            <span class="input-group-addon" id="username-addon">Title</span>
+                                            <input name="title" type="text" class="form-control" required="required" placeholder="Course title" aria-describedby="username-addon">
+
+                                        </div >
+
+                                        <div class="input-group form-group">
+                                            <span class="input-group-addon" id="username-addon">Semester   </span>
+                                            <select name="semester" required="required" class="form-control" aria-describedby="emailname-addon">
+                                                <option value="" disabled="true" selected="true">Select Semester</option>
+                                                 <option value="1">1</option>
+                                                 <option value="2">2</option>
+                                            </select>
+                                           
+                                        </div >
+                                        <input name="depart_id" required="required" type="hidden">
+
+                                    </div>
+                                    <div class="modal-footer">
+                                        <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
+                                        <button class="btn btn-success" type="submit" name="submit" value="addCourse">Save</button>
+                                    </div>
+                                </form>
+                            </div>
+
+                        </div>
+                    </div> <!-- End of Add course modal 
 
 
 
@@ -473,30 +612,34 @@ and open the template in the editor.
             <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>-->
             <script>
 
-                $(document).ready(function () {
-                    var role = "${sessionScope.role}";
+                        $(document).ready(function () {
+                            var role = "${sessionScope.role}";
 
-                    if (role === "HOD") {
-                        $("#assignHodTask").hide();
+                            if (role === "HOD") {
+                                $("#assignHodTask").hide();
 
-                    }
+                            }else{
+                                //hide the add courses button from the dean, only HOD can do that
+                                $("#addcoursebutton").hide();
+                            }
 
-                    $("#accountsetting").click(function () {
-                        var docForm = document.getElementById("newLecForm");
-                        docForm.fullname.value = "${sessionScope.name}";
-                        docForm.username.value = "${sessionScope.user}";
-                        docForm.email.value = "${sessionScope.email}";
-                        docForm.password.value = "";
-                        docForm.id.value =${sessionScope.id};
+                            $("#accountsetting").click(function () {
+                                var docForm = document.getElementById("newLecForm");
+                                docForm.fullname.value = "${sessionScope.name}";
+                                docForm.username.value = "${sessionScope.user}";
+                                docForm.email.value = "${sessionScope.email}";
+                                docForm.password.value = "";
+                                docForm.id.value =${sessionScope.id};
 
 
-                    });
-                    //Monday Tab click............
+                            });
+                            //Monday Tab click............
                     $("#day1").click(function () { //when tab is clicked 
 
                         var request = $.ajax({
                             url: "TimeTableServlet",
                             data: {"submit": "getMondayLectureHours"},
+                            async: false,
                             method: "POST"
                         }).done(function (msg) {
 //                            alert(msg);
@@ -546,6 +689,7 @@ and open the template in the editor.
                         var request = $.ajax({
                             url: "TimeTableServlet",
                             data: {"submit": "getTuesdayLectureHours"},
+                            async: false,
                             method: "POST"
                         }).done(function (msg) {
 //                            alert(msg);
@@ -596,6 +740,7 @@ and open the template in the editor.
                         var request = $.ajax({
                             url: "TimeTableServlet",
                             data: {"submit": "getWednesdayLectureHours"},
+                            async: false,
                             method: "POST"
                         }).done(function (msg) {
 //                            alert(msg);
@@ -647,6 +792,7 @@ and open the template in the editor.
                         var request = $.ajax({
                             url: "TimeTableServlet",
                             data: {"submit": "getThursdayLectureHours"},
+                            async: false,
                             method: "POST"
                         }).done(function (msg) {
 //                            alert(msg);
@@ -686,6 +832,7 @@ and open the template in the editor.
 //                            alert(content);
                             $("#timetable").html(content);
                         });
+                    });
                         
 //                        end thursday click...................................
 
@@ -695,6 +842,7 @@ and open the template in the editor.
                         var request = $.ajax({
                             url: "TimeTableServlet",
                             data: {"submit": "getFridayLectureHours"},
+                            async: false,
                             method: "POST"
                         }).done(function (msg) {
 //                            alert(msg);
@@ -745,6 +893,7 @@ and open the template in the editor.
                         var request = $.ajax({
                             url: "TimeTableServlet",
                             data: {"submit": "getSaturdayLectureHours"},
+                            async: false,
                             method: "POST"
                         }).done(function (msg) {
 //                            alert(msg);
@@ -790,37 +939,60 @@ and open the template in the editor.
                     ); //end of saturday click
 
 
-                    }
-                    );
-                    //Initialising the page content
-                    $("#courselist").hide();
-                    $("#freelistdisplay").hide();
-                    $("#myscheduledisplay").show("slow");
+                            //Initialising the page content
+                            $("#courselist").hide();
+                            $("#freelistdisplay").hide();
+                            $("#myscheduledisplay").show("slow");
 
-                    $("#myschedule").click(function () { //when tab is clicked
-                        $("#courselist").hide("slow");
-                        $("#freelistdisplay").hide("slow");
-                        $("#myscheduledisplay").show("slow");
+                            $("#myschedule").click(function () { //when tab is clicked
+                                $("#courselist").hide("slow");
+                                $("#freelistdisplay").hide("slow");
+                                $("#myscheduledisplay").show("slow");
+                                $("#row").css({"background-color":"white"});
 
-                    });
-                    $("#freelist").click(function () { //when tab is clicked
-                        $("#courselist").hide("slow");
-                        $("#myscheduledisplay").hide("slow");
-                        $("#freelistdisplay").show("slow");
+                            });
+                            $("#freelist").click(function () { //when tab is clicked
+                                $("#courselist").hide("slow");
+                                $("#myscheduledisplay").hide("slow");
+                                $("#freelistdisplay").show("slow");
+                                $("#row").css({"background-color":"white"});
 
-                    });
+                            });
+                            
+                            $("#courses").click(function () { //when tab is clicked
+                                $("#myscheduledisplay").hide("slow");
+                                $("#freelistdisplay").hide();
+                                
+                                var docForm = document.getElementById("newcourseform");
+                                docForm.depart_id.value = ${sessionScope.id};
+                                
+                                
+                                var role= "${sessionScope.role}";
+                                if(role === "HOD"){
+                                    //Query for the HOD courses and display
+//                                    $.ajax({function(){
+//                                        url:"TimeTableServlet",
+//                                        data:{"submit":"getMondayLectureHours"},
+//                                        method:"POST" 
+//                                    }).done(function(msg){
+//                                        alert(msg);
+//                                        
+//                                    });
+                                }else if(role === "Dean"){
+                                    //Query for the dean courses
+                                }
+                                
+                                $("#row").css({"background-color":"transparent"});
+                                $("#courselist").show("slow");
+                                
 
-                    $("#courses").click(function () { //when tab is clicked
-                        $("#myscheduledisplay").hide("slow");
-                        $("#freelistdisplay").hide("slow");
-                        $("#courselist").show("slow");
+                            });
+                            
+                            
 
-                    });
-
-
-                });//end ready
-
-            </script>
+                        });//end ready
+                        
+                    </script>
 
     </body>
 </html>
