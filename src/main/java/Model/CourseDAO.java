@@ -5,6 +5,10 @@
  */
 package Model;
 
+/**
+ *
+ * @author Harvey Sama
+ */
 import Utilities.DataManager;
 import Bean.Course;
 import com.mysql.jdbc.exceptions.MySQLIntegrityConstraintViolationException;
@@ -160,14 +164,14 @@ public class CourseDAO {
                     ResultSet resultSet = statement.executeQuery(query);
                     while (resultSet.next()) {
                         Course course = new Course();
-                        course.setId(resultSet.getString(query));
-                        course.setName(resultSet.getString("title"));
-                        course.setSemester(Integer.parseInt(resultSet.getString("semester")));
+                        course.setId(resultSet.getString(1));
+                        course.setName(resultSet.getString(2));
+                        course.setSemester(Integer.parseInt(resultSet.getString(3)));
                         courses.add(course);
                     }
                     return courses;
                 } catch (SQLException ex) {
-
+                    Logger.getGlobal().log(Level.WARNING, ex.getMessage());
                 } finally {
                     statement.close();
                 }
@@ -183,7 +187,6 @@ public class CourseDAO {
         Integer count = 0;
         if (connection != null) {
             try {
-
                 Statement statement = connection.createStatement();
                 String query = "SELECT Count(*) as COUNT FROM course";
                 try {

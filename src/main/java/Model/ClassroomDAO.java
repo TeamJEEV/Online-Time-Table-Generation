@@ -5,6 +5,10 @@
  */
 package Model;
 
+/**
+ *
+ * @author Harvey Sama
+ */
 import Utilities.DataManager;
 import Bean.Classroom;
 import com.mysql.jdbc.exceptions.MySQLIntegrityConstraintViolationException;
@@ -65,6 +69,8 @@ public class ClassroomDAO {
                         classroom.setCapacity(Integer.parseInt(rs.getString("capacity")));
                         classrooms.add(classroom);
                     }
+                } catch (SQLException e) {
+                    Logger.getGlobal().log(Level.INFO, e.getMessage());
                 } finally {
                     statement.close();
                 }

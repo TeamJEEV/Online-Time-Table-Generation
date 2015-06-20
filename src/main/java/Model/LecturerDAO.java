@@ -4,7 +4,10 @@
  * and open the template in the editor.
  */
 package Model;
-
+/**
+ *
+ * @author Harvey Sama
+ */
 import Utilities.DataManager;
 import Bean.Lecturer;
 import com.mysql.jdbc.exceptions.MySQLIntegrityConstraintViolationException;

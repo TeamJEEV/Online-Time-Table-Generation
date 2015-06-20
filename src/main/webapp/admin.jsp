@@ -555,38 +555,35 @@ and open the template in the editor.
                                     <span class="input-group-addon" id="lecturer-name-addon">Lecturer</span>
                                     <select name="lecturer" id="lecturers" required="required" class="form-control"  
                                             aria-describedby="lecturer-name-addon">
-                                        
+
                                     </select >
 
                                 </div>
 
                                 <div class="input-group form-group">
                                     <span class="input-group-addon" id="course-addon">Course&nbsp;</span>
-                                    <select name="course" id="courses" required="required" class="form-control"  aria-describedby="course-addon">
-                                        
+                                    <select name="course" id="course" required="required" class="form-control"  aria-describedby="course-addon">
+
                                     </select >
                                 </div >
 
                                 <div class="input-group form-group">
                                     <span class="input-group-addon" id="day-addon">Day&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
                                     <select name="day" required="required" class="form-control"  aria-describedby="day-addon">
-                                        <option selected="true" value="" disabled="true">Select Day</option>
-                                        <option value="1">MONDAY</option> 
-                                        <option value="1">TUESDAY</option>
-                                        <option value="1">WENESDAY</option>
-                                        <option value="1">THURSDAY</option>
-                                        <option value="1">FRIDAY</option>
-                                        <option value="1">SATURDAY</option>                                 
+                                        <option selected="true"  disabled="true">Select Day</option>
+                                        <option>MONDAY</option> 
+                                        <option>TUESDAY</option>
+                                        <option>WEDNESDAY</option>
+                                        <option>THURSDAY</option>
+                                        <option>FRIDAY</option>
+                                        <option>SATURDAY</option>                                 
                                     </select >
                                 </div >
 
                                 <div class="input-group form-group">
                                     <span class="input-group-addon" id="hall-addon">Hall&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
-                                    <select name="hall" required="required" class="form-control"  aria-describedby="hall-addon">
-                                        <option selected="true" value="" disabled="true">Select hall</option>
-                                        <option value="1">UBlock A</option> 
-                                        <option value="1">UBlock B</option>
-                                        <option value="1">UBlock D</option>                                                                                 
+                                    <select id="hall" name="hall" required="required" class="form-control"  aria-describedby="hall-addon">
+                                                                                                                         
                                     </select >
                                 </div >
 
@@ -692,30 +689,44 @@ and open the template in the editor.
             <script>
 //                Loads lecturers from the database for the lecurers drop down
 //                courses for the courses drop down
-                function loadCourses(){
+                function loadCourses() {
                     var request = $.ajax({
-                    url: "TimeTableServlet",
-                    data: {"submit": "loadLectsAndCourses"},
-                    method: "POST"
-                }).done(function(msg){
-                    alert(msg);
-                    var response = JSON.parse(msg);
-                    var lecturerList = document.getElementById("lecturers");
-                    var courseList = document.getElementById("courses");
-                    for (var m = lecturerList.options.length - 1; m >= 0; m--) {
-                        lecturerList.options[m] = null;
-                        courseList.options[m] = null;
-                    }
-                    lecturerList.options[0] = new Option("Select Lecturer", "", true);
-                    lecturerList.options[0].disabled = true;
-                    courseList.options[0] = new Option("Select Course", "", true);
-                    courseList.options[0].disabled = true;
-                    
-                    for (var i = 0; i < response.lec.length; i++) {
-                        courseList.options[i + 1] = new Option(response.lec[i].name, response.lec[i].id);
-                        lecturerList.options[i + 1] = new Option(response.lec[i].name, response.lec[i].id);
-                    }//end for
-                });
+                        url: "TimeTableServlet",
+                        data: {"submit": "loadLectsAndCourses"},
+                        method: "POST"
+                    }).done(function (msg) {
+                        alert(msg);
+                        var response = JSON.parse(msg);
+                        var lecturerList = document.getElementById("lecturers");
+                        var courseList = document.getElementById("course");
+                        var hallList = document.getElementById("hall");
+                        for (var m = lecturerList.options.length - 1; m >= 0; m--) {
+                            lecturerList.options[m] = null;
+                        }
+                        for (var m = courseList.options.length - 1; m >= 0; m--) {
+                            courseList.options[m] = null;
+                        }
+                        for (var m = hallList.options.length - 1; m >= 0; m--) {
+                            hallList.options[m] = null;
+                        }
+                        
+                        lecturerList.options[0] = new Option("Select Lecturer", "", true);
+                        lecturerList.options[0].disabled = true;
+                        courseList.options[0] = new Option("Select Course", "", true);
+                        courseList.options[0].disabled = true;
+                        hallList.options[0] = new Option("Select Lecture Hall", "", true);
+                        hallList.options[0].disabled = true;
+
+                        for (var i = 0; i < response.courses.length; i++) {
+                            courseList.options[i + 1] = new Option(response.courses[i].title, response.courses[i].id);
+                        }//end for
+                        for (var i = 0; i < response.lecturers.length; i++) {
+                            lecturerList.options[i + 1] = new Option(response.lecturers[i].name, response.lecturers[i].id);
+                        }
+                        for (var i = 0; i < response.halls.length; i++) {
+                            hallList.options[i + 1] = new Option(response.halls[i].name, response.halls[i].id);
+                        }
+                    });
                 }
 
                 $(document).ready(function () {
