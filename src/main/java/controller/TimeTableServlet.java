@@ -452,14 +452,14 @@ public class TimeTableServlet extends HttpServlet {
 
         }
         System.out.println(hoursObject.toString());
-        int longestArray = 0;
-        for (int i = 0; i < 12; i++) {
+        int longestArray = 0; //get arraylist of lecturers with greatest len
+        for (int i = 0; i < 12; i++) { //parse inner and get longest list of lecturer
             JSONArray array = (JSONArray) hoursObject.get(i);
             if (array.size() > longestArray) {
                 longestArray = array.size();
             }
         }
-        for (int i = 0; i < 12; i++) {
+        for (int i = 0; i < 12; i++) { //fill up table with empty string
             JSONArray array = (JSONArray) hoursObject.get(i);
             for (int j = array.size(); j < longestArray; j++) {
                 JSONObject de = new JSONObject();
