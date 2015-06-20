@@ -11,7 +11,7 @@ and open the template in the editor.
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <link href="css/bootstrap.min.css" rel="stylesheet"/>
         <link href="css/style.css" rel="stylesheet"/>
-         <!-- Dashboard Custom CSS -->
+        <!-- Dashboard Custom CSS -->
         <link href="css/sb-admin.css" rel="stylesheet">
         <script src="js/respond.min.js"></script><!-- Used to add support for IE 8 -->
 
@@ -112,7 +112,7 @@ and open the template in the editor.
 
 
 
-                                    <li class="active"><a href="#" action="TimeTableServlet" 
+                                    <li class="active"><a href="#"
                                                           type="submit" id="day1" data-toggle="tab">Monday</a></li>
 
                                     <li><a href="#tuesday" id="day2" data-toggle="tab">Tuesday</a></li>
@@ -126,98 +126,7 @@ and open the template in the editor.
                                     <div class="tab-pane active" id="tuesday">
                                     </div>
                                     <div class="tab-pane active" id="monday">
-                                        <table style="width: 85%; text-align: center"class="table table-bordered table-striped table-hover table-responsive table-condensed">
-                                            <thead>
-                                                <tr>
 
-                                                    <th>7am</th>
-                                                    <th>8am</th>
-                                                    <th>9am</th>
-                                                    <th>10am</th>
-                                                    <th>11am</th>
-                                                    <th>12pm</th>
-                                                    <th>1pm</th>
-                                                    <th>2pm</th>
-                                                    <th>3pm</th>
-                                                    <th>4pm</th>
-                                                    <th>5pm</th>
-                                                    <th>6pm</th>
-
-                                                </tr>
-                                            </thead>
-                                            <tbody>
-                                                <tr>
-
-                                                    <td>CEF 502<br> Ublock A</td>
-                                                    <td></td>
-                                                    <td></td>
-                                                    <td>CEF 506<br> ClBLK II 50D</td>
-                                                    <td>CEF XXX</td>
-                                                    <td>CEF XXX</td>
-                                                    <td></td>
-                                                    <td></td>
-                                                    <td></td>
-                                                    <td></td>
-                                                    <td></td>
-                                                    <td></td>
-                                                </tr>
-                                                <tr>
-
-                                                    <td>CEF XXX</td>
-                                                    <td>CEF XXX</td>
-                                                    <td>CEF XXX</td>
-                                                    <td>CEF XXX</td>
-                                                    <td>CEF XXX</td>
-                                                    <td>CEF XXX</td>
-                                                    <td></td>
-                                                    <td></td>
-                                                    <td></td>
-                                                    <td></td>
-                                                    <td></td>
-                                                    <td></td>
-
-                                                </tr>
-                                                <tr>
-
-
-                                                    <td>CEF 502<br> Ublock A</td>
-                                                    <td></td>
-                                                    <td></td>
-                                                    <td>CEF 506<br> ClBLK II 50D</td>
-                                                    <td>CEF XXX</td>
-                                                    <td>CEF XXX</td>
-                                                    <td></td>
-                                                    <td></td>
-                                                    <td></td>
-                                                    <td></td>
-                                                    <td></td>
-                                                    <td></td>
-
-                                                </tr>
-
-
-                                                <tr>
-                                                    <td>9AM</td>
-
-                                                    <td>CEF 502<br> Ublock A</td>
-                                                    <td>CEF 510<br> Ublock C</td>
-                                                    <td></td>
-                                                    <td>CEF 506<br> ClBLK I 50A</td>
-                                                    <td></td>
-                                                    <td>CEF 504<br> Ublock D</td>
-                                                    <td></td>
-                                                    <td></td>
-                                                    <td></td>
-                                                    <td></td>
-                                                    <td></td>
-
-
-                                                </tr>
-
-
-                                            </tbody>
-
-                                        </table>
                                     </div><!-- @end #hello -->
                                 </div>
                             </div>
@@ -297,93 +206,93 @@ and open the template in the editor.
                             </div>
 
                             <div id="courselist" class="alert-info">
-                                
+
                                 <h1>Courses &nbsp;<button>Add</button></h1>
-                            <div class="row">
-                                <!--faculty panel..........................--> 
-                                <div class="col-lg-3 col-md-6">
-                                    <div class="panel panel-primary">
-                                        <div class="panel-heading">
-                                            <div class="row">
-                                                <div class="col-xs-3">
-                                                    <i class="fa fa-comments fa-5x"></i>
-                                                </div>
-                                                <div class="col-xs-9 text-right">
+                                <div class="row">
+                                    <!--faculty panel..........................--> 
+                                    <div class="col-lg-3 col-md-6">
+                                        <div class="panel panel-primary">
+                                            <div class="panel-heading">
+                                                <div class="row">
+                                                    <div class="col-xs-3">
+                                                        <i class="fa fa-comments fa-5x"></i>
+                                                    </div>
+                                                    <div class="col-xs-9 text-right">
 
-                                                    <div class="huge">2</div>
-                                                    <div>Faculties</div>
+                                                        <div class="huge">2</div>
+                                                        <div>Faculties</div>
+                                                    </div>
                                                 </div>
                                             </div>
+                                            <a href="#" id="task_fac">
+
+                                                <div class="panel-footer">
+                                                    <span class="pull-left">View Details</span>
+                                                    <span class="pull-right"><i class="fa fa-arrow-circle-right"></i></span>
+                                                    <div class="clearfix"></div>
+                                                </div>
+                                            </a>
                                         </div>
-                                        <a href="#" id="task_fac">
-
-                                            <div class="panel-footer">
-                                                <span class="pull-left">View Details</span>
-                                                <span class="pull-right"><i class="fa fa-arrow-circle-right"></i></span>
-                                                <div class="clearfix"></div>
-                                            </div>
-                                        </a>
                                     </div>
-                                </div>
 
 
-                                <!--department panel..........................................--> 
+                                    <!--department panel..........................................--> 
 
-                                <div class="col-lg-3 col-md-6">
-                                    <div class="panel panel-green">
-                                        <div class="panel-heading">
-                                            <div class="row">
-                                                <div class="col-xs-3">
-                                                    <i class="fa fa-tasks fa-5x"></i>
-                                                </div>
-                                                <div class="col-xs-9 text-right">
+                                    <div class="col-lg-3 col-md-6">
+                                        <div class="panel panel-green">
+                                            <div class="panel-heading">
+                                                <div class="row">
+                                                    <div class="col-xs-3">
+                                                        <i class="fa fa-tasks fa-5x"></i>
+                                                    </div>
+                                                    <div class="col-xs-9 text-right">
 
-                                                    <div class="huge">3</div>
-                                                    <div>Lecturers</div>
+                                                        <div class="huge">3</div>
+                                                        <div>Lecturers</div>
+                                                    </div>
                                                 </div>
                                             </div>
+                                            <a href="#" id="task_lec">
+
+                                                <div class="panel-footer">
+                                                    <span class="pull-left">View Details</span>
+                                                    <span class="pull-right"><i class="fa fa-arrow-circle-right"></i></span>
+                                                    <div class="clearfix"></div>
+                                                </div>
+                                            </a>
                                         </div>
-                                        <a href="#" id="task_lec">
-
-                                            <div class="panel-footer">
-                                                <span class="pull-left">View Details</span>
-                                                <span class="pull-right"><i class="fa fa-arrow-circle-right"></i></span>
-                                                <div class="clearfix"></div>
-                                            </div>
-                                        </a>
                                     </div>
-                                </div>
 
 
-                                <div class="col-lg-3 col-md-6">
-                                    <div class="panel panel-yellow">
-                                        <div class="panel-heading">
-                                            <div class="row">
-                                                <div class="col-xs-3">
-                                                    <i class="fa fa-shopping-cart fa-5x"></i>
-                                                </div>
-                                                <div class="col-xs-9 text-right">
+                                    <div class="col-lg-3 col-md-6">
+                                        <div class="panel panel-yellow">
+                                            <div class="panel-heading">
+                                                <div class="row">
+                                                    <div class="col-xs-3">
+                                                        <i class="fa fa-shopping-cart fa-5x"></i>
+                                                    </div>
+                                                    <div class="col-xs-9 text-right">
 
-                                                    <div class="huge">3</div>
-                                                    <div>Halls</div>
+                                                        <div class="huge">3</div>
+                                                        <div>Halls</div>
+                                                    </div>
                                                 </div>
                                             </div>
+                                            <a href="#" id="task_hall">
+
+                                                <div class="panel-footer">
+                                                    <span class="pull-left">View Details</span>
+                                                    <span class="pull-right"><i class="fa fa-arrow-circle-right"></i></span>
+                                                    <div class="clearfix"></div>
+                                                </div>
+                                            </a>
                                         </div>
-                                        <a href="#" id="task_hall">
-
-                                            <div class="panel-footer">
-                                                <span class="pull-left">View Details</span>
-                                                <span class="pull-right"><i class="fa fa-arrow-circle-right"></i></span>
-                                                <div class="clearfix"></div>
-                                            </div>
-                                        </a>
                                     </div>
+
+
                                 </div>
-
-
                             </div>
-                            </div>
-                            
+
                             <div class="push"></div>
                             <footer class="footer">
                                 <p>&COPY;Team5 2015</p>
@@ -395,233 +304,265 @@ and open the template in the editor.
             </div>
 
 
-                    <!-- Modal -->
-                    <!-- Add lecturer modal -->
-                    <div id="addlecturerModal" class="modal fade" data-backdrop="static" role="dialog">
-                        <div class="modal-dialog">
+            <!-- Modal -->
+            <!-- Add lecturer modal -->
+            <div id="addlecturerModal" class="modal fade" data-backdrop="static" role="dialog">
+                <div class="modal-dialog">
 
-                            <!-- Modal content-->
-                            <div class="modal-content">
-                                <div class="modal-header">
-                                    <button type="button" class="close" data-dismiss="modal">&times;</button>
-                                    <h4 class="modal-title">Add Lecturer</h4>
-                                </div>
-                                <form action="TimeTableServlet" method="POST" id="newLecForm">
-                                    <div class="modal-body">
-                                        <div class="input-group form-group">
-                                            <span class="input-group-addon" id="full-name-addon">Full Name</span>
-                                            <input name="fullname" type="text" class="form-control" required="required" 
-                                                   placeholder="Fullname" aria-describedby="full-name-addon">
-
-                                        </div>
-                                        <div class="input-group form-group">
-                                            <span class="input-group-addon" id="username-addon">Username</span>
-                                            <input name="username" type="text" class="form-control" required="required" placeholder="Username" aria-describedby="username-addon">
-
-                                        </div >
-
-                                        <div class="input-group form-group">
-                                            <span class="input-group-addon" id="username-addon">Email   </span>
-                                            <input name="email" type="email" class="form-control" required="required" placeholder="Email" aria-describedby="emailname-addon">
-
-                                        </div >
-
-                                        <div class="input-group form-group">
-                                            <span class="input-group-addon" id="password-addon">password</span>
-                                            <input name="password" type="password" class="form-control" required="required" placeholder="Password" aria-describedby="password-addon">
-                                        </div>
-
-                                        <input name="id" type="hidden">
-
-                                    </div>
-                                    <div class="modal-footer">
-                                        <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
-                                        <button class="btn btn-success" type="submit" name="submit" value="addLect">Save</button>
-                                    </div>
-                                </form>
-                            </div>
-
+                    <!-- Modal content-->
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <button type="button" class="close" data-dismiss="modal">&times;</button>
+                            <h4 class="modal-title">Add Lecturer</h4>
                         </div>
-                    </div> <!-- End of Add lecturer modal 
-                           
-                    <!-- Add Class modal -->
-                    <div id="addclassModal" class="modal fade" data-backdrop="static" role="dialog">
-                        <div class="modal-dialog">
+                        <form action="TimeTableServlet" method="POST" id="newLecForm">
+                            <div class="modal-body">
+                                <div class="input-group form-group">
+                                    <span class="input-group-addon" id="full-name-addon">Full Name</span>
+                                    <input name="fullname" type="text" class="form-control" required="required" 
+                                           placeholder="Fullname" aria-describedby="full-name-addon">
 
-                            <!-- Modal content-->
-                            <div class="modal-content">
-                                <div class="modal-header">
-                                    <button type="button" class="close" data-dismiss="modal">&times;</button>
-                                    <h4 class="modal-title">Add Class</h4>
                                 </div>
-                                <form action="TimeTableServlet" method="POST" id="newLecForm">
-                                    <div class="modal-body">
-                                        <div class="input-group form-group">
-                                            <span class="input-group-addon" id="lecturer-name-addon">Lecturer</span>
-                                            <select name="lecturer" required="required" class="form-control"  aria-describedby="lecturer-name-addon">
-                                                <option selected="true" value="" disabled="true">Select Lecturer</option>
-                                                <option value="1">Dr Teyou</option>
-                                            </select >
+                                <div class="input-group form-group">
+                                    <span class="input-group-addon" id="username-addon">Username</span>
+                                    <input name="username" type="text" class="form-control" required="required" placeholder="Username" aria-describedby="username-addon">
 
-                                        </div>
+                                </div >
 
-                                        <div class="input-group form-group">
-                                            <span class="input-group-addon" id="course-addon">Course&nbsp;</span>
-                                            <select name="course" required="required" class="form-control"  aria-describedby="course-addon">
-                                                <option selected="true" value="" disabled="true">Select Course</option>
-                                                <option value="1">CEF416: JavaEE</option>
-                                            </select >
+                                <div class="input-group form-group">
+                                    <span class="input-group-addon" id="username-addon">Email   </span>
+                                    <input name="email" type="email" class="form-control" required="required" placeholder="Email" aria-describedby="emailname-addon">
 
+                                </div >
 
-                                        </div >
+                                <div class="input-group form-group">
+                                    <span class="input-group-addon" id="password-addon">password</span>
+                                    <input name="password" type="password" class="form-control" required="required" placeholder="Password" aria-describedby="password-addon">
+                                </div>
 
-                                        <div class="input-group form-group">
-                                            <span class="input-group-addon" id="day-addon">Day&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
-                                            <select name="day" required="required" class="form-control"  aria-describedby="day-addon">
-                                                <option selected="true" value="" disabled="true">Select Day</option>
-                                                <option value="1">MONDAY</option> 
-                                                <option value="1">TUESDAY</option>
-                                                <option value="1">WENESDAY</option>
-                                                <option value="1">THURSDAY</option>
-                                                <option value="1">FRIDAY</option>
-                                                <option value="1">SATURDAY</option>                                 
-                                            </select >
-                                        </div >
-                                        
-                                         <div class="input-group form-group">
-                                            <span class="input-group-addon" id="hall-addon">Hall&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
-                                            <select name="hall" required="required" class="form-control"  aria-describedby="hall-addon">
-                                                <option selected="true" value="" disabled="true">Select hall</option>
-                                                <option value="1">UBlock A</option> 
-                                                <option value="1">UBlock B</option>
-                                                <option value="1">UBlock D</option>                                                                                 
-                                            </select >
-                                        </div >
-                                           
-                                            <div class="form-inline">
-                                                <div class="form-group">
-                                                    <label>Start Time</label>
-                                                    <select name="starthour" required="required" class="form-control">
-                                                        <option selected="true"  disabled="true" value="">Hour</option>
-                                                        <option value="7">07</option>
-                                                        <option value="9">09</option>
-                                                    </select>
-                                                    <select name="startminute" required="required" class="form-control">
-                                                        <option selected="true" disabled="true" value="">Minute</option>
-                                                        <option value="0">00</option>
-                                                        <option value="1">01</option>
-                                                    </select>
-                                                </div>
-                                            </div>
-                                        <br/>
-                                        <div class="form-inline">
-                                                <div class="form-group">
-                                                    <label>End Time &nbsp;</label>
-                                                    <select name="endhour" required="required" class="form-control">
-                                                        <option selected="true"  disabled="true" value="">Hour</option>
-                                                        <option value="7">07</option>
-                                                        <option value="9">09</option>
-                                                    </select>
-                                                    <select name="endminute" required="required" class="form-control">
-                                                        <option selected="true" disabled="true" value="">Minute</option>
-                                                        <option value="0">00</option>
-                                                        <option value="1">01</option>
-                                                    </select>
-                                                </div>
-                                            </div>
+                                <input name="id" type="hidden">
 
-                                                                          
-
-
-                                    </div>
-                                    <div class="modal-footer">
-                                        <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
-                                        <button class="btn btn-success" type="submit" name="submit" value="addLect">Save</button>
-                                    </div>
-                                </form>
                             </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
+                                <button class="btn btn-success" type="submit" name="submit" value="addLect">Save</button>
+                            </div>
+                        </form>
+                    </div>
 
+                </div>
+            </div> <!-- End of Add lecturer modal 
+                   
+            <!-- Add Class modal -->
+            <div id="addclassModal" class="modal fade" data-backdrop="static" role="dialog">
+                <div class="modal-dialog">
+
+                    <!-- Modal content-->
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <button type="button" class="close" data-dismiss="modal">&times;</button>
+                            <h4 class="modal-title">Add Class</h4>
                         </div>
-                    </div> <!-- End of Add lecturer modal-->
-        
-        
+                        <form action="TimeTableServlet" method="POST" id="newLecForm">
+                            <div class="modal-body">
+                                <div class="input-group form-group">
+                                    <span class="input-group-addon" id="lecturer-name-addon">Lecturer</span>
+                                    <select name="lecturer" required="required" class="form-control"  aria-describedby="lecturer-name-addon">
+                                        <option selected="true" value="" disabled="true">Select Lecturer</option>
+                                        <option value="1">Dr Teyou</option>
+                                    </select >
 
-                    <!-- Jquery CDN which will be incoporated when hosting the app-->
+                                </div>
 
-                    <!--  <script src="//code.jquery.com/jquery-1.11.3.min.js"></script>
-                      <script src="//code.jquery.com/jquery-migrate-1.2.1.min.js"></script> -->
+                                <div class="input-group form-group">
+                                    <span class="input-group-addon" id="course-addon">Course&nbsp;</span>
+                                    <select name="course" required="required" class="form-control"  aria-describedby="course-addon">
+                                        <option selected="true" value="" disabled="true">Select Course</option>
+                                        <option value="1">CEF416: JavaEE</option>
+                                    </select >
 
-                    <!-- Bootstrap CDN which will be incoporated when hosting the app
-                    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>-->
-                    <script>
 
-                        $(document).ready(function () {
-                            var role = "${sessionScope.role}";
+                                </div >
 
-                            if (role === "HOD") {
-                                $("#assignHodTask").hide();
+                                <div class="input-group form-group">
+                                    <span class="input-group-addon" id="day-addon">Day&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
+                                    <select name="day" required="required" class="form-control"  aria-describedby="day-addon">
+                                        <option selected="true" value="" disabled="true">Select Day</option>
+                                        <option value="1">MONDAY</option> 
+                                        <option value="1">TUESDAY</option>
+                                        <option value="1">WENESDAY</option>
+                                        <option value="1">THURSDAY</option>
+                                        <option value="1">FRIDAY</option>
+                                        <option value="1">SATURDAY</option>                                 
+                                    </select >
+                                </div >
 
+                                <div class="input-group form-group">
+                                    <span class="input-group-addon" id="hall-addon">Hall&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
+                                    <select name="hall" required="required" class="form-control"  aria-describedby="hall-addon">
+                                        <option selected="true" value="" disabled="true">Select hall</option>
+                                        <option value="1">UBlock A</option> 
+                                        <option value="1">UBlock B</option>
+                                        <option value="1">UBlock D</option>                                                                                 
+                                    </select >
+                                </div >
+
+                                <div class="form-inline">
+                                    <div class="form-group">
+                                        <label>Start Time</label>
+                                        <select name="starthour" required="required" class="form-control">
+                                            <option selected="true"  disabled="true" value="">Hour</option>
+                                            <option value="7">07</option>
+                                            <option value="9">09</option>
+                                        </select>
+                                        <select name="startminute" required="required" class="form-control">
+                                            <option selected="true" disabled="true" value="">Minute</option>
+                                            <option value="0">00</option>
+                                            <option value="1">01</option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <br/>
+                                <div class="form-inline">
+                                    <div class="form-group">
+                                        <label>End Time &nbsp;</label>
+                                        <select name="endhour" required="required" class="form-control">
+                                            <option selected="true"  disabled="true" value="">Hour</option>
+                                            <option value="7">07</option>
+                                            <option value="9">09</option>
+                                        </select>
+                                        <select name="endminute" required="required" class="form-control">
+                                            <option selected="true" disabled="true" value="">Minute</option>
+                                            <option value="0">00</option>
+                                            <option value="1">01</option>
+                                        </select>
+                                    </div>
+                                </div>
+
+
+
+
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
+                                <button class="btn btn-success" type="submit" name="submit" value="addLect">Save</button>
+                            </div>
+                        </form>
+                    </div>
+
+                </div>
+            </div> <!-- End of Add lecturer modal-->
+
+
+
+            <!-- Jquery CDN which will be incoporated when hosting the app-->
+
+            <!--  <script src="//code.jquery.com/jquery-1.11.3.min.js"></script>
+              <script src="//code.jquery.com/jquery-migrate-1.2.1.min.js"></script> -->
+
+            <!-- Bootstrap CDN which will be incoporated when hosting the app
+            <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>-->
+            <script>
+
+                $(document).ready(function () {
+                    var role = "${sessionScope.role}";
+
+                    if (role === "HOD") {
+                        $("#assignHodTask").hide();
+
+                    }
+
+                    $("#accountsetting").click(function () {
+                        var docForm = document.getElementById("newLecForm");
+                        docForm.fullname.value = "${sessionScope.name}";
+                        docForm.username.value = "${sessionScope.user}";
+                        docForm.email.value = "${sessionScope.email}";
+                        docForm.password.value = "";
+                        docForm.id.value =${sessionScope.id};
+
+
+                    });
+                    $("#day1").click(function () { //when tab is clicked 
+
+                        var request = $.ajax({
+                            url: "TimeTableServlet",
+                            data: {"submit": "getMondayLectureHours"},
+                            method: "POST"
+                        }).done(function (msg) {
+                            alert(msg);
+                            var response = JSON.parse(msg);
+                            var content = '<table style = "width: 85%; text-align:center" ' +
+                        'class = "table table-bordered table-striped table-hover table-responsive table-condensed" >' +
+                                    '<thead>' +
+                                    '<tr>' +
+                                    '<th> 7am </th>' +
+                                    '<th> 8am </th>' +
+                                    '<th> 9am </th>' +
+                                    '<th> 10am </th>' +
+                                    '<th> 11am </th>' +
+                                    '<th> 12pm </th>' +
+                                    '<th> 1pm </th>' +
+                                    '<th> 2pm </th>' +
+                                    '<th> 3pm </th>' +
+                                    '<th> 4pm </th>' +
+                                    '<th> 5pm </th>' +
+                                    '<th> 6pm </th>' +
+                                    '</tr>' +
+                                    '</thead>' +
+                                    '<tbody>';
+                            for (var i = 0; i < response.blocked_lecturers.length; i++) {
+                                content += "<tr>";
+                                for (var j = 0; j < response.blocked_lecturers[i].length; j++) {
+                                    content += "<td>" +
+                                            response.blocked_lecturers[i][j].name +
+                                            "</td>";
+                                }
+                                content += "</tr>";
                             }
-
-                            $("#accountsetting").click(function () {
-                                var docForm = document.getElementById("newLecForm");
-                                docForm.fullname.value = "${sessionScope.name}";
-                                docForm.username.value = "${sessionScope.user}";
-                                docForm.email.value = "${sessionScope.email}";
-                                docForm.password.value = "";
-                                docForm.id.value =${sessionScope.id};
+                            content += '</tbody>' +
+                                    '</table>';
+                            alert(content);
+                            $("#monday").html(content);
+                        });
 
 
-                            });
-                            $("#day1").click(function () { //when tab is clicked 
 
-                                var request = $.ajax({
-                                    url:"TimeTableServlet",
-                                    data:{"submit":"getMondayLectureHours"},
-                                    method:"POST"
-                                }).done(function(msg){
-//                                    var response = JSON.parse(msg);
-                                    alert(msg);
-                                });
-                                
-                               
-                                    
-                                    
 
-                                //                                $("#panel_list").html("Faculties");
-                                //                                $("#panel_list_items").html(content);
 
-                            });
+                        //                                $("#panel_list").html("Faculties");
+                        //                                $("#panel_list_items").html(content);
 
-                            //Initialising the page content
-                            $("#courselist").hide();
-                            $("#freelistdisplay").hide();
-                            $("#myscheduledisplay").show("slow");
+                    });
 
-                            $("#myschedule").click(function () { //when tab is clicked
-                                $("#courselist").hide("slow");
-                                $("#freelistdisplay").hide("slow");
-                                $("#myscheduledisplay").show("slow");
+                    //Initialising the page content
+                    $("#courselist").hide();
+                    $("#freelistdisplay").hide();
+                    $("#myscheduledisplay").show("slow");
 
-                            });
-                            $("#freelist").click(function () { //when tab is clicked
-                                $("#courselist").hide("slow");
-                                $("#myscheduledisplay").hide("slow");
-                                $("#freelistdisplay").show("slow");
+                    $("#myschedule").click(function () { //when tab is clicked
+                        $("#courselist").hide("slow");
+                        $("#freelistdisplay").hide("slow");
+                        $("#myscheduledisplay").show("slow");
 
-                            });
-                            
-                            $("#courses").click(function () { //when tab is clicked
-                                $("#myscheduledisplay").hide("slow");
-                                $("#freelistdisplay").hide("slow");
-                                $("#courselist").show("slow");
+                    });
+                    $("#freelist").click(function () { //when tab is clicked
+                        $("#courselist").hide("slow");
+                        $("#myscheduledisplay").hide("slow");
+                        $("#freelistdisplay").show("slow");
 
-                            });
-                            
+                    });
 
-                        });//end ready
+                    $("#courses").click(function () { //when tab is clicked
+                        $("#myscheduledisplay").hide("slow");
+                        $("#freelistdisplay").hide("slow");
+                        $("#courselist").show("slow");
 
-                    </script>
+                    });
 
-                    </body>
-                    </html>
+
+                });//end ready
+
+            </script>
+
+    </body>
+</html>

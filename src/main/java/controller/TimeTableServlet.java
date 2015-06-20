@@ -19,6 +19,7 @@ import Model.LecturerDAO;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import java.io.IOException;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.Enumeration;
 import java.util.List;
 import java.util.logging.Level;
@@ -177,10 +178,10 @@ public class TimeTableServlet extends HttpServlet {
                         url = base + "sysadmin.jsp";
                         break;
                     case "getMondayLectureHours":
-                        int day=6;
+                        int day = 2;
                         System.out.println("MONDAY!!");
                         getLecturesHours(request, response, day);
-                        
+
                 }
 //            System.out.println(request.getRequestURI());
                 RequestDispatcher dispatcher = getServletContext().getRequestDispatcher(url);
@@ -307,6 +308,10 @@ public class TimeTableServlet extends HttpServlet {
     /**
      * Adds to request Faculties and corresponding departments in well formed
      * JSON syntax
+     *
+     * @param request
+     * @param httpresponse
+     * @throws java.io.IOException
      */
     public void getFacultiesAndDepts(HttpServletRequest request, HttpServletResponse httpresponse) throws IOException {
         List<Faculty> faculties = FacultyDAO.getFaculties(dataManager);
@@ -341,28 +346,151 @@ public class TimeTableServlet extends HttpServlet {
         ObjectMapper mapper = new ObjectMapper();
         mapper.writeValue(httpresponse.getOutputStream(), response);
     }
-    
+
     /**
-     * Add to request lecturer names and corresponding hours in well formed JSON syntax
+     * Add to request lecturer names and corresponding hours in well formed JSON
+     * syntax
+     *
      * @param request
      * @param response
      * @param day
      * @throws java.io.IOException
      * @throws java.sql.SQLException
      */
-    public void getLecturesHours(HttpServletRequest request, HttpServletResponse response, int day) throws IOException, SQLException{
-        List<Lecturer> lecturers= LecturerDAO.getDistinctLecturers(dataManager, day);
+    public void getLecturesHours(HttpServletRequest request, HttpServletResponse response, int day) throws IOException, SQLException {
+        List<Lecturer> lecturers = LecturerDAO.getDistinctLecturers(dataManager, day);
         JSONObject obj = new JSONObject();
-        JSONArray profs = new JSONArray();
-        for (Lecturer lecturer :lecturers) {
+//        contains a list of json arrays, each array representing
+//        an hour of the day
+        JSONArray hoursObject = new JSONArray();
+        for (int i = 0; i < 12; i++) {
+            //create an array for each hour
+            hoursObject.add(new JSONArray());
+        }
+        JSONObject free = new JSONObject();
+        free.put("name", "Free");
+        free.put("hour", "free");
+        for (Lecturer lecturer : lecturers) {
             JSONObject de = new JSONObject();
             de.put("name", lecturer.getName());
             de.put("hour", lecturer.getHour());
-            profs.add(de);
-            System.out.println(profs.toString());
+            switch (lecturer.getHour()) {
+                case 6:
+                    ((JSONArray) hoursObject.get(0)).add(de);
+                    //to be revised
+                    for (int i = 1; i < 12; i++) {
+                        ((JSONArray) hoursObject.get(i)).add(free);
+                    }
+                    break;
+                case 7:
+                    ((JSONArray) hoursObject.get(0)).add(free);
+                    ((JSONArray) hoursObject.get(1)).add(de);
+                    for (int i = 2; i < 12; i++) {
+                        ((JSONArray) hoursObject.get(i)).add(free);
+                    }
+                    break;
+                case 8:
+                    for (int i = 0; i < 2; i++) {
+                        ((JSONArray) hoursObject.get(i)).add(free);
+                    }
+                    ((JSONArray) hoursObject.get(2)).add(de);
+                    for (int i = 3; i < 12; i++) {
+                        ((JSONArray) hoursObject.get(i)).add(free);
+                    }
+                    break;
+                case 9:
+                    for (int i = 0; i < 3; i++) {
+                        ((JSONArray) hoursObject.get(i)).add(free);
+                    }
+                    ((JSONArray) hoursObject.get(3)).add(de);
+                    for (int i = 4; i < 12; i++) {
+                        ((JSONArray) hoursObject.get(i)).add(free);
+                    }
+                    break;
+                case 10:
+                    for (int i = 0; i < 4; i++) {
+                        ((JSONArray) hoursObject.get(i)).add(free);
+                    }
+                    ((JSONArray) hoursObject.get(4)).add(de);
+                    for (int i = 5; i < 12; i++) {
+                        ((JSONArray) hoursObject.get(i)).add(free);
+                    }
+                    break;
+                case 11:
+                    for (int i = 0; i < 5; i++) {
+                        ((JSONArray) hoursObject.get(i)).add(free);
+                    }
+                    ((JSONArray) hoursObject.get(5)).add(de);
+                    for (int i = 6; i < 12; i++) {
+                        ((JSONArray) hoursObject.get(i)).add(free);
+                    }
+                    break;
+                case 12:
+                    for (int i = 0; i < 6; i++) {
+                        ((JSONArray) hoursObject.get(i)).add(free);
+                    }
+                    ((JSONArray) hoursObject.get(6)).add(de);
+                    for (int i = 7; i < 12; i++) {
+                        ((JSONArray) hoursObject.get(i)).add(free);
+                    }
+                    break;
+                case 13:
+                    for (int i = 0; i < 7; i++) {
+                        ((JSONArray) hoursObject.get(i)).add(free);
+                    }
+                    ((JSONArray) hoursObject.get(7)).add(de);
+                    for (int i = 8; i < 12; i++) {
+                        ((JSONArray) hoursObject.get(i)).add(free);
+                    }
+                    break;
+                case 14:
+                    for (int i = 0; i < 8; i++) {
+                        ((JSONArray) hoursObject.get(i)).add(free);
+                    }
+                    ((JSONArray) hoursObject.get(8)).add(de);
+                    for (int i = 9; i < 12; i++) {
+                        ((JSONArray) hoursObject.get(i)).add(free);
+                    }
+                    break;
+                case 15:
+                    for (int i = 0; i < 9; i++) {
+                        ((JSONArray) hoursObject.get(i)).add(free);
+                    }
+                    ((JSONArray) hoursObject.get(9)).add(de);
+                    ((JSONArray) hoursObject.get(10)).add(free);
+                    break;
+                case 16:
+                    for (int i = 0; i < 10; i++) {
+                        ((JSONArray) hoursObject.get(i)).add(free);
+                    }
+                    ((JSONArray) hoursObject.get(10)).add(de);
+                    break;
+            }
+
         }
-        obj.put("blocked_lecturers",profs);
-       ObjectMapper mapper = new ObjectMapper();
+        System.out.println(hoursObject.toString());
+//        int longestArray = 0;
+//        for (int i = 0; i < 12; i++) {
+//            JSONArray array = (JSONArray) hoursObject.get(i);
+//            if (array.size() > longestArray) {
+//                longestArray = array.size();
+//            }
+//        }
+//        for (int i = 0; i < 12; i++) {
+//            JSONArray array = (JSONArray) hoursObject.get(i);
+//            for (int j = array.size(); j < longestArray; j++) {
+//                if (true) {
+//                    
+//                }
+//                JSONObject de = new JSONObject();
+//                de.put("name", "x");
+//                de.put("hour", " ");
+//                array.add(de);
+//            }
+//        }
+        System.out.println("\n" + hoursObject.toString());
+        obj.put("blocked_lecturers", hoursObject);
+        ObjectMapper mapper = new ObjectMapper();
         mapper.writeValue(response.getOutputStream(), obj);
     }
 
@@ -416,26 +544,26 @@ public class TimeTableServlet extends HttpServlet {
      */
     public void hodSchedule(HttpServletRequest request, HttpServletResponse response) throws IOException {
 //        if (request.getSession().getAttribute("role").equals("HOD")) {
-            JSONObject lectAndCourses = new JSONObject();
+        JSONObject lectAndCourses = new JSONObject();
 //            object containing a jsonarray of lecturer(id, name)
-            JSONObject lecturers = getLecturers(request, response);
-            JSONObject jsonObjCourses = new JSONObject();
-            List<Course> courses = CourseDAO.getCourseByDepartment(dataManager,
-                    DepartmentDAO.getDepartmentIdByHOD(dataManager,
-                            Integer.parseInt((String) request.getParameter("id"))));
-            JSONArray jsonCourses = new JSONArray();
-            for (Course course : courses) {
-                JSONObject jsonCourse = new JSONObject();
-                jsonCourse.put("id", course.getId());
-                jsonCourse.put("name", course.getName());
-                jsonCourses.add(jsonCourse);
-            }
+        JSONObject lecturers = getLecturers(request, response);
+        JSONObject jsonObjCourses = new JSONObject();
+        List<Course> courses = CourseDAO.getCourseByDepartment(dataManager,
+                DepartmentDAO.getDepartmentIdByHOD(dataManager,
+                        Integer.parseInt((String) request.getParameter("id"))));
+        JSONArray jsonCourses = new JSONArray();
+        for (Course course : courses) {
+            JSONObject jsonCourse = new JSONObject();
+            jsonCourse.put("id", course.getId());
+            jsonCourse.put("name", course.getName());
+            jsonCourses.add(jsonCourse);
+        }
 //            object containing an jsonarray of course(id, name)
-            jsonObjCourses.put("courses", jsonCourses);
+        jsonObjCourses.put("courses", jsonCourses);
 //            JSONObject conataining json two objects: object of courses and object of lecturers
-            lectAndCourses.put("lecturers", lecturers);
-            lectAndCourses.put("courses", jsonObjCourses);
-            System.out.println(lectAndCourses);
+        lectAndCourses.put("lecturers", lecturers);
+        lectAndCourses.put("courses", jsonObjCourses);
+        System.out.println(lectAndCourses);
 //        }
     }
 
