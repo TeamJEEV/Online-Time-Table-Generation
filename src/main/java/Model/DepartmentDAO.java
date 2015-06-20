@@ -4,9 +4,11 @@
  * and open the template in the editor.
  */
 package Model;
-
+/**
+ *
+ * @author Harvey Sama
+ */
 import Utilities.DataManager;
-import Bean.Classroom;
 import Bean.Department;
 import com.mysql.jdbc.exceptions.MySQLIntegrityConstraintViolationException;
 import java.sql.Connection;
@@ -185,5 +187,9 @@ public class DepartmentDAO {
         } //end of if loop
         return count;
 
+    }
+
+    public static List<Department> getDepartmentsByFacultyId(DataManager dataManager, int dean) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 }

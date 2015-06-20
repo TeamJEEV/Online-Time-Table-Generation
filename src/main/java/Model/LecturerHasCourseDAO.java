@@ -4,7 +4,10 @@
  * and open the template in the editor.
  */
 package Model;
-
+/**
+ *
+ * @author Harvey Sama
+ */
 import Utilities.DataManager;
 import Bean.LecturerHasCourse;
 import java.sql.Connection;

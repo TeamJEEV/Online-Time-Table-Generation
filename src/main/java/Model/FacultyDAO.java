@@ -4,7 +4,10 @@
  * and open the template in the editor.
  */
 package Model;
-
+/**
+ *
+ * @author Harvey Sama
+ */
 import Utilities.DataManager;
 import Bean.Faculty;
 import com.mysql.jdbc.exceptions.MySQLIntegrityConstraintViolationException;
@@ -74,6 +77,10 @@ public class FacultyDAO {
             }
         }
         return facultys;
+    }
+
+    public static Faculty getFacultyByDeanId(DataManager dataManager, int deanId) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
     public Faculty getFacultyById(DataManager dataManager, int id) {

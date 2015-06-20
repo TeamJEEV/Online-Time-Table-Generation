@@ -4,7 +4,10 @@
  * and open the template in the editor.
  */
 package controller;
-
+/**
+ *
+ * @author Harvey Sama
+ */
 import Bean.Classroom;
 import Bean.Course;
 import Bean.Department;
@@ -117,8 +120,21 @@ public class TimeTableServlet extends HttpServlet {
 //        }
         Enumeration<String> parameterNames = request.getParameterNames();
         String action = request.getParameter("submit");
+        /**
+         * Check for the current session user Serve the required page if user is
+         * logged in else redirect to index page
+         */
         if (action != null) {
+
+            if (request.getSession().getAttribute("user") == null &&
+                    (!action.equals("loginPage") && !action.equals("login"))) {
+                // Not logged in. Redirect to login page.
+                response.sendRedirect("index.jsp");
+                return;
+            }
+
             int day;
+
             try {
                 switch (action) {
                     case "loginPage":
@@ -131,58 +147,59 @@ public class TimeTableServlet extends HttpServlet {
                         logOut(request);
                         break;
                     case "addLect"://Add Lecturer
-                        if (request.getSession().getAttribute("user") == null) {
-                            // Not logged in. Redirect to login page.
-                            response.sendRedirect("index.jsp");
-                            return;
-                        }
                         addLecturer(request, response);
                         url = base + "sysadmin.jsp";
                         break;
                     case "addhall":
-                        if (request.getSession().getAttribute("user") == null) {
-                            // Not logged in. Redirect to login page.
-                            response.sendRedirect("index.jsp");
-                            return;
-                        }
                         addHall(request);
                         url = base + "sysadmin.jsp";
                         break;
                     case "addFac":
-                        if (request.getSession().getAttribute("user") == null) {
-                            // Not logged in. Redirect to login page.
-                            response.sendRedirect("index.jsp");
-                            return;
-                        }
                         addFaculty(request);
                         url = base + "sysadmin.jsp";
                         break;
                     case "loadFaculties": //gets Faculties and correspondind departments from request
                         getFacultiesAndDepts(request, response);
-                        Enumeration<String> attributeNames = request.getAttributeNames(); //gets attributes available in request
                         break;
                     case "getFaculties":
                         populateFacultyList(request);
-                        return;
-//                    break;
+                        url = base + "sysadmin.jsp";
+                        break;
                     case "getLecturers":
                         getLecturers(request, response);
-                        return;
+                        url = base + "sysadmin.jsp";
+                        break;
                     case "getHalls":
                         getHalls(request, response);
-                        return;
+                        url = base + "sysadmin.jsp";
+                        break;
                     case "getLectsForCombo":
                         getLectsForDropDown(request, response);
+                        url = base + "sysadmin.jsp";
                         break;
                     case "addDept"://add Department
                         addDepartment(request);
                         url = base + "sysadmin.jsp";
                         break;
-                    case "getMondayLectureHours":
-                        day = 2;
-                        System.out.println("MONDAY!!");
-                        getBlockedLecturerInfo(request, response, day);
+                    case "loadLectsAndCourses"://load lecturers and courses
+                        if (request.getSession().getAttribute("role").equals("Dean")) {
+                            deanSchedule(request, response);
+                        } else {//is the hod
+                            hodSchedule(request, response);
+                        }
+                        url = base + "admin.jsp";
                         break;
+                    case "getMondayLectureHours":
+
+                        day = 2;
+
+                        System.out.println("MONDAY!!");
+
+                        getBlockedLecturerInfo(request, response, day);
+                        url = base + "admin.jsp";
+
+                        break;
+
 
                     case "getTuesdayLectureHours":
                     
@@ -214,15 +231,15 @@ public class TimeTableServlet extends HttpServlet {
                         System.out.println("SATURDAY!!");
                         getBlockedLecturerInfo(request, response, day);
                         break;
-
-                        
                     case "addCourse":
                         addCourse(request);//Adds a course to the DB
                         url = base + "admin.jsp";
                         break;
+
                     case "getDepartCourseswithHodId": //Get all the department courses group by level
                         getDepartmentCoursewithHodId(request, response);
                         break;
+
 
                 }
 //            System.out.println(request.getRequestURI());
@@ -320,9 +337,16 @@ public class TimeTableServlet extends HttpServlet {
         mapper.writeValue(response.getOutputStream(), obj);
     }
 
-    public JSONObject getLecturers(HttpServletRequest request, HttpServletResponse response) throws IOException {
+    public void getLecturers(HttpServletRequest request, HttpServletResponse response) throws IOException {
         List<Lecturer> lecturers = LecturerDAO.getLecturers(dataManager);
         JSONObject obj = new JSONObject();
+        JSONArray profs = returnLecturerArray(lecturers);
+        obj.put("lec", profs);
+        ObjectMapper mapper = new ObjectMapper();
+        mapper.writeValue(response.getOutputStream(), obj);
+    }
+
+    private JSONArray returnLecturerArray(List<Lecturer> lecturers) {
         JSONArray profs = new JSONArray();
         for (Lecturer lecturer : lecturers) {
             JSONObject de = new JSONObject();
@@ -331,10 +355,7 @@ public class TimeTableServlet extends HttpServlet {
             de.put("email", lecturer.getEmail());
             profs.add(de);
         }
-        obj.put("lec", profs);
-        ObjectMapper mapper = new ObjectMapper();
-        mapper.writeValue(response.getOutputStream(), obj);
-        return obj;
+        return profs;
     }
 
     public void addFaculty(HttpServletRequest request) {
@@ -401,7 +422,9 @@ public class TimeTableServlet extends HttpServlet {
      */
     public void getBlockedLecturerInfo(HttpServletRequest request, HttpServletResponse response, int day) throws IOException, SQLException {
         List<Lecturer> lecturers = LecturerDAO.getBlockedLecturers(dataManager, day);
+
         JSONObject obj = new JSONObject();
+
 //        contains a list of json arrays, each array representing
 //        an hour of the day
         JSONArray hoursObject = new JSONArray();
@@ -409,6 +432,7 @@ public class TimeTableServlet extends HttpServlet {
             //create an array for each hour
             hoursObject.add(new JSONArray());
         }
+
         for (Lecturer lecturer : lecturers) {
             JSONObject de = new JSONObject();
             de.put("name", lecturer.getName());
@@ -453,6 +477,7 @@ public class TimeTableServlet extends HttpServlet {
             }
 
         }
+
         System.out.println(hoursObject.toString());
         int longestArray = 0; //get arraylist of lecturers with greatest len
         for (int i = 0; i < 12; i++) { //parse inner and get longest list of lecturer
@@ -474,6 +499,7 @@ public class TimeTableServlet extends HttpServlet {
         }
         System.out.println("\n" + hoursObject.toString());
         obj.put("blocked_lecturers", hoursObject);
+
         ObjectMapper mapper = new ObjectMapper();
         mapper.writeValue(response.getOutputStream(), obj);
     }
@@ -584,14 +610,7 @@ public class TimeTableServlet extends HttpServlet {
     private void getLectsForDropDown(HttpServletRequest request, HttpServletResponse response) throws IOException {
         List<Lecturer> lecturers = LecturerDAO.getLectsForDrop(dataManager);
         JSONObject obj = new JSONObject();
-        JSONArray profs = new JSONArray();
-        for (Lecturer lecturer : lecturers) {
-            JSONObject de = new JSONObject();
-            de.put("id", lecturer.getId());
-            de.put("name", lecturer.getName());
-            de.put("email", lecturer.getEmail());
-            profs.add(de);
-        }
+        JSONArray profs = returnLecturerArray(lecturers);
         obj.put("lec", profs);
         ObjectMapper mapper = new ObjectMapper();
         mapper.writeValue(response.getOutputStream(), obj);
@@ -616,27 +635,30 @@ public class TimeTableServlet extends HttpServlet {
      * @throws java.io.IOException
      */
     public void hodSchedule(HttpServletRequest request, HttpServletResponse response) throws IOException {
-//        if (request.getSession().getAttribute("role").equals("HOD")) {
-        JSONObject lectAndCourses = new JSONObject();
-//            object containing a jsonarray of lecturer(id, name)
-        JSONObject lecturers = getLecturers(request, response);
-        JSONObject jsonObjCourses = new JSONObject();
-        List<Course> courses = CourseDAO.getCourseByDepartment(dataManager,
-                DepartmentDAO.getDepartmentIdByHOD(dataManager,
-                        Integer.parseInt((String) request.getParameter("id"))));
-        JSONArray jsonCourses = new JSONArray();
-        for (Course course : courses) {
-            JSONObject jsonCourse = new JSONObject();
-            jsonCourse.put("id", course.getId());
-            jsonCourse.put("name", course.getName());
-            jsonCourses.add(jsonCourse);
-        }
-//            object containing an jsonarray of course(id, name)
-        jsonObjCourses.put("courses", jsonCourses);
-//            JSONObject conataining json two objects: object of courses and object of lecturers
-        lectAndCourses.put("lecturers", lecturers);
-        lectAndCourses.put("courses", jsonObjCourses);
-        System.out.println(lectAndCourses);
+
+////        if (request.getSession().getAttribute("role").equals("HOD")) {
+//        JSONObject lectAndCourses = new JSONObject();
+////            object containing a jsonarray of lecturer(id, name)
+//        JSONObject lecturers = getLecturers(request, response);
+//        JSONObject jsonObjCourses = new JSONObject();
+//        List<Course> courses = CourseDAO.getCourseByDepartment(dataManager,
+//                DepartmentDAO.getDepartmentIdByHOD(dataManager,
+//                        Integer.parseInt((String) request.getParameter("id"))));
+//        JSONArray jsonCourses = new JSONArray();
+//        for (Course course : courses) {
+//            JSONObject jsonCourse = new JSONObject();
+//            jsonCourse.put("id", course.getId());
+//            jsonCourse.put("name", course.getName());
+//            jsonCourses.add(jsonCourse);
+//        }
+////            object containing an jsonarray of course(id, name)
+//        jsonObjCourses.put("courses", jsonCourses);
+////            JSONObject conataining json two objects: object of courses and object of lecturers
+//        lectAndCourses.put("lecturers", lecturers);
+//        lectAndCourses.put("courses", jsonObjCourses);
+//        ObjectMapper mapper = new ObjectMapper();
+//        mapper.writeValue(response.getOutputStream(), lectAndCourses);
+//        System.out.println(lectAndCourses);
 //        }
     }
 
@@ -645,16 +667,47 @@ public class TimeTableServlet extends HttpServlet {
      *
      * @param request
      * @param response
+     * @throws java.io.IOException
      */
-    public void deanSchedule(HttpServletRequest request, HttpServletResponse response) {
+    public void deanSchedule(HttpServletRequest request, HttpServletResponse response) throws IOException {
         if (request.getSession().getAttribute("role").equals("Dean")) {
-            int departments = DepartmentDAO.countDepartment(dataManager);
-
+            int deanId = (Integer) request.getSession().getAttribute("id");
+            List<Course> dbCourses = CourseDAO.getCourseByFaculty(dataManager, deanId);
+            
+            JSONObject lectAndCourses = new JSONObject();
+            JSONArray coursesArray = new JSONArray();
+            for (Course course : dbCourses) {
+                JSONObject object = new JSONObject();
+                object.put("id", course.getId());
+                object.put("title", course.getName());
+                object.put("semester", course.getSemester());
+                coursesArray.add(object);
+            }
+            lectAndCourses.put("courses", coursesArray);
+            
+            JSONArray lectArray = returnLecturerArray(LecturerDAO.getLecturers(dataManager));
+            lectAndCourses.put("lecturers", lectArray);
+            
+            List<Classroom> classrooms = ClassroomDAO.getClasses(dataManager);
+            JSONObject dbHalls = new JSONObject();
+            JSONArray hallArray = new JSONArray();
+            for (Classroom classroom : classrooms) {
+                JSONObject hall = new JSONObject();
+                hall.put("id", classroom.getId());
+                hall.put("name", classroom.getName());
+                hallArray.add(hall);
+            }
+            lectAndCourses.put("halls", hallArray);
+            
+            ObjectMapper mapper = new ObjectMapper();
+            mapper.writeValue(response.getOutputStream(), lectAndCourses);
         }
     }
 
     //Called when needed to add a course
+
     private void addCourse(HttpServletRequest request) {
+
         Course course = new Course();
         course.setId(request.getParameter("code"));
         course.setName(request.getParameter("title"));
@@ -770,6 +823,7 @@ public class TimeTableServlet extends HttpServlet {
 
         ObjectMapper mapper = new ObjectMapper();
         mapper.writeValue(response.getOutputStream(), obj);
+
 
     }
 }

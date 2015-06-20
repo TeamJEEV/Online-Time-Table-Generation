@@ -5,6 +5,10 @@
  */
 package Model;
 
+/**
+ *
+ * @author Harvey Sama
+ */
 import Utilities.DataManager;
 import Bean.Course;
 import com.mysql.jdbc.exceptions.MySQLIntegrityConstraintViolationException;
@@ -136,12 +140,54 @@ public class CourseDAO {
         return null;
     }
 
+    /*
+     Algorithm
+     Get the id of the dean from the session variable
+     Use the it to query the faculty table - get the dean's faculty
+     Get all the dapartments of the faculty.
+     For each department, get the department_has_course class
+     Use this to get the courses of that department
+     Repeat for each department
+     Create a JSOnObject and add it to the response
+     */
+    public static List<Course> getCourseByFaculty(DataManager dataManager, int deanId) {
+        Connection connection = dataManager.getConnection();
+        if (connection != null) {
+            try {
+                List<Course> courses = new ArrayList<>();
+                Statement statement = connection.createStatement();
+                String query = "SELECT courses.code, courses.title, semester FROM faculty INNER JOIN "
+                        + "department ON faculty.id = department.faculty_id INNER JOIN "
+                        + "department_has_courses ON department.id = department_has_courses.department_id INNER JOIN "
+                        + "courses ON courses.code = department_has_courses.courses_code WHERE "
+                        + "faculty.dean_id = " + deanId;
+                try {
+                    ResultSet resultSet = statement.executeQuery(query);
+                    while (resultSet.next()) {
+                        Course course = new Course();
+                        course.setId(resultSet.getString(1));
+                        course.setName(resultSet.getString(2));
+                        course.setSemester(Integer.parseInt(resultSet.getString(3)));
+                        courses.add(course);
+                    }
+                    return courses;
+                } catch (SQLException ex) {
+                    Logger.getGlobal().log(Level.WARNING, ex.getMessage());
+                } finally {
+                    statement.close();
+                }
+            } catch (SQLException e) {
+
+            }
+        }
+        return null;
+    }
+
     public int countCourse(DataManager dataManager) {
         Connection connection = dataManager.getConnection();
         Integer count = 0;
         if (connection != null) {
             try {
-
                 Statement statement = connection.createStatement();
                 String query = "SELECT Count(*) as COUNT FROM course";
                 try {
@@ -158,50 +204,47 @@ public class CourseDAO {
 
         } //end of if loop
         return count;
-
     }
 
-    
-    public static String addCourse(DataManager dataManager, Course course, int depart_id){
-         Connection connection = dataManager.getConnection();
-         
-           if (connection != null) {
-               String code = course.getId();
-               String title = course.getName();
-               int semester = course.getSemester();
-               
-               String query = "INSERT into courses values('" 
+    public static String addCourse(DataManager dataManager, Course course, int depart_id) {
+        Connection connection = dataManager.getConnection();
+
+        if (connection != null) {
+            String code = course.getId();
+            String title = course.getName();
+            int semester = course.getSemester();
+
+            String query = "INSERT into courses values('"
                     + code + "', '"
                     + title + "', "
                     + semester + ")";
-               
-               String query1 = "INSERT into department_has_courses values("
-                       + depart_id + ", '"
-                       + code + "')";
-               
-               Statement statement;
+
+            String query1 = "INSERT into department_has_courses values("
+                    + depart_id + ", '"
+                    + code + "')";
+
+            Statement statement;
+            try {
+                statement = connection.createStatement();
                 try {
-                    statement = connection.createStatement();
-                    try {
-                       statement.executeUpdate(query);
-                       statement.executeUpdate(query1);
-                       
-                    } catch (SQLException e) {
-                       Logger.getGlobal().log(Level.WARNING, e.getMessage());
-                    } finally {
-                       statement.close();
-                    }
-                    return "Course created";
-                
+                    statement.executeUpdate(query);
+                    statement.executeUpdate(query1);
+
+                } catch (SQLException e) {
+                    Logger.getGlobal().log(Level.WARNING, e.getMessage());
+                } finally {
+                    statement.close();
                 }
-                catch (SQLException e) {
-                     if (e.getClass().equals(MySQLIntegrityConstraintViolationException.class)) {
-                    return "Course with title " + code + " already exist.";  
-                     }
-                      Logger.getGlobal().log(Level.INFO, e.getMessage());
+                return "Course created";
+
+            } catch (SQLException e) {
+                if (e.getClass().equals(MySQLIntegrityConstraintViolationException.class)) {
+                    return "Course with title " + code + " already exist.";
                 }
-               
-           }
-           return null;
+                Logger.getGlobal().log(Level.INFO, e.getMessage());
+            }
+
+        }
+        return null;
     }
 }
