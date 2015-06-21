@@ -157,7 +157,7 @@ public class FacultyDAO {
         return faculties;
     }
 
-    public int countFaculty(DataManager dataManager) {
+    public static int countFaculty(DataManager dataManager) {
         Connection connection = dataManager.getConnection();
         Integer count = 0;
         if (connection != null) {
