@@ -519,7 +519,7 @@ and open the template in the editor.
                                     data: {"submit": "loadLectsAndCourses"},
                                     method: "POST"
                                 }).done(function (msg) {
-                                    alert(msg);
+                                    
                                     var response = JSON.parse(msg);
                                     var lecturerList = document.getElementById("lecturers");
                                     var courseList = document.getElementById("course");
@@ -590,7 +590,7 @@ and open the template in the editor.
                                         data: {"submit": "getIndividualSchedule"},
                                         method: "POST"
                                     }).done(function (msg) {
-                                        alert(msg);
+                                        
                                         var response = JSON.parse(msg);
                                         var content = '<div class="panel-heading">' +
                                                 '<h1 class="panel-title" style="text-align: center">My Schedule</h1>' +
@@ -746,7 +746,7 @@ and open the template in the editor.
                                         //                                            data: {"submit": "getFacultyDepartments", "dean_id": "${sessionScope.id}"}
                                         //                                            
                                         //                                        }).done(function (msg) {
-                                        //                                            alert(msg);
+                                        //                                            
                                         //                                        });
                                     }
                                     $("#row").css({"background-color": "transparent"});

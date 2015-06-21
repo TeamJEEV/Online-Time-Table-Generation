@@ -461,7 +461,7 @@ and open the template in the editor.
                     method: "POST"
                 });
                 request.done(function (msg) {
-//                                        alert(msg);
+//                                        
                     response = JSON.parse(msg);
                     var deanList = document.getElementById("dean");
                     var hodList = document.getElementById("hod");
