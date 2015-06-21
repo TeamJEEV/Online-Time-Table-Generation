@@ -24,6 +24,7 @@ import Model.LecturerDAO;
 import Model.LecturerHasCourseDAO;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import java.io.IOException;
+import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Timestamp;
 import java.util.Calendar;
@@ -765,6 +766,23 @@ public class TimeTableServlet extends HttpServlet {
 
             ObjectMapper mapper = new ObjectMapper();
             mapper.writeValue(response.getOutputStream(), lectAndCourses);
+        }
+    }
+    
+    public void getFreeListData(HttpServletRequest request, int lecturerId) throws SQLException{
+        ResultSet resultSet = LecturerDAO.getLecturerSchedule(dataManager, lecturerId);
+        JSONArray schedule = new JSONArray();
+        for (int i = 0; i < 6; i++) {
+            schedule.add(new JSONArray());
+        }
+        resultSet.next();
+        for (int i = 0; i < 6; i++) {
+            JSONArray day = (JSONArray) schedule.get(i);
+            for (int j = 0; j < 12; j++) {
+//                if () {
+//                    
+//                }
+            }
         }
     }
 
