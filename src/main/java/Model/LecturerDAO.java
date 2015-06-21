@@ -289,12 +289,18 @@ public class LecturerDAO {
 
     /**
      * Get the lecture names and hours
+     * @param dataManager
+     * @param day
+     * @return 
+     * @throws java.sql.SQLException 
      */
     public static List<Lecturer> getBlockedLecturers(DataManager dataManager, int day) throws SQLException {
         Connection connection = dataManager.getConnection();
          PreparedStatement pstatement= null;
         List<Lecturer> lecturers_name = new ArrayList<>();
-        String query = "SELECT  `FULL NAME` FROM lecturer JOIN lecturer_has_courses ON lecturer.id = lecturer_has_courses.lecturer_id WHERE DAYOFWEEK (lecturer_has_courses.date) = ? AND HOUR (lecturer_has_courses.date) = ? ";
+        String query = "SELECT  `FULL NAME` FROM lecturer JOIN lecturer_has_courses ON "
+                + "lecturer.id = lecturer_has_courses.lecturer_id WHERE "
+                + "DAYOFWEEK (lecturer_has_courses.date) = ? AND HOUR (lecturer_has_courses.date) = ? ";
           
         if (connection != null) {
             try {
@@ -333,7 +339,10 @@ public class LecturerDAO {
         Connection connection = dataManager.getConnection();
          PreparedStatement pstatement= null;
         List<Lecturer> lecturers_name = new ArrayList<>();
-        String query = "SELECT  `FULL NAME` FROM lecturer where lecturer.`FULL NAME` not in (SELECT  `FULL NAME` FROM lecturer JOIN lecturer_has_courses ON lecturer.id = lecturer_has_courses.lecturer_id WHERE DAYOFWEEK (lecturer_has_courses.date) = ? AND HOUR (lecturer_has_courses.date) = ?);";
+        String query = "SELECT  `FULL NAME` FROM lecturer where lecturer.`FULL NAME` not in "
+                + "(SELECT  `FULL NAME` FROM lecturer JOIN lecturer_has_courses ON "
+                + "lecturer.id = lecturer_has_courses.lecturer_id WHERE "
+                + "DAYOFWEEK (lecturer_has_courses.date) = ? AND HOUR (lecturer_has_courses.date) = ?);";
           
         if (connection != null) {
             try {

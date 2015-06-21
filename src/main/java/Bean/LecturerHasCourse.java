@@ -14,7 +14,7 @@ import java.util.Date;
 public class LecturerHasCourse {
     private int lecturer;
     private int classroom;
-    private int course;
+    private String course;
     private Date date;
 
     public int getLecturer() {
@@ -33,11 +33,11 @@ public class LecturerHasCourse {
         this.classroom = classroom;
     }
 
-    public int getCourse() {
+    public String getCourse() {
         return course;
     }
 
-    public void setCourse(int course) {
+    public void setCourse(String course) {
         this.course = course;
     }
 

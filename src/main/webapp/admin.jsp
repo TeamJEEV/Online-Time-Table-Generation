@@ -67,7 +67,7 @@ and open the template in the editor.
 
                     <li >
                         <a  href="#" data-toggle="modal" 
-                            data-target="#addclassModal" onclick="loadCourses()">Add Class
+                            data-target="#addclassModal" onclick="loadCourseLectHalls()">Add Class
                             <i class="glyphicon glyphicon-menu-right glyphicon-align-right"></i></a>
                     </li>
 
@@ -396,56 +396,31 @@ and open the template in the editor.
                                     <span class="input-group-addon" id="lecturer-name-addon">Lecturer</span>
                                     <select name="lecturer" id="lecturers" required="required" class="form-control"  
                                             aria-describedby="lecturer-name-addon">
-
-
-
                                     </select >
-
-
-
-
-
                                 </div>
-
-
-
                                 <div class="input-group form-group">
                                     <span class="input-group-addon" id="course-addon">Course&nbsp;</span>
                                     <select name="course" id="course" required="required" class="form-control"  aria-describedby="course-addon">
-
-
-
                                     </select >
                                 </div >
-
- 
-
-
                                 <div class="input-group form-group">
                                     <span class="input-group-addon" id="day-addon">Day&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
                                     <select name="day" required="required" class="form-control"  aria-describedby="day-addon">
                                         <option selected="true"  disabled="true">Select Day</option>
-                                        <option>MONDAY</option> 
-                                        <option>TUESDAY</option>
-                                        <option>WEDNESDAY</option>
-                                        <option>THURSDAY</option>
-                                        <option>FRIDAY</option>
-                                        <option>SATURDAY</option>                                 
+                                        <option value="1">MONDAY</option> 
+                                        <option value="2">TUESDAY</option>
+                                        <option value="3">WEDNESDAY</option>
+                                        <option value="4">THURSDAY</option>
+                                        <option value="5">FRIDAY</option>
+                                        <option value="6">SATURDAY</option>                                 
                                     </select >
                                 </div >
-
-
-
-
                                 <div class="input-group form-group">
                                     <span class="input-group-addon" id="hall-addon">Hall&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
                                     <select id="hall" name="hall" required="required" class="form-control"  aria-describedby="hall-addon">
                                                                                                                          
                                     </select >
                                 </div >
-
-
-
                                 <div class="form-inline">
                                     <div class="form-group">
                                         <label>Start Time</label>
@@ -453,11 +428,6 @@ and open the template in the editor.
                                             <option selected="true"  disabled="true" value="">Hour</option>
                                             <option value="7">07</option>
                                             <option value="9">09</option>
-                                        </select>
-                                        <select name="startminute" required="required" class="form-control">
-                                            <option selected="true" disabled="true" value="">Minute</option>
-                                            <option value="0">00</option>
-                                            <option value="1">01</option>
                                         </select>
                                     </div>
                                 </div>
@@ -470,16 +440,8 @@ and open the template in the editor.
                                             <option value="7">07</option>
                                             <option value="9">09</option>
                                         </select>
-                                        <select name="endminute" required="required" class="form-control">
-                                            <option selected="true" disabled="true" value="">Minute</option>
-                                            <option value="0">00</option>
-                                            <option value="1">01</option>
-                                        </select>
                                     </div>
                                 </div>
-
- 
-
                             </div>
                             <div class="modal-footer">
                                 <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
@@ -548,7 +510,9 @@ and open the template in the editor.
             <script>
 //                Loads lecturers from the database for the lecurers drop down
 //                courses for the courses drop down
-                function loadCourses() {
+
+                
+                function loadCourseLectHalls() {
                     var request = $.ajax({
                         url: "TimeTableServlet",
                         data: {"submit": "loadLectsAndCourses"},
