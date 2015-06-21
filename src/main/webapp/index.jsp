@@ -39,7 +39,8 @@ and open the template in the editor.
                             <div class="form-group">
                                 <input type="hidden" name="username"  class="form-control">
                             </div>
-                            <button type="submit" name="submit" value="loginPage"  class="btn btn-success">Login</button>
+                            <a href="login.jsp" class="btn btn-success">Login</a>
+                            <!--<button type="submit" name="submit" value="loginPage"  class="btn btn-success">Login</button>-->
 
                         </form>
                     </div><!--/.navbar-collapse -->

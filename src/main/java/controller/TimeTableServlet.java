@@ -131,8 +131,8 @@ public class TimeTableServlet extends HttpServlet {
          */
         if (action != null) {
 
-            if (request.getSession().getAttribute("user") == null
-                    && (!action.equals("loginPage") && !action.equals("login"))) {
+            if ((request.getSession().getAttribute("user") == null && (!action.equals("login"))) &&
+                    (request.getSession().getAttribute("user") == null && !action.equals("loadFaculties"))) {
                 // Not logged in. Redirect to login page.
                 response.sendRedirect("index.jsp");
                 return;
@@ -142,9 +142,6 @@ public class TimeTableServlet extends HttpServlet {
 
             try {
                 switch (action) {
-                    case "loginPage":
-                        url = base + "login.jsp";
-                        break;
                     case "login":
                         url = login(request, url);
                         break;
@@ -165,7 +162,9 @@ public class TimeTableServlet extends HttpServlet {
                         break;
                     case "loadFaculties": //gets Faculties and correspondind departments from request
                         getFacultiesAndDepts(request, response);
+                        Enumeration<String> attributeNames = request.getAttributeNames(); //gets attributes available in request
                         break;
+
                     case "getFaculties":
                         populateFacultyList(request);
                         url = base + "sysadmin.jsp";
