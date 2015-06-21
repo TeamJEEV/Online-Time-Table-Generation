@@ -20,6 +20,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import org.json.simple.JSONObject;
 
 /**
  *
@@ -70,7 +71,10 @@ public class FacultyDAO {
                         faculty.setDean(Integer.parseInt(rs.getString("Dean_ID")));
                         facultys.add(faculty);
                     }
-                } finally {
+                }catch(SQLException | NumberFormatException e){
+                    String msg = e.getMessage();                   
+                    Logger.getGlobal().log(Level.INFO, msg);
+                }finally {
                     statement.close();
                 }
             } catch (SQLException e) {

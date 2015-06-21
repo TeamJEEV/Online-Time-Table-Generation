@@ -20,11 +20,11 @@
         </init-param>
         <init-param>
             <param-name>dbUserName</param-name>
-            <param-value>admindHjd7vg</param-value>
+            <param-value>root</param-value>
         </init-param>
         <init-param>
             <param-name>dbPassword</param-name>
-            <param-value>9IIXH5uuDzKA</param-value>
+            <param-value>root</param-value>
         </init-param>
     </servlet>
     <servlet-mapping>
