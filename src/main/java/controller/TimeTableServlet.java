@@ -129,8 +129,8 @@ public class TimeTableServlet extends HttpServlet {
          */
         if (action != null) {
 
-            if (request.getSession().getAttribute("user") == null
-                    && (!action.equals("loginPage") && !action.equals("login"))) {
+            if ((request.getSession().getAttribute("user") == null && (!action.equals("login"))) &&
+                    (request.getSession().getAttribute("user") == null && !action.equals("loadFaculties"))) {
                 // Not logged in. Redirect to login page.
                 response.sendRedirect("index.jsp");
                 return;
@@ -140,9 +140,6 @@ public class TimeTableServlet extends HttpServlet {
 
             try {
                 switch (action) {
-                    case "loginPage":
-                        url = base + "login.jsp";
-                        break;
                     case "login":
                         url = login(request, url);
                         break;
@@ -163,7 +160,9 @@ public class TimeTableServlet extends HttpServlet {
                         break;
                     case "loadFaculties": //gets Faculties and correspondind departments from request
                         getFacultiesAndDepts(request, response);
+                        Enumeration<String> attributeNames = request.getAttributeNames(); //gets attributes available in request
                         break;
+
                     case "getFaculties":
                         populateFacultyList(request);
                         url = base + "sysadmin.jsp";
@@ -232,8 +231,8 @@ public class TimeTableServlet extends HttpServlet {
                         System.out.println("SATURDAY!!");
                         getBlockedLecturerInfo(request, response, day);
                         break;
-                        
-                        case "getFreeMondayLectureHours":
+
+                    case "getFreeMondayLectureHours":
 
                         day = 2;
 
@@ -244,33 +243,32 @@ public class TimeTableServlet extends HttpServlet {
 
                         break;
 
-
                     case "getFreeTuesdayLectureHours":
-                    
+
                         day = 3;
                         System.out.println("TUESDAY!!");
                         getFreeLecturerInfo(request, response, day);
                         break;
                     case "getFreeWednesdayLectureHours":
-                    
+
                         day = 4;
                         System.out.println("WEDNESDAY!!");
                         getFreeLecturerInfo(request, response, day);
                         break;
                     case "getFreeThursdayLectureHours":
-                    
+
                         day = 5;
                         System.out.println("THURSDAY!!");
                         getFreeLecturerInfo(request, response, day);
                         break;
                     case "getFreeFridayLectureHours":
-                    
+
                         day = 6;
                         System.out.println("FRIDAY!!");
                         getFreeLecturerInfo(request, response, day);
                         break;
                     case "getFreeSaturdayLectureHours":
-                    
+
                         day = 7;
                         System.out.println("SATURDAY!!");
                         getFreeLecturerInfo(request, response, day);
@@ -283,7 +281,7 @@ public class TimeTableServlet extends HttpServlet {
                     case "getDepartCourseswithHodId": //Get all the department courses group by level
                         getDepartmentCoursewithHodId(request, response);
                         break;
-                        
+
                     case "getFacultyDepartments":
                         //This get departments and thier number of courses using the dean id
                         getdepartswithDeanId(request, response);
@@ -919,17 +917,17 @@ public class TimeTableServlet extends HttpServlet {
         mapper.writeValue(response.getOutputStream(), obj);
 
     }
-    
+
     private void getdepartswithDeanId(HttpServletRequest request, HttpServletResponse response) throws IOException {
-        int dean_id = Integer.parseInt(request.getParameter("dean_id"));        
+        int dean_id = Integer.parseInt(request.getParameter("dean_id"));
         Faculty fac = FacultyDAO.getFacultyByDeanId(dataManager, dean_id);
-        
-        int faculty_id = fac.getId();       
+
+        int faculty_id = fac.getId();
         List<Department> departs = DepartmentDAO.getDepartmentsByFacultyId(dataManager, faculty_id);
-        
+
         JSONArray departArray = new JSONArray();
-        
-        for(Department depart : departs){
+
+        for (Department depart : departs) {
             JSONObject dep = new JSONObject();
             dep.put("id", depart.getId());
             dep.put("name", depart.getName());
@@ -937,9 +935,9 @@ public class TimeTableServlet extends HttpServlet {
             dep.put("numOfCourses", numOfCourses);
             departArray.add(dep);
         }
-        
+
         ObjectMapper mapper = new ObjectMapper();
         mapper.writeValue(response.getOutputStream(), departArray);
     }
-    
+
 }
