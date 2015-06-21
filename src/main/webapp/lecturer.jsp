@@ -70,9 +70,127 @@ This is the a simple lecturer view of the app after login
                 <div class="container-fluid">
                     <div class="row">
                         <div class="col-md-12">
-                            <h1>Page content</h1>
-                            <p>This part of the page will contain the structured time tables for the various departments </p>
-                            <p>Make sure to keep all page content within the <code>#page-content-wrapper</code>.</p>
+                            <h1></h1>
+                            <div class="panel panel-default" style="width: 85%" id="myscheduledisplay">
+                                <div class="panel-heading">
+                                    <h1 class="panel-title" style="text-align: center"><b>My Schedule</b></h1>
+                                </div>
+                                <div class="panel-body">
+                                    <table style="text-align:center" class="table table-bordered table-striped table-hover table-responsive table-condensed">
+                                        <thead>
+                                            <tr>
+                                                <th></th>
+                                                <th>07:00</th>
+                                                <th>08:00</th>
+                                                <th>9:00</th>  <th>10:00</th>
+                                                <th>11:00 </th> <th> 12:00</th>
+                                                <th>13:00 </th> <th> 14:00</th>
+                                                <th>15:00 </th> <th> 16:00</th>
+                                                <th>17:00 </th> <th> 18:00</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <tr>
+                                                <td>MON</td>
+                                                <td></td>
+                                                <td></td>
+                                                <td></td>
+                                                <td></td>
+                                                <td></td>
+                                                <td></td>
+                                                <td></td>
+                                                <td></td>
+                                                <td></td>
+                                                <td></td>
+                                                <td></td>
+                                                <td></td>
+                                            </tr>
+
+
+                                            <tr>
+                                                <td>TUE</td>
+                                                <td>CEF 502<br> Ublock A</td>
+                                                <td>CEF 510<br> Ublock C</td>
+                                                <td></td>
+                                                <td>CEF 506<br> ClBLK I 50A</td>
+                                                <td></td>
+                                                <td>CEF 504<br> Ublock D</td>
+                                                <td></td>
+                                                <td></td>
+                                                <td></td>
+                                                <td></td>
+                                                <td></td>
+                                                <td></td>
+                                            </tr>
+                                            <tr>
+                                                <td>WED</td>
+                                                <td></td>
+                                                <td></td>
+                                                <td>CEF 514<br> ClBLK I 50A</td>
+                                                <td></td>
+                                                <td>CEF 506<br> Restau 2</td>
+                                                <td></td>
+                                                <td></td>
+                                                <td></td>
+                                                <td></td>
+                                                <td></td>
+                                                <td></td>
+                                                <td></td>
+
+                                            </tr>
+                                            <tr>
+                                                <td>THURS</td>
+                                                <td></td>
+                                                <td></td>
+                                                <td></td>
+                                                <td></td>
+                                                <td></td>
+                                                <td></td>
+                                                <td></td>
+                                                <td></td>
+                                                <td></td>
+                                                <td></td>
+                                                <td></td>
+                                                <td></td>
+                                            </tr>
+                                            <tr>
+                                                <td>FRI</td>
+                                                <td>CEF 502<br> Ublock A</td>
+                                                <td>CEF 510<br> Ublock C</td>
+                                                <td></td>
+                                                <td>CEF 506<br> ClBLK I 50A</td>
+                                                <td></td>
+                                                <td></td>
+                                                <td></td>
+                                                <td></td>
+                                                <td></td>
+                                                <td></td>
+                                                <td></td>
+                                                <td>CEF 504<br> Ublock D</td>
+                                            </tr>
+                                            <tr>
+                                                <td>SAT</td>
+                                                <td></td>
+                                                <td></td>
+                                                <td>CEF 514<br> ClBLK I 50A</td>
+                                                <td></td>
+                                                <td>CEF 506<br> Restau 2</td>
+                                                <td></td>
+                                                <td></td>
+                                                <td></td>
+                                                <td></td>
+                                                <td></td>
+                                                <td></td>
+                                                <td></td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+
+
+
+                            </div>
+
 
                         </div>
                     </div>
@@ -119,8 +237,8 @@ This is the a simple lecturer view of the app after login
 
                                 </div>
 
-                                 <input name="id" type="hidden">
-                                
+                                <input name="id" type="hidden">
+
                             </div>
                             <div class="modal-footer">
                                 <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
