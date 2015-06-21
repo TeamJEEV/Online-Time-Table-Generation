@@ -25,7 +25,9 @@ import Model.LecturerHasCourseDAO;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import java.io.IOException;
 import java.sql.SQLException;
+import java.sql.Timestamp;
 import java.util.Calendar;
+import java.util.Date;
 import java.util.Enumeration;
 import java.util.List;
 import java.util.logging.Level;
@@ -197,7 +199,7 @@ public class TimeTableServlet extends HttpServlet {
                         break;
                     case "getMondayLectureHours":
                         day = 2;
-                        System.out.println("MONDAY!!");
+//                        System.out.println("MONDAY!!");
                         getBlockedLecturerInfo(request, response, day);
                         url = base + "admin.jsp";
                         break;
@@ -205,30 +207,30 @@ public class TimeTableServlet extends HttpServlet {
                     case "getTuesdayLectureHours":
 
                         day = 3;
-                        System.out.println("TUESDAY!!");
+//                        System.out.println("TUESDAY!!");
                         getBlockedLecturerInfo(request, response, day);
                         break;
                     case "getWednesdayLectureHours":
 
                         day = 4;
-                        System.out.println("WEDNESDAY!!");
+//                        System.out.println("WEDNESDAY!!");
                         getBlockedLecturerInfo(request, response, day);
                         break;
                     case "getThursdayLectureHours":
 
                         day = 5;
-                        System.out.println("THURSDAY!!");
+//                        System.out.println("THURSDAY!!");
                         getBlockedLecturerInfo(request, response, day);
                         break;
                     case "getFridayLectureHours":
 
                         day = 6;
-                        System.out.println("FRIDAY!!");
+//                        System.out.println("FRIDAY!!");
                         getBlockedLecturerInfo(request, response, day);
                         break;
                     case "getSaturdayLectureHours":
                         day = 7;
-                        System.out.println("SATURDAY!!");
+//                        System.out.println("SATURDAY!!");
                         getBlockedLecturerInfo(request, response, day);
                         break;
 
@@ -529,7 +531,7 @@ public class TimeTableServlet extends HttpServlet {
 
         }
 
-        System.out.println(hoursObject.toString());
+//        System.out.println(hoursObject.toString());
         int longestArray = 0; //get arraylist of lecturers with greatest len
         for (int i = 0; i < 12; i++) { //parse inner and get longest list of lecturer
             JSONArray array = (JSONArray) hoursObject.get(i);
@@ -548,7 +550,7 @@ public class TimeTableServlet extends HttpServlet {
                 array.add(de);
             }
         }
-        System.out.println("\n" + hoursObject.toString());
+//        System.out.println("\n" + hoursObject.toString());
         obj.put("blocked_lecturers", hoursObject);
 
         ObjectMapper mapper = new ObjectMapper();
@@ -638,7 +640,7 @@ public class TimeTableServlet extends HttpServlet {
                 array.add(de);
             }
         }
-        System.out.println("\n" + hoursObject.toString());
+//        System.out.println("\n" + hoursObject.toString());
         obj.put("blocked_lecturers", hoursObject);
         ObjectMapper mapper = new ObjectMapper();
         mapper.writeValue(response.getOutputStream(), obj);
@@ -766,11 +768,12 @@ public class TimeTableServlet extends HttpServlet {
         Calendar start = Calendar.getInstance();
         Calendar end = Calendar.getInstance();
         start.set(Calendar.HOUR_OF_DAY, startHour);
+        java.sql.Timestamp timestamp = new java.sql.Timestamp((new Date()).getTime());
+
         if (endHour > startHour + 1) {
             endHour -= 1;
         }
         end.set(Calendar.HOUR_OF_DAY, endHour);
-
         int day = Integer.parseInt(request.getParameter("day"));
         switch (day) {
             case 1:
@@ -798,11 +801,18 @@ public class TimeTableServlet extends HttpServlet {
                 end.set(Calendar.DAY_OF_WEEK, Calendar.SATURDAY);
                 break;
         }
+        timestamp.setTime(start.getTimeInMillis());
+        System.out.println(timestamp);
         LecturerHasCourseDAO.addTaughtCourse(dataManager, hasCourse, start);
-        LecturerHasCourseDAO.addTaughtCourse(dataManager, hasCourse, end);
+        for (int i = startHour + 1; i <= endHour; i++) {
+            end.set(Calendar.HOUR_OF_DAY, i);
+            end.set(Calendar.DAY_OF_WEEK, start.get(Calendar.DAY_OF_WEEK));
+            LecturerHasCourseDAO.addTaughtCourse(dataManager, hasCourse, end);
+
+        }
     }
 
-    //Called when needed to add a course
+//Called when needed to add a course
     private void addCourse(HttpServletRequest request) {
 
         Course course = new Course();

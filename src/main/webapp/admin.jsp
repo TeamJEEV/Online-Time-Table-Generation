@@ -467,7 +467,12 @@ and open the template in the editor.
                                                     <select name="starthour" required="required" class="form-control">
                                                         <option selected="true"  disabled="true" value="">Hour</option>
                                                         <option value="7">07</option>
+
+
+                                                        <option value="8">08</option>
                                                         <option value="9">09</option>
+                                                        <option value="10">10</option>
+                                                        <option value="11">11</option>
                                                     </select>
                                                 </div>
                                             </div>
@@ -478,7 +483,11 @@ and open the template in the editor.
                                                     <select name="endhour" required="required" class="form-control">
                                                         <option selected="true"  disabled="true" value="">Hour</option>
                                                         <option value="7">07</option>
+                                                        <option value="8">08</option>
                                                         <option value="9">09</option>
+                                                        <option value="10">10</option>
+                                                        <option value="11">11</option>
+
                                                     </select>
                                                 </div>
                                             </div>
@@ -547,6 +556,8 @@ and open the template in the editor.
                         <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>-->
 
 
+
+
                         <script>
                             //                Loads lecturers from the database for the lecurers drop down
                             //                courses for the courses drop down
@@ -562,6 +573,7 @@ and open the template in the editor.
                                     var response = JSON.parse(msg);
                                     var lecturerList = document.getElementById("lecturers");
                                     var courseList = document.getElementById("course");
+
                                     var hallList = document.getElementById("hall");
                                     for (var m = lecturerList.options.length - 1; m >= 0; m--) {
                                         lecturerList.options[m] = null;
@@ -616,10 +628,21 @@ and open the template in the editor.
 
 
 
+
                                 //Initialising the page content
                                 $("#courselist").hide();
                                 $("#listdisplay").hide();
-                                $("#myscheduledisplay").show("slow");
+
+
+
+                                $("#visitinglecturer").click(function () {
+                                    var docForm = document.getElementById("newLecForm");
+
+                                    docForm.email.value = "";
+                                    docForm.password.value = "";
+                                    $("#lecid").remove();
+
+                                });
 
                                 $("#myschedule").click(function () { //when tab is clicked
                                     $("#courselist").hide("slow");
@@ -728,27 +751,11 @@ and open the template in the editor.
                                         //                                            alert(msg);
                                         //                                        });
                                     }
-
-
                                     $("#row").css({"background-color": "transparent"});
                                     $("#courselist").show("slow");
                                 });
-
-
-
-
-                                $("#visitinglecturer").click(function () {
-                                    var docForm = document.getElementById("newLecForm");
-
-                                    docForm.email.value = "";
-                                    docForm.password.value = "";                                   
-                                    $("#lecid").remove();
-                                    
-                                });
-
-
-
                             });//end ready
+
 
                         </script>
 

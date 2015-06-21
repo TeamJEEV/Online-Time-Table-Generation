@@ -17,6 +17,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
@@ -117,7 +118,7 @@ public class LecturerHasCourseDAO {
                 statement.setInt(1, info.getLecturer());
                 statement.setString(2, info.getCourse());
                 statement.setInt(3, info.getClassroom());
-                statement.setDate(4, new Date(start.getTimeInMillis()));
+                statement.setTimestamp(4, new Timestamp(start.getTimeInMillis()), start);
                 try {
                      statement.executeUpdate();
                 } catch (SQLException e) {

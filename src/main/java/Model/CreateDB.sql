@@ -112,7 +112,7 @@ CREATE  TABLE IF NOT EXISTS `timetable`.`lecturer_has_courses` (
   `courses_code` VARCHAR(50) NOT NULL ,
   `classrooms_id` INT NOT NULL ,
   `date` DATETIME NULL ,
-  PRIMARY KEY (`lecturer_id`, `courses_code`, `classrooms_id`) ,
+  PRIMARY KEY (`lecturer_id`, `courses_code`, `classrooms_id`, `date`) ,
   INDEX `fk_lecturer_has_courses_courses1` (`courses_code` ASC) ,
   INDEX `fk_lecturer_has_courses_lecturer1` (`lecturer_id` ASC) ,
   INDEX `fk_lecturer_has_courses_classrooms1` (`classrooms_id` ASC) ,
