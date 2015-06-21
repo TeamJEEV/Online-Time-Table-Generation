@@ -53,20 +53,20 @@ and open the template in the editor.
             <div class="pagecontent_left">
                 <div class="panel-group" id="accordion">
 
-<!--
-                    <ul class="sidebar-nav">
-                        <li class="sidebar-brand">
-                            <span >Faculties  </span>
-                        </li>
-                        <c:forEach var="faculty" items="${sessionScope.faculties}">
-                            <li class="panel panel-default">
-                                <a href="#FET" data-toggle="collapse" data-parent="#accordion">
-                                    ${faculty.getName()} <i class="glyphicon glyphicon-menu-down glyphicon-align-right"></i></a>
-                            </li>
+                    <!--
+                                        <ul class="sidebar-nav">
+                                            <li class="sidebar-brand">
+                                                <span >Faculties  </span>
+                                            </li>
+                    <c:forEach var="faculty" items="${sessionScope.faculties}">
+                        <li class="panel panel-default">
+                            <a href="#FET" data-toggle="collapse" data-parent="#accordion">
+                        ${faculty.getName()} <i class="glyphicon glyphicon-menu-down glyphicon-align-right"></i></a>
+                </li>
 
-                        </c:forEach> 
+                    </c:forEach> 
 
-                    </ul> -->
+                </ul> -->
                 </div>
             </div>
 
@@ -124,7 +124,7 @@ and open the template in the editor.
                                 </tbody>
 
                             </table>
-                            
+
                         </div>
                     </div>
                 </div>
@@ -159,14 +159,13 @@ and open the template in the editor.
 
             //This function is used to load the faculties and departement
             function loadFaculties() {
-                
+
                 var request = $.ajax({
                     url: "TimeTableServlet",
                     data: {"submit": "loadFaculties"},
                     method: "POST"
                 });
                 request.done(function (msg) {
-                   
                     var response = JSON.parse(msg);
 
                     var contents = '<ul class="sidebar-nav">' +
@@ -182,8 +181,8 @@ and open the template in the editor.
 
                         for (var j = 0; j < response[i].departments.length; j++) {
                             contents += '<li>' +
-                                            '<a href="#">' + response[i].departments[j].name + '</a>' +
-                                        '</li>';
+                                    '<a href="#">' + response[i].departments[j].name + '</a>' +
+                                    '</li>';
                         }
 
                         contents += '</ul>' +
@@ -191,7 +190,7 @@ and open the template in the editor.
                     }
                     contents += '</ul>';
 
-                    
+
                     $("#accordion").html(contents);
                 });
 

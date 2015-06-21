@@ -63,10 +63,9 @@ $(document).ready(function () {
             data: {"submit": "getMondayLectureHours"},
             method: "POST"
         }).done(function (msg) {
-            //                                    var response = JSON.parse(msg);
-//           alert(msg);
 
-   var response = JSON.parse(msg);
+
+            var response = JSON.parse(msg);
             var content = '<table style = "width: 85%; text-align:center" ' +
                     'class = "table table-bordered table-striped table-hover table-responsive table-condensed" >' +
                     '<thead>' +
@@ -115,7 +114,7 @@ $(document).ready(function () {
             async: false,
             method: "POST"
         }).done(function (msg) {
-                                       alert(msg);
+            alert(msg);
             var response = JSON.parse(msg);
             var content = '<table style = "width: 85%; text-align:center" ' +
                     'class = "table table-bordered table-striped table-hover table-responsive table-condensed" >' +
@@ -167,7 +166,7 @@ $(document).ready(function () {
             async: false,
             method: "POST"
         }).done(function (msg) {
-            //                            alert(msg);
+            //alert(msg);
             var response = JSON.parse(msg);
             var content = '<table style = "width: 85%; text-align:center" ' +
                     'class = "table table-bordered table-striped table-hover table-responsive table-condensed" >' +
