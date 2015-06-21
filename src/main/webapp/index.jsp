@@ -124,9 +124,7 @@ and open the template in the editor.
                                 </tbody>
 
                             </table>
-                            <p>This part of the page will contain the structured time tables for the various departments </p>
-                            <p>Make sure to keep all page content within the <code>#page-content-wrapper</code>.</p>
-
+                            
                         </div>
                     </div>
                 </div>

@@ -47,11 +47,11 @@ public class LecturerDAO {
                             + password + "', '"
                             + email + "')";
                 } else {
-                    query = "UPDATE lecturer set full name ='" + name
+                    query = "UPDATE lecturer set `full name` ='" + name
                             + "', name = '" + username
-                            + "', password '" + password
-                            + "', email '" + email
-                            + "' where id = " + id + ")";
+                            + "', password = '" + password
+                            + "', email = '" + email
+                            + "' where id = " + id;
                 }
                 try {
                     statement.executeUpdate(query);

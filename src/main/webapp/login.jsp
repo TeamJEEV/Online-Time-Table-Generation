@@ -17,7 +17,7 @@ and open the template in the editor.
         <script src="js/bootstrap.min.js" type="text/javascript"></script>
 
     </head>
-    <body>
+    <body style="background-color: #495755;">
 
         <!--login modal-->
         <div id="loginModal" class="modal show" tabindex="-1" role="dialog" aria-hidden="true">
@@ -43,7 +43,7 @@ and open the template in the editor.
                     </div>
                     <div class="modal-footer">
                         <div class="col-md-12">
-                            <a href="index.jsp" class="btn btn-default">Cancel</a>
+                            <a href="index.jsp" class="btn btn-danger">Cancel</a>
                         </div>	
                     </div>
                 </div>

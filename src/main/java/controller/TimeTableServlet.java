@@ -294,6 +294,11 @@ public class TimeTableServlet extends HttpServlet {
                         url = base + "admin.jsp";
                         break;
 
+                    case "lectSetting"://Ordinary lecturer account setting
+                        addLecturer(request, response);
+                        url = base + "lecturer.jsp";
+                        break;
+
                 }
 //            System.out.println(request.getRequestURI());
                 RequestDispatcher dispatcher = getServletContext().getRequestDispatcher(url);
@@ -360,6 +365,12 @@ public class TimeTableServlet extends HttpServlet {
         String message;
         message = LecturerDAO.addEditLecturer(dataManager, lecturer, "add");
         message = LecturerDAO.addEditLecturer(dataManager, lecturer, "edit");
+
+        request.getSession().setAttribute("name", lecturer.getName());
+        request.getSession().setAttribute("user", lecturer.getUserName());
+        request.getSession().setAttribute("id", lecturer.getId());
+        request.getSession().setAttribute("role", lecturer.getLectureRole());
+        request.getSession().setAttribute("email", lecturer.getEmail());
 //        response.setContentType("text/html;charset=UTF-8");
 //        try (PrintWriter out = response.getWriter()) {
 //            /* TODO output your page here. You may use following sample code. */
