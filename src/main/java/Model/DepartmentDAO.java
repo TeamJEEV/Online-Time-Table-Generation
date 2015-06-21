@@ -189,7 +189,40 @@ public class DepartmentDAO {
 
     }
 
-    public static List<Department> getDepartmentsByFacultyId(DataManager dataManager, int dean) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    public static List<Department> getDepartmentsByFacultyId(DataManager dataManager, int faculty_id) {
+        
+        Connection connection = dataManager.getConnection();
+        List<Department> departments = new ArrayList<>();
+        
+        if (connection != null) {
+            try {
+                Statement statement = connection.createStatement();
+                String query = "SELECT department.id, department.name, department.faculty_id " +
+                       "FROM  department INNER JOIN faculty ON department.faculty_id = faculty.id " +
+                       "WHERE faculty.id = " + faculty_id;
+                try {
+                    ResultSet rs = statement.executeQuery(query);
+                    while (rs.next()) {
+                        Department department = new Department();
+                        department.setId(Integer.parseInt(rs.getString("id")));
+                        department.setName(rs.getString("name"));
+                        department.setHOD(Integer.parseInt(rs.getString("faculty_id")));
+                        departments.add(department);
+                    }
+                    
+                     return departments;
+                    
+                } catch (SQLException e) {
+                    Logger.getGlobal().log(Level.SEVERE, e.getMessage());
+                } finally {
+                    statement.close();
+                }
+            } catch (SQLException e) {
+                Logger.getGlobal().log(Level.INFO, "Could not find department of faculty with id ", faculty_id);
+            }
+        }
+        
+        return null;
+  
     }
 }

@@ -4,6 +4,7 @@
  * and open the template in the editor.
  */
 package Model;
+
 /**
  *
  * @author Harvey Sama
@@ -80,7 +81,28 @@ public class FacultyDAO {
     }
 
     public static Faculty getFacultyByDeanId(DataManager dataManager, int deanId) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        Connection connection = dataManager.getConnection();
+        Faculty faculty = new Faculty();
+        if (connection != null) {
+            try {
+                Statement statement = connection.createStatement();
+                String query = "SELECT * FROM faculty where dean_id = " + deanId;
+                try {
+                    ResultSet rs = statement.executeQuery(query);
+                    rs.next();
+                    faculty.setId(Integer.parseInt(rs.getString("id")));
+                    faculty.setName(rs.getString("name"));
+                    faculty.setDean(Integer.parseInt(rs.getString("dean_id")));
+                } catch (SQLException e) {
+                    Logger.getGlobal().log(Level.INFO, e.getMessage());
+                } finally {
+                    statement.close();
+                }
+            } catch (SQLException e) {
+                Logger.getGlobal().log(Level.INFO, "Could not find faculty {0}", deanId);
+            }
+        }
+        return faculty;
     }
 
     public Faculty getFacultyById(DataManager dataManager, int id) {
@@ -160,13 +182,13 @@ public class FacultyDAO {
      * Get Faculty names
      */
     public ArrayList getFacultyNames(DataManager dataManager) throws SQLException {
-        Statement statement=null;
+        Statement statement = null;
         Connection connection = dataManager.getConnection();
         ArrayList names = new ArrayList();
         String query = "SELECT NAME FROM FACULTY";
         if (connection != null) {
             try {
-                 statement = connection.createStatement();
+                statement = connection.createStatement();
                 ResultSet rs = statement.executeQuery(query);
                 while (rs.next()) {
                     int i = 1;
@@ -183,9 +205,9 @@ public class FacultyDAO {
                 }
             }
         }
-      return  names;
+        return names;
     }
-    
+
 }
 
 //String query = "SELECT faculty.id as facId, faculty.name as facName,"
@@ -199,9 +221,6 @@ public class FacultyDAO {
 //                        faculty.setDeptId(Integer.parseInt(rs.getString("deptId")));
 //                        faculty.setFactname(rs.getString("factName"));
 //                        faculty.setDeptName(rs.getString("deptName"));
-
 //                        facultys.add(faculty);
-
-
 //                        facultys.add(faculty);
 

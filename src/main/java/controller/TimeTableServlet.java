@@ -239,7 +239,11 @@ public class TimeTableServlet extends HttpServlet {
                     case "getDepartCourseswithHodId": //Get all the department courses group by level
                         getDepartmentCoursewithHodId(request, response);
                         break;
-
+                        
+                    case "getFacultyDepartments":
+                        //This get departments and thier number of courses using the dean id
+                        getdepartswithDeanId(request, response);
+                        break;
 
                 }
 //            System.out.println(request.getRequestURI());
@@ -826,4 +830,27 @@ public class TimeTableServlet extends HttpServlet {
 
 
     }
+    
+    private void getdepartswithDeanId(HttpServletRequest request, HttpServletResponse response) throws IOException {
+        int dean_id = Integer.parseInt(request.getParameter("dean_id"));        
+        Faculty fac = FacultyDAO.getFacultyByDeanId(dataManager, dean_id);
+        
+        int faculty_id = fac.getId();       
+        List<Department> departs = DepartmentDAO.getDepartmentsByFacultyId(dataManager, faculty_id);
+        
+        JSONArray departArray = new JSONArray();
+        
+        for(Department depart : departs){
+            JSONObject dep = new JSONObject();
+            dep.put("id", depart.getId());
+            dep.put("name", depart.getName());
+            int numOfCourses = CourseDAO.getCourseByDepartment(dataManager, depart.getId()).size();
+            dep.put("numOfCourses", numOfCourses);
+            departArray.add(dep);
+        }
+        
+        ObjectMapper mapper = new ObjectMapper();
+        mapper.writeValue(response.getOutputStream(), departArray);
+    }
+    
 }

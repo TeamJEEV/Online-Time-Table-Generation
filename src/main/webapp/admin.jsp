@@ -706,14 +706,14 @@ and open the template in the editor.
                                     }
                                     else if (role === "Dean") {
                                         //Query for the dean courses
-                                        $.ajax({
-                                            url: "TimeTableServlet",
-                                            async: false,
-                                            data: {"submit": "getDepartCourseswithHodId", "dean_id": "${sessionScope.id}"}
-                                             method: "POST"
-                                        }).done(function (msg) {
-                                            
-                                        });
+//                                        $.ajax({
+//                                            url: "TimeTableServlet",
+//                                            async: false,
+//                                            data: {"submit": "getFacultyDepartments", "dean_id": "${sessionScope.id}"}
+//                                            
+//                                        }).done(function (msg) {
+//                                            alert(msg);
+//                                        });
                                     }
 
 
