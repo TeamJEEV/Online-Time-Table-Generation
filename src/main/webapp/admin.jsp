@@ -191,76 +191,6 @@ and open the template in the editor.
                             <!-- start of personal schedule -->
 
                             <div class="panel panel-default" style="width: 85%" id="myscheduledisplay">
-                                <div class="panel-heading">
-                                    <h1 class="panel-title" style="text-align: center">My Schedule</h1>
-                                </div>
-                                <div class="panel-body">
-                                    <table style="text-align: center"class="table table-bordered table-striped table-hover table-responsive table-condensed">
-                                        <thead>
-                                            <tr>
-                                                <th></th>
-                                                <th>07:00</th>
-                                                <th> 08:00</th>
-                                                <th>9:00</th>  <th>10:00</th>
-                                                <th>11:00 </th> <th> 12:00</th>
-                                                <th>13:00 </th> <th> 14:00</th>
-                                                <th>15:00 </th> <th> 16:00</th>
-                                                <th>17:00 </th> <th> 18:00</th>
-                                            </tr>
-                                        </thead>
-                                        <tbody>
-                                            <tr>
-                                                <td>MON</td>
-                                            </tr>
-
-
-                                            <tr>
-                                                <td>TUE</td>
-                                                <td>CEF 502<br> Ublock A</td>
-                                                <td>CEF 510<br> Ublock C</td>
-                                                <td></td>
-                                                <td>CEF 506<br> ClBLK I 50A</td>
-                                                <td></td>
-                                                <td>CEF 504<br> Ublock D</td>
-
-                                            </tr>
-                                            <tr>
-                                                <td>WED</td>
-                                                <td></td>
-                                                <td></td>
-                                                <td>CEF 514<br> ClBLK I 50A</td>
-                                                <td></td>
-                                                <td>CEF 506<br> Restau 2</td>
-                                                <td></td>
-
-                                            </tr>
-                                            <tr>
-                                                <td>THURS</td>
-                                            </tr>
-                                            <tr>
-                                                <td>FRI</td>
-                                                <td>CEF 502<br> Ublock A</td>
-                                                <td>CEF 510<br> Ublock C</td>
-                                                <td></td>
-                                                <td>CEF 506<br> ClBLK I 50A</td>
-                                                <td></td>
-                                                <td>CEF 504<br> Ublock D</td>
-                                            </tr>
-                                            <tr>
-                                                <td>SAT</td>
-                                                <td></td>
-                                                <td></td>
-                                                <td>CEF 514<br> ClBLK I 50A</td>
-                                                <td></td>
-                                                <td>CEF 506<br> Restau 2</td>
-                                                <td></td>
-
-                                            </tr>
-                                        </tbody>
-                                    </table>
-                                </div>
-
-
 
                             </div>
 
@@ -553,7 +483,6 @@ and open the template in the editor.
                                         </div>
                                     </form>
                                 </div>
-
                             </div>
                         </div> <!-- End of Add course modal-->
                         
@@ -590,7 +519,7 @@ and open the template in the editor.
                                     data: {"submit": "loadLectsAndCourses"},
                                     method: "POST"
                                 }).done(function (msg) {
-                                    alert(msg);
+                                    
                                     var response = JSON.parse(msg);
                                     var lecturerList = document.getElementById("lecturers");
                                     var courseList = document.getElementById("course");
@@ -627,10 +556,8 @@ and open the template in the editor.
 
                             $(document).ready(function () {
                                 var role = "${sessionScope.role}";
-
                                 if (role === "HOD") {
                                     $("#assignHodTask").hide();
-
                                 } else {
                                     //hide the add courses button from the dean, only HOD can do that
                                     $("#addcoursebutton").hide();
@@ -643,13 +570,7 @@ and open the template in the editor.
                                     docForm.email.value = "${sessionScope.email}";
                                     docForm.password.value = "";
                                     docForm.id.value =${sessionScope.id};
-
-
                                 });
-
-
-
-
                                 //Initialising the page content
                                 $("#courselist").hide();
                                 $("#listdisplay").hide();
@@ -659,21 +580,82 @@ and open the template in the editor.
                                 $("#visitinglecturer").click(function () {
                                     $("#visitinglecturer").focus();
                                     var docForm = document.getElementById("newLecForm");
-
                                     docForm.email.value = "";
                                     docForm.password.value = "";
                                     $("#lecid").remove();
-
                                 });
-
                                 $("#myschedule").click(function () { //when tab is clicked
+                                    $.ajax({
+                                        url: "TimeTableServlet",
+                                        data: {"submit": "getIndividualSchedule"},
+                                        method: "POST"
+                                    }).done(function (msg) {
+                                        
+                                        var response = JSON.parse(msg);
+                                        var content = '<div class="panel-heading">' +
+                                                '<h1 class="panel-title" style="text-align: center">My Schedule</h1>' +
+                                                '</div>' +
+                                                '<div class="panel-body">' +
+                                                '<table style="text-align: center"class="table table-bordered table-striped' +
+                                                'table-hover table-responsive table-condensed">' +
+                                                '<thead>' +
+                                                '<tr>' +
+                                                '<th></th>' +
+                                                '<th>07:00</th>' +
+                                                '<th> 08:00</th>' +
+                                                '<th>9:00</th>' +
+                                                '<th>10:00</th>' +
+                                                '<th> 11:00 </th> <th> 12:00</th>' +
+                                                '<th> 13:00 </th> <th> 14:00</th>' +
+                                                '<th> 15:00 </th> <th> 16:00</th>' +
+                                                '<th> 17:00 </th> <th> 18:00</th>' +
+                                                '</tr>' +
+                                                '</thead>' +
+                                                '<tbody>';
+                                        for (var i = 0; i < response.schedule.length; i++) {
+                                            switch (i) {
+                                                case 0:
+                                                    content += '<tr>' +
+                                                            '<td> MON </td>';
+                                                    break;
+                                                case 1:
+                                                    content += '<tr>' +
+                                                            '<td> TUE </td>';
+                                                    break;
+                                                case 2:
+                                                    content += '<tr>' +
+                                                            '<td> WED </td>';
+                                                    break;
+                                                case 3:
+                                                    content += '<tr>' +
+                                                            '<td> THURS </td>';
+                                                    break;
+                                                case 4:
+                                                    content += '<tr>' +
+                                                            '<td> FRI </td>';
+                                                    break;
+                                                case 5:
+                                                    content += '<tr>' +
+                                                            '<td> SAT </td>';
+                                                    break;
+                                            }
+                                            for (var j = 0; j < response.schedule[i].length; j++) {
+                                                content += '<td>' + response.schedule[i][j].course_id + '<br>' +
+                                                        response.schedule[i][j].class + '</td>';
+                                            }
+                                            content += '</tr>';
+                                        }
+                                        content += '</tbody>' +
+                                                '</table>' +
+                                                '</div>';
+                                        $("#myscheduledisplay").html(content);
+                                    });
                                     $("#courselist").hide("slow");
                                     $("#listdisplay").hide("slow");
                                     $("#myscheduledisplay").show("slow");
                                     $("#freelistdisplay").hide();
                                     $("#myschedule").focus();
                                     $("#row").css({"background-color": "white"});
-
                                 });
                                 $("#blockedlist").click(function () { //when tab is clicked
                                     $("#courselist").hide("slow");
@@ -682,9 +664,7 @@ and open the template in the editor.
                                     $("#freelistdisplay").hide();
                                     $("#blockedlist").focus();
                                     $("#row").css({"background-color": "white"});
-
                                 });
-
                                 $("#freelist").click(function () { //when tab is clicked
                                     $("#courselist").hide("slow");
                                     $("#myscheduledisplay").hide("slow");
@@ -692,19 +672,14 @@ and open the template in the editor.
                                     $("#listdisplay").hide();
                                     $("#freelist").focus();
                                     $("#row").css({"background-color": "white"});
-
                                 });
-
                                 $("#courses").click(function () { //when tab is clicked
                                     $("#myscheduledisplay").hide("slow");
                                     $("#freelistdisplay").hide("slow");
                                     $("#listdisplay").hide();
                                     $("#courses").focus();
-
                                     var docForm = document.getElementById("newcourseform");
                                     docForm.depart_id.value = ${sessionScope.id};
-
-
                                     var role = "${sessionScope.role}";
                                     if (role === "HOD") {
                                         //Query for the HOD courses and display
@@ -717,7 +692,6 @@ and open the template in the editor.
 
                                             var response = JSON.parse(msg);
                                             var content = "";
-
                                             content += '<table style="text-align: center"class="table table-bordered table-striped table-hover table-responsive table-condensed">' +
                                                     '<thead>' +
                                                     '<tr>' +
@@ -735,11 +709,9 @@ and open the template in the editor.
                                                         '<td>' + response.level400[i].title + '</td>' +
                                                         '<td>' + response.level500[i].title + '</td>' +
                                                         '</tr>';
-
                                             }
                                             content += '</tbody></table>';
                                             $("#courselistcontent").html(content);
-
                                             var depart_card = '<div class="col-lg-3 col-md-6">' +
                                                     '<div class="panel panel-primary">' +
                                                     '<div class="panel-heading">' +
@@ -763,11 +735,8 @@ and open the template in the editor.
                                                     '</a>' +
                                                     '</div>' +
                                                     '</div>';
-
                                             $("#departments-cards").html(depart_card);
                                         });
-
-
                                     }
                                     else if (role === "Dean") {
                                         //Query for the dean courses
@@ -777,13 +746,13 @@ and open the template in the editor.
                                         //                                            data: {"submit": "getFacultyDepartments", "dean_id": "${sessionScope.id}"}
                                         //                                            
                                         //                                        }).done(function (msg) {
-                                        //                                            alert(msg);
+                                        //                                            
                                         //                                        });
                                     }
                                     $("#row").css({"background-color": "transparent"});
                                     $("#courselist").show("slow");
                                 });
-                            });//end ready
+                            }); //end ready
 
 
                         </script>
