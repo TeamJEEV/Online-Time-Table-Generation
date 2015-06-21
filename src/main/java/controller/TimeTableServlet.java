@@ -768,22 +768,68 @@ public class TimeTableServlet extends HttpServlet {
             mapper.writeValue(response.getOutputStream(), lectAndCourses);
         }
     }
-    
-    public void getFreeListData(HttpServletRequest request, int lecturerId) throws SQLException{
+
+    public void getFreeListData(HttpServletRequest request, HttpServletResponse response) throws SQLException, IOException {
+        int lecturerId = Integer.parseInt(request.getParameter("id"));
         ResultSet resultSet = LecturerDAO.getLecturerSchedule(dataManager, lecturerId);
         JSONArray schedule = new JSONArray();
+        JSONArray tempSchedule = new JSONArray();
+        JSONObject nullObject = new JSONObject();
         for (int i = 0; i < 6; i++) {
             schedule.add(new JSONArray());
+            tempSchedule.add(new JSONArray());
         }
-        resultSet.next();
-        for (int i = 0; i < 6; i++) {
-            JSONArray day = (JSONArray) schedule.get(i);
-            for (int j = 0; j < 12; j++) {
-//                if () {
-//                    
-//                }
+
+        //get all rows of day i
+        while (resultSet.next()) {
+            JSONObject object = new JSONObject();
+            object.put("course_id", resultSet.getString(1));
+            object.put("hour", resultSet.getString(3));
+            object.put("day", resultSet.getString(4));
+
+            switch (resultSet.getString("4")) {
+                case "2":
+                    ((JSONArray) tempSchedule.get(0)).add(object);
+                    break;
+                case "3":
+                    ((JSONArray) tempSchedule.get(1)).add(object);
+                    break;
+                case "4":
+                    ((JSONArray) tempSchedule.get(2)).add(object);
+                    break;
+                case "5":
+                    ((JSONArray) tempSchedule.get(3)).add(object);
+                    break;
+                case "6":
+                    ((JSONArray) tempSchedule.get(4)).add(object);
+                    break;
+                case "7":
+                    ((JSONArray) tempSchedule.get(5)).add(object);
+                    break;
             }
         }
+
+        for (int i = 0; i < 6; i++) {
+            JSONArray tempArray = (JSONArray) tempSchedule.get(i);
+            JSONArray array = (JSONArray) schedule.get(i);
+            for (int j = 0; j < 12; j++) {
+                JSONObject tempObject = (JSONObject)tempArray.get(j);
+                int hour = Integer.parseInt((String)tempObject.get("hour"));
+                
+                if (hour == j) {
+//                    Add the object to the corresponding array
+                    ((JSONArray) schedule.get(i)).add(tempObject);
+                }else{//add a null object
+                    ((JSONArray) schedule.get(i)).add(nullObject);
+                }
+            }
+        }
+        
+        System.out.println(schedule);
+        JSONObject object = new JSONObject();
+        object.put("schedule", schedule);
+        ObjectMapper mapper = new ObjectMapper();
+        mapper.writeValue(response.getOutputStream(), object);
     }
 
     public void scheduleClass(HttpServletRequest request) {
