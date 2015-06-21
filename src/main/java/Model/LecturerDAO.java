@@ -389,7 +389,7 @@ public class LecturerDAO {
         PreparedStatement pstatement = null;
         List<Lecturer> lecturers_name = new ArrayList<>();
         String query = "select leh.courses_code, cl.name, HOUR(leh.date) AS HOUR, DAYOFWEEK(leh.date) AS DAY "
-                + "FROM lecturer l INNER JOIN lecturer_has_courses leh ON leh.lecturer_id INNER JOIN "
+                + "FROM lecturer l INNER JOIN lecturer_has_courses leh ON leh.lecturer_id = l.id INNER JOIN "
                 + "classrooms cl on leh.classrooms_id=cl.id where l.id = ?;";
 
         if (connection != null) {

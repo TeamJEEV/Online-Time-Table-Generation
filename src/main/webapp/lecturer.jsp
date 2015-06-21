@@ -13,6 +13,7 @@ This is the a simple lecturer view of the app after login
 
         <script src="js/jquery-1.11.3.min.js" type="text/javascript"></script>
         <script src="js/bootstrap.min.js" type="text/javascript"></script>
+        <script src="js/individuallist.js" type="text/javascript"></script>
     </head>
     <body>
         <header class="page-header">
@@ -268,6 +269,9 @@ This is the a simple lecturer view of the app after login
         <script>
 
             $(document).ready(function () {
+                
+                loadLecturerschedule();
+                
                 $("#accountsetting").click(function () {
                     var docForm = document.getElementById("newLecForm");
                     docForm.fullname.value = "${sessionScope.name}";
