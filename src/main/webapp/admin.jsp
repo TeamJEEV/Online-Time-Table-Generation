@@ -107,8 +107,12 @@ and open the template in the editor.
                         <div class="col-md-12">
                             <h1></h1>
                             <div id="listdisplay">
-
-                                <ul class="nav nav-tabs">
+                                <div class="panel panel-default" style="width: 85%">
+                                    <div class="panel-heading">
+                                        <h1 class="panel-title" style="text-align: center"><b>Block list</b></h1>
+                                    </div>
+                                </div>
+                                <ul class="nav nav-tabs" style="width: 85%">
                                     <!----tab interface........................................................................-->
 
 
@@ -146,6 +150,11 @@ and open the template in the editor.
 
                             <div id="freelistdisplay">
 
+                                <div class="panel panel-default" style="width: 85%">
+                                    <div class="panel-heading">
+                                        <h1 class="panel-title" style="text-align: center"><b>Free list</b></h1>
+                                    </div>
+                                </div>
                                 <ul class="nav nav-tabs">
                                     <!----tab interface........................................................................-->
 
@@ -638,6 +647,7 @@ and open the template in the editor.
 
 
                                 $("#visitinglecturer").click(function () {
+                                    $("#visitinglecturer").focus();
                                     var docForm = document.getElementById("newLecForm");
 
                                     docForm.email.value = "";
@@ -651,6 +661,7 @@ and open the template in the editor.
                                     $("#listdisplay").hide("slow");
                                     $("#myscheduledisplay").show("slow");
                                     $("#freelistdisplay").hide();
+                                    $("#myschedule").focus();
                                     $("#row").css({"background-color": "white"});
 
                                 });
@@ -659,6 +670,7 @@ and open the template in the editor.
                                     $("#myscheduledisplay").hide("slow");
                                     $("#listdisplay").show("slow");
                                     $("#freelistdisplay").hide();
+                                    $("#blockedlist").focus();
                                     $("#row").css({"background-color": "white"});
 
                                 });
@@ -668,6 +680,7 @@ and open the template in the editor.
                                     $("#myscheduledisplay").hide("slow");
                                     $("#freelistdisplay").show("slow");
                                     $("#listdisplay").hide();
+                                    $("#freelist").focus();
                                     $("#row").css({"background-color": "white"});
 
                                 });
@@ -676,6 +689,7 @@ and open the template in the editor.
                                     $("#myscheduledisplay").hide("slow");
                                     $("#freelistdisplay").hide("slow");
                                     $("#listdisplay").hide();
+                                    $("#courses").focus();
 
                                     var docForm = document.getElementById("newcourseform");
                                     docForm.depart_id.value = ${sessionScope.id};
