@@ -117,7 +117,7 @@ public class CourseDAO {
                 Statement statement = connection.createStatement();
                 String query = "SELECT code, title, semester FROM courses INNER JOIN"
                         + " department_has_courses ON courses.code = department_has_courses.courses_code"
-                        +" WHERE department_has_courses.department_id = " + deptId + " GROUP BY code";
+                        + " WHERE department_has_courses.department_id = " + deptId + " GROUP BY code";
                 try {
                     ResultSet resultSet = statement.executeQuery(query);
                     while (resultSet.next()) {
@@ -126,7 +126,7 @@ public class CourseDAO {
                         course.setName(resultSet.getString("title"));
                         course.setSemester(Integer.parseInt(resultSet.getString("semester")));
                         courses.add(course);
-                        
+
                     }
                     return courses;
                 } catch (SQLException e) {
@@ -247,5 +247,41 @@ public class CourseDAO {
 
         }
         return null;
+    }
+
+    /**
+     * get the results set of the departmental courses schedule for for the week
+    * @param depart_id
+    * @param dataManager 
+    *  @return resultset; resultset of the query
+    */
+    public static ResultSet getScheduleDepartCourse(DataManager dataManager, int depart_id) {
+
+        Connection connection = dataManager.getConnection();
+
+        if (connection != null) {
+            String query = "SELECT courses.code, courses.Title, lecturer_has_courses.date, classrooms.name "
+                    + "FROM department "
+                    + "INNER JOIN department_has_courses ON department.id = department_has_courses.department_id "
+                    + "INNER JOIN lecturer_has_courses ON department_has_courses.courses_code = lecturer_has_courses.courses_code "
+                    + "INNER JOIN courses ON lecturer_has_courses.courses_code = courses.code "
+                    + "INNER JOIN classrooms ON lecturer_has_courses.classrooms_id = classrooms.id WHERE department.id =" + depart_id;
+ 
+            Statement statement;
+            try {
+                statement = connection.createStatement();
+                 try {
+                      ResultSet rs = statement.executeQuery(query);
+                      return rs;
+                 }catch(SQLException e){
+                  Logger.getGlobal().log(Level.WARNING, e.getMessage());
+                } finally {
+                    statement.close();
+                }
+            }catch(SQLException e){
+                 Logger.getGlobal().log(Level.INFO, e.getMessage());
+            }
+        }
+        return null; //only return this if error
     }
 }
