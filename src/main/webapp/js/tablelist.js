@@ -57,7 +57,7 @@ $(document).ready(function () {
 
 
     $("#day1").click(function () { //when tab is clicked 
-
+        $("#day1").focus();
         var request = $.ajax({
             url: "TimeTableServlet",
             data: {"submit": "getMondayLectureHours"},

@@ -356,7 +356,7 @@ and open the template in the editor.
 
                                 </div>
 
-                                <div class="panel panel-default" style="width: 85%" id="myscheduledisplay">
+                                <div class="panel panel-default" style="width: 85%">
                                     <div class="panel-heading">
                                         <h1 class="panel-title" style="text-align: center"><b>Course List</b></h1>
                                     </div>
@@ -641,7 +641,7 @@ and open the template in the editor.
                                 //Initialising the page content
                                 $("#courselist").hide();
                                 $("#listdisplay").hide();
-
+                                $("#freelistdisplay").hide();
 
 
                                 $("#visitinglecturer").click(function () {
