@@ -555,7 +555,19 @@ and open the template in the editor.
                                 </div>
 
                             </div>
-                        </div> <!-- End of Add course modal 
+                        </div> <!-- End of Add course modal-->
+                        
+                        <div style="background-color: transparent" class="modal fade" data-backdrop="static" id="loading">
+                            <div class="modal-dialog">                                
+                                <div class="modal-content">
+                                    <div class="modal-body" style="text-align: center">
+                                        <img src="fonts/715.GIF">  Loading...
+                                        <!--<span class="glyphicon glyphicon-refresh glyphicon-refresh-animate"></span>Loading-->
+                                    </div>
+                                    
+                                </div>
+                            </div>
+                        </div>
             
                         <!--  <script src="//code.jquery.com/jquery-1.11.3.min.js"></script>
                                      <script src="//code.jquery.com/jquery-migrate-1.2.1.min.js"></script> -->
