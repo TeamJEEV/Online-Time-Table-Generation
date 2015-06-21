@@ -192,7 +192,7 @@ and open the template in the editor.
 
                             <div class="panel panel-default" style="width: 85%" id="myscheduledisplay">
                                 <div class="panel-heading">
-                                    <h1 class="panel-title" style="text-align: center"><b>My Schedule</b></h1>
+                                    <h1 class="panel-title" style="text-align: center">My Schedule</h1>
                                 </div>
                                 <div class="panel-body">
                                     <table style="text-align: center"class="table table-bordered table-striped table-hover table-responsive table-condensed">
@@ -641,9 +641,7 @@ and open the template in the editor.
                                 //Initialising the page content
                                 $("#courselist").hide();
                                 $("#listdisplay").hide();
-                                $("#freelistdisplay").hide();
-                                $("#myschedule").focus();
-                                //$("#myschedule").toggleClass("active");
+
 
 
                                 $("#visitinglecturer").click(function () {
