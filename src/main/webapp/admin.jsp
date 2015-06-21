@@ -17,6 +17,7 @@ and open the template in the editor.
 
         <script src="js/jquery-1.11.3.min.js" type="text/javascript"></script>
         <script src="js/bootstrap.min.js" type="text/javascript"></script>
+        <script src="js/tablelist.js" type="text/javascript" ></script>
     </head>
     <body>
         <header class="page-header">
@@ -77,7 +78,7 @@ and open the template in the editor.
                     </li>
 
                     <li >
-                        <a href="#" data-toggle="modal" data-target="#addlecturerModal">Visiting Lecturer 
+                        <a href="#" data-toggle="modal" data-target="#addlecturerModal" id="visitinglecturer">Visiting Lecturer 
                             <i class="glyphicon glyphicon-menu-right glyphicon-align-right"></i></a>
                     </li>
 
@@ -140,9 +141,9 @@ and open the template in the editor.
                                     </div><!-- @end #hello -->
                                 </div>
                             </div>
-                            
-                            
-                            
+
+
+
                             <div id="freelistdisplay">
 
                                 <ul class="nav nav-tabs">
@@ -259,7 +260,7 @@ and open the template in the editor.
 
                                 <h1>Courses &nbsp;<button id="addcoursebutton" data-toggle="modal" data-target="#addcourseModal" class="btn btn-default">Add</button></h1>
 
- 
+
                                 <div class="row" id="departments-cards">
 
                                     <div class="col-lg-3 col-md-6">
@@ -403,12 +404,12 @@ and open the template in the editor.
                                                 <input name="password" type="password" class="form-control" required="required" placeholder="Password" aria-describedby="password-addon">
                                             </div>
 
-                                            <input name="id" type="hidden">
+                                            <input name="id" type="hidden" id="lecid">
 
                                         </div>
                                         <div class="modal-footer">
                                             <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
-                                            <button class="btn btn-success" type="submit" name="submit" value="addLect">Save</button>
+                                            <button class="btn btn-success" type="submit" name="submit" value="adminaddLect">Save</button>
                                         </div>
                                     </form>
                                 </div>
@@ -419,200 +420,200 @@ and open the template in the editor.
                                
                         
                    
-            <!-- Add Class modal -->
-            <div id="addclassModal" class="modal fade" data-backdrop="static" role="dialog">
-                <div class="modal-dialog">
+                        <!-- Add Class modal -->
+                        <div id="addclassModal" class="modal fade" data-backdrop="static" role="dialog">
+                            <div class="modal-dialog">
 
-                    <!-- Modal content-->
-                    <div class="modal-content">
-                        <div class="modal-header">
-                            <button type="button" class="close" data-dismiss="modal">&times;</button>
-                            <h4 class="modal-title">Add Class</h4>
-                        </div>
-                        <form action="TimeTableServlet" method="POST" id="newLecForm">
-                            <div class="modal-body">
-                                <div class="input-group form-group">
-                                    <span class="input-group-addon" id="lecturer-name-addon">Lecturer</span>
-                                    <select name="lecturer" id="lecturers" required="required" class="form-control"  
-                                            aria-describedby="lecturer-name-addon">
-                                    </select >
-                                </div>
-                                <div class="input-group form-group">
-                                    <span class="input-group-addon" id="course-addon">Course&nbsp;</span>
-                                    <select name="course" id="course" required="required" class="form-control"  aria-describedby="course-addon">
-                                    </select >
-                                </div >
-                                <div class="input-group form-group">
-                                    <span class="input-group-addon" id="day-addon">Day&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
-                                    <select name="day" required="required" class="form-control"  aria-describedby="day-addon">
-                                        <option selected="true"  disabled="true">Select Day</option>
-                                        <option value="1">MONDAY</option> 
-                                        <option value="2">TUESDAY</option>
-                                        <option value="3">WEDNESDAY</option>
-                                        <option value="4">THURSDAY</option>
-                                        <option value="5">FRIDAY</option>
-                                        <option value="6">SATURDAY</option>                                 
-                                    </select >
-                                </div >
-                                <div class="input-group form-group">
-                                    <span class="input-group-addon" id="hall-addon">Hall&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
-                                    <select id="hall" name="hall" required="required" class="form-control"  aria-describedby="hall-addon">
-                                                                                                                         
-                                    </select >
-                                </div >
-                                <div class="form-inline">
-                                    <div class="form-group">
-                                        <label>Start Time</label>
-                                        <select name="starthour" required="required" class="form-control">
-                                            <option selected="true"  disabled="true" value="">Hour</option>
-                                            <option value="7">07</option>
-                                            <option value="9">09</option>
-                                        </select>
+                                <!-- Modal content-->
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <button type="button" class="close" data-dismiss="modal">&times;</button>
+                                        <h4 class="modal-title">Add Class</h4>
                                     </div>
+                                    <form action="TimeTableServlet" method="POST" id="newLecForm">
+                                        <div class="modal-body">
+                                            <div class="input-group form-group">
+                                                <span class="input-group-addon" id="lecturer-name-addon">Lecturer</span>
+                                                <select name="lecturer" id="lecturers" required="required" class="form-control"  
+                                                        aria-describedby="lecturer-name-addon">
+                                                </select >
+                                            </div>
+                                            <div class="input-group form-group">
+                                                <span class="input-group-addon" id="course-addon">Course&nbsp;</span>
+                                                <select name="course" id="course" required="required" class="form-control"  aria-describedby="course-addon">
+                                                </select >
+                                            </div >
+                                            <div class="input-group form-group">
+                                                <span class="input-group-addon" id="day-addon">Day&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
+                                                <select name="day" required="required" class="form-control"  aria-describedby="day-addon">
+                                                    <option selected="true"  disabled="true">Select Day</option>
+                                                    <option value="1">MONDAY</option> 
+                                                    <option value="2">TUESDAY</option>
+                                                    <option value="3">WEDNESDAY</option>
+                                                    <option value="4">THURSDAY</option>
+                                                    <option value="5">FRIDAY</option>
+                                                    <option value="6">SATURDAY</option>                                 
+                                                </select >
+                                            </div >
+                                            <div class="input-group form-group">
+                                                <span class="input-group-addon" id="hall-addon">Hall&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
+                                                <select id="hall" name="hall" required="required" class="form-control"  aria-describedby="hall-addon">
+
+                                                </select >
+                                            </div >
+                                            <div class="form-inline">
+                                                <div class="form-group">
+                                                    <label>Start Time</label>
+                                                    <select name="starthour" required="required" class="form-control">
+                                                        <option selected="true"  disabled="true" value="">Hour</option>
+                                                        <option value="7">07</option>
+                                                        <option value="9">09</option>
+                                                    </select>
+                                                </div>
+                                            </div>
+                                            <br/>
+                                            <div class="form-inline">
+                                                <div class="form-group">
+                                                    <label>End Time &nbsp;</label>
+                                                    <select name="endhour" required="required" class="form-control">
+                                                        <option selected="true"  disabled="true" value="">Hour</option>
+                                                        <option value="7">07</option>
+                                                        <option value="9">09</option>
+                                                    </select>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="modal-footer">
+                                            <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
+                                            <button class="btn btn-success" type="submit" name="submit" value="addClass">Save</button>
+                                        </div>
+                                    </form>
                                 </div>
-                                <br/>
-                                <div class="form-inline">
-                                    <div class="form-group">
-                                        <label>End Time &nbsp;</label>
-                                        <select name="endhour" required="required" class="form-control">
-                                            <option selected="true"  disabled="true" value="">Hour</option>
-                                            <option value="7">07</option>
-                                            <option value="9">09</option>
-                                        </select>
+
+                            </div>
+                        </div> <!-- End of Add class modal-->
+
+                        <!-- Add course modal -->
+                        <div id="addcourseModal" class="modal fade" data-backdrop="static" role="dialog">
+                            <div class="modal-dialog">
+
+                                <!-- Modal content-->
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <button type="button" class="close" data-dismiss="modal">&times;</button>
+                                        <h4 class="modal-title">Add Course</h4>
                                     </div>
+                                    <form action="TimeTableServlet" method="POST" id="newcourseform">
+                                        <div class="modal-body">
+                                            <div class="input-group form-group">
+                                                <span class="input-group-addon" id="full-name-addon">Code</span>
+                                                <input name="code" type="text" class="form-control" required="required" 
+                                                       placeholder="course code" aria-describedby="full-name-addon">
+
+                                            </div>
+                                            <div class="input-group form-group">
+                                                <span class="input-group-addon" id="username-addon">Title</span>
+                                                <input name="title" type="text" class="form-control" required="required" placeholder="Course title" aria-describedby="username-addon">
+
+                                            </div >
+
+                                            <div class="input-group form-group">
+                                                <span class="input-group-addon" id="username-addon">Semester   </span>
+                                                <select name="semester" required="required" class="form-control" aria-describedby="emailname-addon">
+                                                    <option value="" disabled="true" selected="true">Select Semester</option>
+                                                    <option value="1">1</option>
+                                                    <option value="2">2</option>
+                                                </select>
+
+                                            </div >
+                                            <input name="depart_id" required="required" type="hidden">
+
+                                        </div>
+                                        <div class="modal-footer">
+                                            <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
+                                            <button class="btn btn-success" type="submit" name="submit" value="addCourse">Save</button>
+                                        </div>
+                                    </form>
                                 </div>
-                            </div>
-                            <div class="modal-footer">
-                                <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
-                                <button class="btn btn-success" type="submit" name="submit" value="addClass">Save</button>
-                            </div>
-                        </form>
-                    </div>
-
-                </div>
-            </div> <!-- End of Add class modal-->
-
-            <!-- Add course modal -->
-            <div id="addcourseModal" class="modal fade" data-backdrop="static" role="dialog">
-                <div class="modal-dialog">
-
-                    <!-- Modal content-->
-                    <div class="modal-content">
-                        <div class="modal-header">
-                            <button type="button" class="close" data-dismiss="modal">&times;</button>
-                            <h4 class="modal-title">Add Course</h4>
-                        </div>
-                        <form action="TimeTableServlet" method="POST" id="newcourseform">
-                            <div class="modal-body">
-                                <div class="input-group form-group">
-                                    <span class="input-group-addon" id="full-name-addon">Code</span>
-                                    <input name="code" type="text" class="form-control" required="required" 
-                                           placeholder="course code" aria-describedby="full-name-addon">
-
-                                </div>
-                                <div class="input-group form-group">
-                                    <span class="input-group-addon" id="username-addon">Title</span>
-                                    <input name="title" type="text" class="form-control" required="required" placeholder="Course title" aria-describedby="username-addon">
-
-                                </div >
-
-                                <div class="input-group form-group">
-                                    <span class="input-group-addon" id="username-addon">Semester   </span>
-                                    <select name="semester" required="required" class="form-control" aria-describedby="emailname-addon">
-                                        <option value="" disabled="true" selected="true">Select Semester</option>
-                                        <option value="1">1</option>
-                                        <option value="2">2</option>
-                                    </select>
-
-                                </div >
-                                <input name="depart_id" required="required" type="hidden">
 
                             </div>
-                            <div class="modal-footer">
-                                <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
-                                <button class="btn btn-success" type="submit" name="submit" value="addCourse">Save</button>
-                            </div>
-                        </form>
-                    </div>
-
-                </div>
-            </div> <!-- End of Add course modal 
-
-             <!--  <script src="//code.jquery.com/jquery-1.11.3.min.js"></script>
-                          <script src="//code.jquery.com/jquery-migrate-1.2.1.min.js"></script> -->
+                        </div> <!-- End of Add course modal 
+            
+                        <!--  <script src="//code.jquery.com/jquery-1.11.3.min.js"></script>
+                                     <script src="//code.jquery.com/jquery-migrate-1.2.1.min.js"></script> -->
 
 
                         <!-- Bootstrap CDN which will be incoporated when hosting the app
                         <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>-->
-                        
-                        <script type="text/javascript" src="js/tablelist.js"></script>
-            <script>
-//                Loads lecturers from the database for the lecurers drop down
-//                courses for the courses drop down
-
-                
-                function loadCourseLectHalls() {
-                    var request = $.ajax({
-                        url: "TimeTableServlet",
-                        data: {"submit": "loadLectsAndCourses"},
-                        method: "POST"
-                    }).done(function (msg) {
-                        alert(msg);
-                        var response = JSON.parse(msg);
-                        var lecturerList = document.getElementById("lecturers");
-                        var courseList = document.getElementById("course");
-                        var hallList = document.getElementById("hall");
-                        for (var m = lecturerList.options.length - 1; m >= 0; m--) {
-                            lecturerList.options[m] = null;
-                        }
-                        for (var m = courseList.options.length - 1; m >= 0; m--) {
-                            courseList.options[m] = null;
-                        }
-                        for (var m = hallList.options.length - 1; m >= 0; m--) {
-                            hallList.options[m] = null;
-                        }
-                        
-                        lecturerList.options[0] = new Option("Select Lecturer", "", true);
-                        lecturerList.options[0].disabled = true;
-                        courseList.options[0] = new Option("Select Course", "", true);
-                        courseList.options[0].disabled = true;
-                        hallList.options[0] = new Option("Select Lecture Hall", "", true);
-                        hallList.options[0].disabled = true;
-
-                        for (var i = 0; i < response.courses.length; i++) {
-                            courseList.options[i + 1] = new Option(response.courses[i].title, response.courses[i].id);
-                        }//end for
-                        for (var i = 0; i < response.lecturers.length; i++) {
-                            lecturerList.options[i + 1] = new Option(response.lecturers[i].name, response.lecturers[i].id);
-                        }
-                        for (var i = 0; i < response.halls.length; i++) {
-                            hallList.options[i + 1] = new Option(response.halls[i].name, response.halls[i].id);
-                        }
-                    });
-                }
-
-                $(document).ready(function () {
-                    var role = "${sessionScope.role}";
-
-                    if (role === "HOD") {
-                        $("#assignHodTask").hide();
-
-                    } else {
-                        //hide the add courses button from the dean, only HOD can do that
-                        $("#addcoursebutton").hide();
-                    }
-
-                    $("#accountsetting").click(function () {
-                        var docForm = document.getElementById("newLecForm");
-                        docForm.fullname.value = "${sessionScope.name}";
-                        docForm.username.value = "${sessionScope.user}";
-                        docForm.email.value = "${sessionScope.email}";
-                        docForm.password.value = "";
-                        docForm.id.value =${sessionScope.id};
 
 
-                    });
-                    
+                        <script>
+                            //                Loads lecturers from the database for the lecurers drop down
+                            //                courses for the courses drop down
+
+
+                            function loadCourseLectHalls() {
+                                var request = $.ajax({
+                                    url: "TimeTableServlet",
+                                    data: {"submit": "loadLectsAndCourses"},
+                                    method: "POST"
+                                }).done(function (msg) {
+                                    alert(msg);
+                                    var response = JSON.parse(msg);
+                                    var lecturerList = document.getElementById("lecturers");
+                                    var courseList = document.getElementById("course");
+                                    var hallList = document.getElementById("hall");
+                                    for (var m = lecturerList.options.length - 1; m >= 0; m--) {
+                                        lecturerList.options[m] = null;
+                                    }
+                                    for (var m = courseList.options.length - 1; m >= 0; m--) {
+                                        courseList.options[m] = null;
+                                    }
+                                    for (var m = hallList.options.length - 1; m >= 0; m--) {
+                                        hallList.options[m] = null;
+                                    }
+
+                                    lecturerList.options[0] = new Option("Select Lecturer", "", true);
+                                    lecturerList.options[0].disabled = true;
+                                    courseList.options[0] = new Option("Select Course", "", true);
+                                    courseList.options[0].disabled = true;
+                                    hallList.options[0] = new Option("Select Lecture Hall", "", true);
+                                    hallList.options[0].disabled = true;
+
+                                    for (var i = 0; i < response.courses.length; i++) {
+                                        courseList.options[i + 1] = new Option(response.courses[i].title, response.courses[i].id);
+                                    }//end for
+                                    for (var i = 0; i < response.lecturers.length; i++) {
+                                        lecturerList.options[i + 1] = new Option(response.lecturers[i].name, response.lecturers[i].id);
+                                    }
+                                    for (var i = 0; i < response.halls.length; i++) {
+                                        hallList.options[i + 1] = new Option(response.halls[i].name, response.halls[i].id);
+                                    }
+                                });
+                            }
+
+                            $(document).ready(function () {
+                                var role = "${sessionScope.role}";
+
+                                if (role === "HOD") {
+                                    $("#assignHodTask").hide();
+
+                                } else {
+                                    //hide the add courses button from the dean, only HOD can do that
+                                    $("#addcoursebutton").hide();
+                                }
+
+                                $("#accountsetting").click(function () {
+                                    var docForm = document.getElementById("newLecForm");
+                                    docForm.fullname.value = "${sessionScope.name}";
+                                    docForm.username.value = "${sessionScope.user}";
+                                    docForm.email.value = "${sessionScope.email}";
+                                    docForm.password.value = "";
+                                    docForm.id.value =${sessionScope.id};
+
+
+                                });
+
 
 
                                 //Initialising the page content
@@ -634,7 +635,7 @@ and open the template in the editor.
                                     $("#row").css({"background-color": "white"});
 
                                 });
-                                
+
                                 $("#freelist").click(function () { //when tab is clicked
                                     $("#courselist").hide("slow");
                                     $("#myscheduledisplay").hide("slow");
@@ -718,14 +719,14 @@ and open the template in the editor.
                                     }
                                     else if (role === "Dean") {
                                         //Query for the dean courses
-//                                        $.ajax({
-//                                            url: "TimeTableServlet",
-//                                            async: false,
-//                                            data: {"submit": "getFacultyDepartments", "dean_id": "${sessionScope.id}"}
-//                                            
-//                                        }).done(function (msg) {
-//                                            alert(msg);
-//                                        });
+                                        //                                        $.ajax({
+                                        //                                            url: "TimeTableServlet",
+                                        //                                            async: false,
+                                        //                                            data: {"submit": "getFacultyDepartments", "dean_id": "${sessionScope.id}"}
+                                        //                                            
+                                        //                                        }).done(function (msg) {
+                                        //                                            alert(msg);
+                                        //                                        });
                                     }
 
 
@@ -735,9 +736,18 @@ and open the template in the editor.
 
 
 
-                               
 
-                
+                                $("#visitinglecturer").click(function () {
+                                    var docForm = document.getElementById("newLecForm");
+
+                                    docForm.email.value = "";
+                                    docForm.password.value = "";                                   
+                                    $("#lecid").remove();
+                                    
+                                });
+
+
+
                             });//end ready
 
                         </script>

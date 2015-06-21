@@ -129,8 +129,8 @@ public class TimeTableServlet extends HttpServlet {
          */
         if (action != null) {
 
-            if ((request.getSession().getAttribute("user") == null && (!action.equals("login"))) &&
-                    (request.getSession().getAttribute("user") == null && !action.equals("loadFaculties"))) {
+            if ((request.getSession().getAttribute("user") == null && (!action.equals("login")))
+                    && (request.getSession().getAttribute("user") == null && !action.equals("loadFaculties"))) {
                 // Not logged in. Redirect to login page.
                 response.sendRedirect("index.jsp");
                 return;
@@ -285,6 +285,11 @@ public class TimeTableServlet extends HttpServlet {
                     case "getFacultyDepartments":
                         //This get departments and thier number of courses using the dean id
                         getdepartswithDeanId(request, response);
+                        break;
+
+                    case "adminaddLect"://Add Lecturer
+                        addLecturer(request, response);
+                        url = base + "admin.jsp";
                         break;
 
                 }
