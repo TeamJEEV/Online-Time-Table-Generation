@@ -10,13 +10,14 @@ $(document).ready(function () {
 
 
     //Monday blocked Click......................................
+    $("#loading").modal("show");
     var request = $.ajax({
         url: "TimeTableServlet",
         data: {"submit": "getMondayLectureHours"},
         async: false,
         method: "POST"
     }).done(function (msg) {
-        //                            alert(msg);
+         $("#loading").modal("hide");
         var response = JSON.parse(msg);
         var content = '<table style = "width: 85%; text-align:center" ' +
                 'class = "table table-bordered table-striped table-hover table-responsive table-condensed" >' +
@@ -57,13 +58,14 @@ $(document).ready(function () {
 
 
     $("#day1").click(function () { //when tab is clicked 
-
+        $("#day1").focus();
+        $("#loading").modal("show");
         var request = $.ajax({
             url: "TimeTableServlet",
             data: {"submit": "getMondayLectureHours"},
             method: "POST"
         }).done(function (msg) {
-
+  $("#loading").modal("hide");
 
             var response = JSON.parse(msg);
             var content = '<table style = "width: 85%; text-align:center" ' +
@@ -107,14 +109,14 @@ $(document).ready(function () {
 
     //tuesday blocked Click......................................
     $("#day2").click(function () { //when tab is clicked 
-
+$("#loading").modal("show");
         var request = $.ajax({
             url: "TimeTableServlet",
             data: {"submit": "getTuesdayLectureHours"},
             async: false,
             method: "POST"
         }).done(function (msg) {
-            alert(msg);
+              $("#loading").modal("hide");
             var response = JSON.parse(msg);
             var content = '<table style = "width: 85%; text-align:center" ' +
                     'class = "table table-bordered table-striped table-hover table-responsive table-condensed" >' +
@@ -159,14 +161,14 @@ $(document).ready(function () {
 
     //wednesday blocked Click......................................
     $("#day3").click(function () { //when tab is clicked 
-
+$("#loading").modal("show");
         var request = $.ajax({
             url: "TimeTableServlet",
             data: {"submit": "getWednesdayLectureHours"},
             async: false,
             method: "POST"
         }).done(function (msg) {
-            //alert(msg);
+              $("#loading").modal("hide");
             var response = JSON.parse(msg);
             var content = '<table style = "width: 85%; text-align:center" ' +
                     'class = "table table-bordered table-striped table-hover table-responsive table-condensed" >' +
@@ -211,14 +213,14 @@ $(document).ready(function () {
 
     //thursday blocked Click......................................
     $("#day4").click(function () { //when tab is clicked 
-
+$("#loading").modal("show");
         var request = $.ajax({
             url: "TimeTableServlet",
             data: {"submit": "getThursdayLectureHours"},
             async: false,
             method: "POST"
         }).done(function (msg) {
-            //                            alert(msg);
+              $("#loading").modal("hide");
             var response = JSON.parse(msg);
             var content = '<table style = "width: 85%; text-align:center" ' +
                     'class = "table table-bordered table-striped table-hover table-responsive table-condensed" >' +
@@ -261,14 +263,14 @@ $(document).ready(function () {
 
     //friday blocked Click......................................
     $("#day5").click(function () { //when tab is clicked 
-
+$("#loading").modal("show");
         var request = $.ajax({
             url: "TimeTableServlet",
             data: {"submit": "getFridayLectureHours"},
             async: false,
             method: "POST"
         }).done(function (msg) {
-            //                            alert(msg);
+              $("#loading").modal("hide");
             var response = JSON.parse(msg);
             var content = '<table style = "width: 85%; text-align:center" ' +
                     'class = "table table-bordered table-striped table-hover table-responsive table-condensed" >' +
@@ -312,14 +314,14 @@ $(document).ready(function () {
 
     //saturday blocked Click......................................
     $("#day6").click(function () { //when tab is clicked 
-
+$("#loading").modal("show");
         var request = $.ajax({
             url: "TimeTableServlet",
             data: {"submit": "getSaturdayLectureHours"},
             async: false,
             method: "POST"
         }).done(function (msg) {
-            //                            alert(msg);
+              $("#loading").modal("hide");
             var response = JSON.parse(msg);
             var content = '<table style = "width: 85%; text-align:center" ' +
                     'class = "table table-bordered table-striped table-hover table-responsive table-condensed" >' +
@@ -378,6 +380,7 @@ $(document).ready(function () {
     //Monday Tab free click............
     $("#freeday1").click(function () { //when tab is clicked 
 
+        $("#loading").modal("show");
         var request = $.ajax({
             url: "TimeTableServlet",
             data: {"submit": "getFreeMondayLectureHours"},
@@ -385,6 +388,8 @@ $(document).ready(function () {
             method: "POST"
         }).done(function (msg) {
             //                            alert(msg);
+            $("#loading").modal("hide");
+
             var response = JSON.parse(msg);
             var content = '<table style = "width: 85%; text-align:center" ' +
                     'class = "table table-bordered table-striped table-hover table-responsive table-condensed" >' +
@@ -428,14 +433,14 @@ $(document).ready(function () {
 
     //tuesday free Click......................................
     $("#freeday2").click(function () { //when tab is clicked 
-
+        $("#loading").modal("show");
         var request = $.ajax({
             url: "TimeTableServlet",
             data: {"submit": "getFreeTuesdayLectureHours"},
             async: false,
             method: "POST"
         }).done(function (msg) {
-            //                            alert(msg);
+            $("#loading").modal("hide");
             var response = JSON.parse(msg);
             var content = '<table style = "width: 85%; text-align:center" ' +
                     'class = "table table-bordered table-striped table-hover table-responsive table-condensed" >' +
@@ -479,14 +484,14 @@ $(document).ready(function () {
 
     //wednesday free Click......................................
     $("#freeday3").click(function () { //when tab is clicked 
-
+        $("#loading").modal("show");
         var request = $.ajax({
             url: "TimeTableServlet",
             data: {"submit": "getFreeWednesdayLectureHours"},
             async: false,
             method: "POST"
         }).done(function (msg) {
-            //                            alert(msg);
+            $("#loading").modal("hide");
             var response = JSON.parse(msg);
             var content = '<table style = "width: 85%; text-align:center" ' +
                     'class = "table table-bordered table-striped table-hover table-responsive table-condensed" >' +
@@ -531,14 +536,14 @@ $(document).ready(function () {
 
     //thursday free Click......................................
     $("#freeday4").click(function () { //when tab is clicked 
-
+        $("#loading").modal("show");
         var request = $.ajax({
             url: "TimeTableServlet",
             data: {"submit": "getFreeThursdayLectureHours"},
             async: false,
             method: "POST"
         }).done(function (msg) {
-            //                            alert(msg);
+            $("#loading").modal("hide");
             var response = JSON.parse(msg);
             var content = '<table style = "width: 85%; text-align:center" ' +
                     'class = "table table-bordered table-striped table-hover table-responsive table-condensed" >' +
@@ -581,14 +586,14 @@ $(document).ready(function () {
 
     //friday free Click......................................
     $("#freeday5").click(function () { //when tab is clicked 
-
+        $("#loading").modal("show");
         var request = $.ajax({
             url: "TimeTableServlet",
             data: {"submit": "getFreeFridayLectureHours"},
             async: false,
             method: "POST"
         }).done(function (msg) {
-            //                            alert(msg);
+            $("#loading").modal("hide");
             var response = JSON.parse(msg);
             var content = '<table style = "width: 85%; text-align:center" ' +
                     'class = "table table-bordered table-striped table-hover table-responsive table-condensed" >' +
@@ -632,14 +637,14 @@ $(document).ready(function () {
 
     //saturday free Click......................................
     $("#freeday6").click(function () { //when tab is clicked 
-
+        $("#loading").modal("show");
         var request = $.ajax({
             url: "TimeTableServlet",
             data: {"submit": "getFreeSaturdayLectureHours"},
             async: false,
             method: "POST"
         }).done(function (msg) {
-            //                            alert(msg);
+            $("#loading").modal("hide");
             var response = JSON.parse(msg);
             var content = '<table style = "width: 85%; text-align:center" ' +
                     'class = "table table-bordered table-striped table-hover table-responsive table-condensed" >' +
