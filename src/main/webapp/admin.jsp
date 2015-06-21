@@ -189,12 +189,13 @@ and open the template in the editor.
                                         <thead>
                                             <tr>
                                                 <th></th>
-                                                <th>07:00 - 09:00</th>
-                                                <th>09:00 - 11:00</th>
-                                                <th>11:00 - 13:00</th>
-                                                <th>13:00 - 15:00</th>
-                                                <th>15:00 - 17:00</th>
-                                                <th>17:00 - 19:00</th>
+                                                <th>07:00</th>
+                                                <th> 08:00</th>
+                                                <th>9:00</th>  <th>10:00</th>
+                                                <th>11:00 </th> <th> 12:00</th>
+                                                <th>13:00 </th> <th> 14:00</th>
+                                                <th>15:00 </th> <th> 16:00</th>
+                                                <th>17:00 </th> <th> 18:00</th>
                                             </tr>
                                         </thead>
                                         <tbody>
@@ -680,6 +681,7 @@ and open the template in the editor.
 
                                 $("#courses").click(function () { //when tab is clicked
                                     $("#myscheduledisplay").hide("slow");
+                                    $("#freelistdisplay").hide("slow");
                                     $("#listdisplay").hide();
 
                                     var docForm = document.getElementById("newcourseform");

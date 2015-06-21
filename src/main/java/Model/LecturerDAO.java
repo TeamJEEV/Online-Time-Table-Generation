@@ -367,4 +367,44 @@ public class LecturerDAO {
         return lecturers_name;
     }//end of method
     
+    
+    
+    
+    /**
+     *Get the course title, classroom, day and time per lecturer
+     */
+    
+     public static ResultSet getLecturerSchedule(DataManager dataManager, int id) throws SQLException {
+        Connection connection = dataManager.getConnection();
+        ResultSet rs=null;
+         PreparedStatement pstatement= null;
+        List<Lecturer> lecturers_name = new ArrayList<>();
+        String query = "select leh.courses_code, cl.name, HOUR(leh.date) AS HOUR, DAYOFWEEK(leh.date) AS DAY FROM lecturer l INNER JOIN lecturer_has_courses leh ON leh.lecturer_id INNER JOIN classrooms cl on leh.classrooms_id=cl.id where l.id =1;";
+          
+        if (connection != null) {
+            try {
+                pstatement = connection.prepareStatement(query);
+//                pstatement.setInt(1, 5);
+//                pstatement.setInt(1, 23);
+                pstatement.setInt(1, id);
+              
+//
+                  
+                   
+                         rs = pstatement.executeQuery();
+         
+
+                    
+               
+
+            } catch (SQLException e) {
+                throw (e);
+            }finally {
+                        pstatement.close();
+                    }
+        }//end of if loop
+
+        return rs;
+    }//end of method
+    
 }
