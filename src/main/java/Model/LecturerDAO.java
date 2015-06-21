@@ -393,28 +393,15 @@ public class LecturerDAO {
                 + "classrooms cl on leh.classrooms_id=cl.id where l.id = ?;";
 
         if (connection != null) {
-            pstatement = connection.prepareStatement(query,ResultSet.TYPE_SCROLL_INSENSITIVE);
+            pstatement = connection.prepareStatement(query, ResultSet.TYPE_SCROLL_INSENSITIVE);
             try {
 
-                
 //                pstatement.setInt(1, 5);
 //                pstatement.setInt(1, 23);
-                pstatement.setInt(1, id);
-              
-//
-                  
-                   
-                         rs = pstatement.executeQuery();
-         
-
-                    
-               
-
-
+                pstatement.setInt(1, id);//
+                rs = pstatement.executeQuery();
             } catch (SQLException e) {
                 throw (e);
-            } finally {
-                pstatement.close();
             }
         }//end of if loop
 

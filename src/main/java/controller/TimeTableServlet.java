@@ -26,7 +26,6 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import java.io.IOException;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.sql.Timestamp;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.Enumeration;
@@ -197,6 +196,9 @@ public class TimeTableServlet extends HttpServlet {
                     case "addClass":
                         scheduleClass(request);
                         url = base + "admin.jsp";
+                        break;
+                    case "getIndividualSchedule":
+                        getScheduleData(request, response);
                         break;
                     case "getMondayLectureHours":
                         day = 2;
@@ -769,12 +771,16 @@ public class TimeTableServlet extends HttpServlet {
         }
     }
 
-    public void getFreeListData(HttpServletRequest request, HttpServletResponse response) throws SQLException, IOException {
-        int lecturerId = Integer.parseInt(request.getParameter("id"));
+    public void getScheduleData(HttpServletRequest request, HttpServletResponse response) throws SQLException, IOException {
+        int lecturerId = Integer.parseInt(request.getSession().getAttribute("id").toString());
         ResultSet resultSet = LecturerDAO.getLecturerSchedule(dataManager, lecturerId);
         JSONArray schedule = new JSONArray();
         JSONArray tempSchedule = new JSONArray();
         JSONObject nullObject = new JSONObject();
+        nullObject.put("course_id", " ");
+        nullObject.put("class", " ");
+        nullObject.put("hour", " ");
+        nullObject.put("day", " ");
         for (int i = 0; i < 6; i++) {
             schedule.add(new JSONArray());
             tempSchedule.add(new JSONArray());
@@ -784,10 +790,11 @@ public class TimeTableServlet extends HttpServlet {
         while (resultSet.next()) {
             JSONObject object = new JSONObject();
             object.put("course_id", resultSet.getString(1));
+            object.put("class", resultSet.getString(2));
             object.put("hour", resultSet.getString(3));
             object.put("day", resultSet.getString(4));
 
-            switch (resultSet.getString("4")) {
+            switch (resultSet.getString(4)) {
                 case "2":
                     ((JSONArray) tempSchedule.get(0)).add(object);
                     break;
@@ -812,19 +819,33 @@ public class TimeTableServlet extends HttpServlet {
         for (int i = 0; i < 6; i++) {
             JSONArray tempArray = (JSONArray) tempSchedule.get(i);
             JSONArray array = (JSONArray) schedule.get(i);
-            for (int j = 0; j < 12; j++) {
-                JSONObject tempObject = (JSONObject)tempArray.get(j);
-                int hour = Integer.parseInt((String)tempObject.get("hour"));
-                
-                if (hour == j) {
+            for (int j = 0, k = 7; j < 12 && k < 19; j++, k++) {
+//                if (i < tempArray.size()) {//check whether there are elements in the
+//                    inner array(contains lectures schedule objects)
+//                    JSONObject tempObject = (JSONObject) tempArray.get(i);
+//                }
+//                if the array is empty, fill it with null objects and exit
+                //tempArray contains hours indices from 0 to 11
+                System.out.println("i " + i + " j " + j);
+                if (j < tempArray.size()) {
+                    JSONObject tempObject = (JSONObject) tempArray.get(j);
+                    System.out.println(tempObject);
+                    int hour = Integer.parseInt((String) tempObject.get("hour"));
+
+                    if (hour == k) {
 //                    Add the object to the corresponding array
-                    ((JSONArray) schedule.get(i)).add(tempObject);
-                }else{//add a null object
+                        ((JSONArray) schedule.get(i)).add(tempObject);
+                        System.out.println(schedule.get(i));
+                    } else {//add a null object
+                        ((JSONArray) schedule.get(i)).add(nullObject);
+                    }
+                } else {
                     ((JSONArray) schedule.get(i)).add(nullObject);
                 }
+
             }
         }
-        
+
         System.out.println(schedule);
         JSONObject object = new JSONObject();
         object.put("schedule", schedule);
