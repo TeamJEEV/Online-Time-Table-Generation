@@ -64,7 +64,43 @@ $(document).ready(function () {
             method: "POST"
         }).done(function (msg) {
             //                                    var response = JSON.parse(msg);
-            alert(msg);
+//           alert(msg);
+
+   var response = JSON.parse(msg);
+            var content = '<table style = "width: 85%; text-align:center" ' +
+                    'class = "table table-bordered table-striped table-hover table-responsive table-condensed" >' +
+                    '<thead>' +
+                    '<tr>' +
+                    '<th> 7am </th>' +
+                    '<th> 8am </th>' +
+                    '<th> 9am </th>' +
+                    '<th> 10am </th>' +
+                    '<th> 11am </th>' +
+                    '<th> 12pm </th>' +
+                    '<th> 1pm </th>' +
+                    '<th> 2pm </th>' +
+                    '<th> 3pm </th>' +
+                    '<th> 4pm </th>' +
+                    '<th> 5pm </th>' +
+                    '<th> 6pm </th>' +
+                    '</tr>' +
+                    '</thead>' +
+                    '<tbody>';
+            //                            alert(response.blocked_lecturers.length );
+            for (var i = 0; i < response.blocked_lecturers[0].length; i++) {
+                content += "<tr>";
+                //                                alert(response.blocked_lecturers[i].length);
+                for (var j = 0; j < response.blocked_lecturers.length; j++) {
+                    content += "<td>" +
+                            response.blocked_lecturers[j][i].name +
+                            "</td>";
+                }
+                content += "</tr>";
+            }
+            content += '</tbody>' +
+                    '</table>';
+            //                            alert(content);
+            $("#timetable").html(content);
         });
 
 
@@ -345,7 +381,7 @@ $(document).ready(function () {
 
         var request = $.ajax({
             url: "TimeTableServlet",
-            data: {"submit": "getMondayLectureHours"},
+            data: {"submit": "getFreeMondayLectureHours"},
             async: false,
             method: "POST"
         }).done(function (msg) {
@@ -384,7 +420,7 @@ $(document).ready(function () {
             content += '</tbody>' +
                     '</table>';
             //                            alert(content);
-            $("#timetable").html(content);
+            $("#freelisttable").html(content);
         });
 
 
@@ -396,7 +432,7 @@ $(document).ready(function () {
 
         var request = $.ajax({
             url: "TimeTableServlet",
-            data: {"submit": "getTuesdayLectureHours"},
+            data: {"submit": "getFreeTuesdayLectureHours"},
             async: false,
             method: "POST"
         }).done(function (msg) {
@@ -435,7 +471,7 @@ $(document).ready(function () {
             content += '</tbody>' +
                     '</table>';
             //                            alert(content);
-            $("#timetable").html(content);
+            $("#freelisttable").html(content);
         });
 
 
@@ -447,7 +483,7 @@ $(document).ready(function () {
 
         var request = $.ajax({
             url: "TimeTableServlet",
-            data: {"submit": "getWednesdayLectureHours"},
+            data: {"submit": "getFreeWednesdayLectureHours"},
             async: false,
             method: "POST"
         }).done(function (msg) {
@@ -486,7 +522,7 @@ $(document).ready(function () {
             content += '</tbody>' +
                     '</table>';
             //                            alert(content);
-            $("#timetable").html(content);
+            $("#freelisttable").html(content);
         });
 
 
@@ -499,7 +535,7 @@ $(document).ready(function () {
 
         var request = $.ajax({
             url: "TimeTableServlet",
-            data: {"submit": "getThursdayLectureHours"},
+            data: {"submit": "getFreeThursdayLectureHours"},
             async: false,
             method: "POST"
         }).done(function (msg) {
@@ -538,7 +574,7 @@ $(document).ready(function () {
             content += '</tbody>' +
                     '</table>';
             //                            alert(content);
-            $("#timetable").html(content);
+            $("#freelisttable").html(content);
         });
     });
 
@@ -549,7 +585,7 @@ $(document).ready(function () {
 
         var request = $.ajax({
             url: "TimeTableServlet",
-            data: {"submit": "getFridayLectureHours"},
+            data: {"submit": "getFreeFridayLectureHours"},
             async: false,
             method: "POST"
         }).done(function (msg) {
@@ -588,7 +624,7 @@ $(document).ready(function () {
             content += '</tbody>' +
                     '</table>';
             //                            alert(content);
-            $("#timetable").html(content);
+            $("#freelisttable").html(content);
         });
 
 
@@ -600,7 +636,7 @@ $(document).ready(function () {
 
         var request = $.ajax({
             url: "TimeTableServlet",
-            data: {"submit": "getSaturdayLectureHours"},
+            data: {"submit": "getFreeSaturdayLectureHours"},
             async: false,
             method: "POST"
         }).done(function (msg) {
@@ -639,7 +675,7 @@ $(document).ready(function () {
             content += '</tbody>' +
                     '</table>';
             //                            alert(content);
-            $("#timetable").html(content);
+            $("#freelisttable").html(content);
         });
 
 

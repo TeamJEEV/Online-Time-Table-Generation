@@ -82,12 +82,12 @@ and open the template in the editor.
                     </li>
 
                     <li >
-                        <a href="#" id="freelist">Free List
+                        <a href="#" id="blockedlist">Blocked List
                             <i class="glyphicon glyphicon-menu-right glyphicon-align-right"></i></a>
                     </li>
 
                     <li >
-                        <a href="#" >BLock List
+                        <a href="#" id="freelist" >Free list
                             <i class="glyphicon glyphicon-menu-right glyphicon-align-right"></i></a>
                     </li>
 
@@ -105,7 +105,7 @@ and open the template in the editor.
                     <div class="row" style="background-color: white" id="row">
                         <div class="col-md-12">
                             <h1></h1>
-                            <div id="freelistdisplay">
+                            <div id="listdisplay">
 
                                 <ul class="nav nav-tabs">
                                     <!----tab interface........................................................................-->
@@ -140,6 +140,44 @@ and open the template in the editor.
                                     </div><!-- @end #hello -->
                                 </div>
                             </div>
+                            
+                            
+                            
+                            <div id="freelistdisplay">
+
+                                <ul class="nav nav-tabs">
+                                    <!----tab interface........................................................................-->
+
+
+
+
+                                    <li class="active"><a href="#"
+                                                          type="submit" id="freeday1" data-toggle="tab">Monday</a></li>
+
+                                    <li class="active"><a href="#" 
+                                                          type="submit" id="freeday2"  data-toggle="tab">Tuesday</a></li>
+
+                                    <li class="active"><a href="#" 
+                                                          type="submit" id="freeday3" data-toggle="tab">Wednesday</a></li>
+
+                                    <li class="active"><a href="#" 
+                                                          type="submit" id="freeday4" data-toggle="tab">Thursday</a></li>
+
+                                    <li class="active"><a href="#"
+                                                          type="submit" id="freeday5"data-toggle="tab">Friday</a></li>
+
+                                    <li class="active"><a href="#"
+                                                          type="submit" id="freeday6" data-toggle="tab">Saturday</a></li>
+                                </ul>
+                                <!----end tab interface...........................................................................................-->
+
+                                <div class="tab-content">
+
+                                    <div class="tab-pane active" id="freelisttable">
+
+                                    </div><!-- @end #hello -->
+                                </div>
+                            </div>
                             <!-- start of personal schedule -->
 
                             <div class="panel panel-default" style="width: 85%" id="myscheduledisplay">
@@ -151,12 +189,13 @@ and open the template in the editor.
                                         <thead>
                                             <tr>
                                                 <th></th>
-                                                <th>07:00 - 09:00</th>
-                                                <th>09:00 - 11:00</th>
-                                                <th>11:00 - 13:00</th>
-                                                <th>13:00 - 15:00</th>
-                                                <th>15:00 - 17:00</th>
-                                                <th>17:00 - 19:00</th>
+                                                <th>07:00</th>
+                                                <th> 08:00</th>
+                                                <th>9:00</th>  <th>10:00</th>
+                                                <th>11:00 </th> <th> 12:00</th>
+                                                <th>13:00 </th> <th> 14:00</th>
+                                                <th>15:00 </th> <th> 16:00</th>
+                                                <th>17:00 </th> <th> 18:00</th>
                                             </tr>
                                         </thead>
                                         <tbody>
@@ -578,16 +617,24 @@ and open the template in the editor.
 
                                 //Initialising the page content
                                 $("#courselist").hide();
-                                $("#freelistdisplay").hide();
+                                $("#listdisplay").hide();
                                 $("#myscheduledisplay").show("slow");
 
                                 $("#myschedule").click(function () { //when tab is clicked
                                     $("#courselist").hide("slow");
-                                    $("#freelistdisplay").hide("slow");
+                                    $("#listdisplay").hide("slow");
                                     $("#myscheduledisplay").show("slow");
                                     $("#row").css({"background-color": "white"});
 
                                 });
+                                $("#blockedlist").click(function () { //when tab is clicked
+                                    $("#courselist").hide("slow");
+                                    $("#myscheduledisplay").hide("slow");
+                                    $("#listdisplay").show("slow");
+                                    $("#row").css({"background-color": "white"});
+
+                                });
+                                
                                 $("#freelist").click(function () { //when tab is clicked
                                     $("#courselist").hide("slow");
                                     $("#myscheduledisplay").hide("slow");
@@ -598,7 +645,8 @@ and open the template in the editor.
 
                                 $("#courses").click(function () { //when tab is clicked
                                     $("#myscheduledisplay").hide("slow");
-                                    $("#freelistdisplay").hide();
+                                    $("#freelistdisplay").hide("slow");
+                                    $("#listdisplay").hide();
 
                                     var docForm = document.getElementById("newcourseform");
                                     docForm.depart_id.value = ${sessionScope.id};
@@ -670,6 +718,14 @@ and open the template in the editor.
                                     }
                                     else if (role === "Dean") {
                                         //Query for the dean courses
+                                        $.ajax({
+                                            url: "TimeTableServlet",
+                                            async: false,
+                                            data: {"submit": "getDepartCourseswithHodId", "dean_id": "${sessionScope.id}"}
+                                             method: "POST"
+                                        }).done(function (msg) {
+                                            
+                                        });
                                     }
 
 

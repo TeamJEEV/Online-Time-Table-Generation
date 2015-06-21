@@ -43,7 +43,7 @@ import org.json.simple.JSONObject;
 
 /**
  *
- * @author Harvey
+ * @author Harvey, Eyog Yvon Léonce
  */
 public class TimeTableServlet extends HttpServlet {
 
@@ -231,6 +231,49 @@ public class TimeTableServlet extends HttpServlet {
                         day = 7;
                         System.out.println("SATURDAY!!");
                         getBlockedLecturerInfo(request, response, day);
+                        break;
+                        
+                        case "getFreeMondayLectureHours":
+
+                        day = 2;
+
+                        System.out.println("MONDAY!!");
+
+                        getFreeLecturerInfo(request, response, day);
+                        url = base + "admin.jsp";
+
+                        break;
+
+
+                    case "getFreeTuesdayLectureHours":
+                    
+                        day = 3;
+                        System.out.println("TUESDAY!!");
+                        getFreeLecturerInfo(request, response, day);
+                        break;
+                    case "getFreeWednesdayLectureHours":
+                    
+                        day = 4;
+                        System.out.println("WEDNESDAY!!");
+                        getFreeLecturerInfo(request, response, day);
+                        break;
+                    case "getFreeThursdayLectureHours":
+                    
+                        day = 5;
+                        System.out.println("THURSDAY!!");
+                        getFreeLecturerInfo(request, response, day);
+                        break;
+                    case "getFreeFridayLectureHours":
+                    
+                        day = 6;
+                        System.out.println("FRIDAY!!");
+                        getFreeLecturerInfo(request, response, day);
+                        break;
+                    case "getFreeSaturdayLectureHours":
+                    
+                        day = 7;
+                        System.out.println("SATURDAY!!");
+                        getFreeLecturerInfo(request, response, day);
                         break;
                     case "addCourse":
                         addCourse(request);//Adds a course to the DB
