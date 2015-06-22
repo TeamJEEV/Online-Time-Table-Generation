@@ -341,6 +341,7 @@ public class TimeTableServlet extends HttpServlet {
 
             session.setAttribute("halls", ClassroomDAO.countHalls(dataManager));
             session.setAttribute("lecturers", LecturerDAO.countLecturer(dataManager));
+            session.setAttribute("faculty", FacultyDAO.countFaculty(dataManager));
         } else {
             url = base + "lecturer.jsp";
         }
