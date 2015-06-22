@@ -260,7 +260,8 @@ public class CourseDAO {
         Connection connection = dataManager.getConnection();
 
         if (connection != null) {
-            String query = "SELECT courses.code, courses.Title, lecturer_has_courses.date, classrooms.name "
+            String query = "SELECT courses.code, classrooms.name, HOUR(lecturer_has_courses.date) AS HOUR, "
+                    + "DAYOFWEEK(lecturer_has_courses.date) AS DAY, courses.Title "
                     + "FROM department "
                     + "INNER JOIN department_has_courses ON department.id = department_has_courses.department_id "
                     + "INNER JOIN lecturer_has_courses ON department_has_courses.courses_code = lecturer_has_courses.courses_code "
@@ -275,9 +276,7 @@ public class CourseDAO {
                       return rs;
                  }catch(SQLException e){
                   Logger.getGlobal().log(Level.WARNING, e.getMessage());
-                } finally {
-                    statement.close();
-                }
+                } 
             }catch(SQLException e){
                  Logger.getGlobal().log(Level.INFO, e.getMessage());
             }

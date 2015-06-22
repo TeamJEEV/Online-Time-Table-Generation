@@ -20,7 +20,6 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import org.json.simple.JSONObject;
 
 /**
  *
@@ -109,7 +108,7 @@ public class FacultyDAO {
         return faculty;
     }
 
-    public Faculty getFacultyById(DataManager dataManager, int id) {
+    public static Faculty getFacultyById(DataManager dataManager, int id) {
         Connection connection = dataManager.getConnection();
         Faculty faculty = new Faculty();
         if (connection != null) {
@@ -118,6 +117,7 @@ public class FacultyDAO {
                 String query = "SELECT * FROM faculty where id = " + id;
                 try {
                     ResultSet rs = statement.executeQuery(query);
+                    rs.next();
                     faculty.setId(Integer.parseInt(rs.getString("id")));
                     faculty.setName(rs.getString("name"));
                     faculty.setDean(Integer.parseInt(rs.getString("Dean_ID")));

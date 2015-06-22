@@ -75,61 +75,14 @@ and open the template in the editor.
                 <div class="container-fluid">
                     <div class="row">
                         <div class="col-md-12">
+                            <div class="panel panel-default" style="width: 85%" id="depart-table">
 
-                            <h3 style="width: 85%; text-align: center">Faculty name : Department name</h3>
-                            <!-- Time Table to be displayed -->
-                            <table style="width: 85%; text-align: center"class="table table-bordered table-striped table-hover table-responsive table-condensed">
-                                <thead>
-                                    <tr>
-                                        <th></th>
-                                        <th>Mon</th>
-                                        <th>Tues</th>
-                                        <th>Wed</th>
-                                        <th>Thurs</th>
-                                        <th>Fri</th>
-                                        <th>Sat</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    <tr>
-                                        <td>7AM</td>
-                                        <td>CEF 502<br> Ublock A</td>
-                                        <td></td>
-                                        <td></td>
-                                        <td>CEF 506<br> ClBLK II 50D</td>
-                                        <td>CEF XXX</td>
-                                        <td>CEF XXX</td>
-
-                                    </tr>
-
-                                    <tr>
-                                        <td>9AM</td>
-                                        <td>CEF 502<br> Ublock A</td>
-                                        <td>CEF 510<br> Ublock C</td>
-                                        <td></td>
-                                        <td>CEF 506<br> ClBLK I 50A</td>
-                                        <td></td>
-                                        <td>CEF 504<br> Ublock D</td>
-
-                                    </tr>
-                                    <tr>
-                                        <td>11AM</td>
-                                        <td></td>
-                                        <td></td>
-                                        <td>CEF 514<br> ClBLK I 50A</td>
-                                        <td></td>
-                                        <td>CEF 506<br> Restau 2</td>
-                                        <td></td>
-
-                                    </tr>
-                                </tbody>
-
-                            </table>
-
+                            </div>
                         </div>
                     </div>
                 </div>
-                <div class="push"></div>
+
+
                 <footer class="footer">
                     <p>&COPY;Team5 2015</p>
                 </footer>
@@ -182,7 +135,8 @@ and open the template in the editor.
 
                         for (var j = 0; j < response[i].departments.length; j++) {
                             contents += '<li>' +
-                                    '<a href="#">' + response[i].departments[j].name + '</a>' +
+                                    '<a href="#"  onclick="loadDepartmentSchedule(' + response[i].departments[j].id + ')">'
+                                    + response[i].departments[j].name + '</a>' +
                                     '</li>';
                         }
 
@@ -200,6 +154,77 @@ and open the template in the editor.
                     //alert( "Request failed: " + textStatus );
                 });
 
+            }
+
+            function loadDepartmentSchedule(id) {
+                $.ajax({
+                    url: "TimeTableServlet",
+                    data: {"submit": "getDepartmentSchedule", "id": id},
+                    method: "POST"
+                }).done(function (msg) {
+                    var content = loadTimeTable(msg);
+                    $("#depart-table").html(content);
+                });
+            }
+            function loadTimeTable(msg) {
+                var response = JSON.parse(msg);
+                var content = '<div class="panel-heading">' +
+                        '<h1 class="panel-title" style="text-align: center">'+ '</h1>' +
+                        '</div>' +
+                        '<div class="panel-body">' +
+                        '<table style="text-align: center"class="table table-bordered table-striped' +
+                        'table-hover table-responsive table-condensed">' +
+                        '<thead>' +
+                        '<tr>' +
+                        '<th></th>' +
+                        '<th>07:00</th>' +
+                        '<th> 08:00</th>' +
+                        '<th>9:00</th>' +
+                        '<th>10:00</th>' +
+                        '<th> 11:00 </th> <th> 12:00</th>' +
+                        '<th> 13:00 </th> <th> 14:00</th>' +
+                        '<th> 15:00 </th> <th> 16:00</th>' +
+                        '<th> 17:00 </th> <th> 18:00</th>' +
+                        '</tr>' +
+                        '</thead>' +
+                        '<tbody>';
+                for (var i = 0; i < response.schedule.length; i++) {
+                    switch (i) {
+                        case 0:
+                            content += '<tr>' +
+                                    '<td> MON </td>';
+                            break;
+                        case 1:
+                            content += '<tr>' +
+                                    '<td> TUE </td>';
+                            break;
+                        case 2:
+                            content += '<tr>' +
+                                    '<td> WED </td>';
+                            break;
+                        case 3:
+                            content += '<tr>' +
+                                    '<td> THURS </td>';
+                            break;
+                        case 4:
+                            content += '<tr>' +
+                                    '<td> FRI </td>';
+                            break;
+                        case 5:
+                            content += '<tr>' +
+                                    '<td> SAT </td>';
+                            break;
+                    }
+                    for (var j = 0; j < response.schedule[i].length; j++) {
+                        content += '<td>' + response.schedule[i][j].course_id + '<br>' +
+                                response.schedule[i][j].class + '</td>';
+                    }
+                    content += '</tr>';
+                }
+                content += '</tbody>' +
+                        '</table>' +
+                        '</div>';
+                return content;
             }
         </script>
     </body>

@@ -92,6 +92,7 @@ public class DepartmentDAO {
                 String query = "SELECT * FROM department where id = 1";
                 try {
                     ResultSet rs = statement.executeQuery(query);
+                    rs.next();
                     department.setId(Integer.parseInt(rs.getString("id")));
                     department.setName(rs.getString("name"));
                     department.setHOD(Integer.parseInt(rs.getString("hod_id")));

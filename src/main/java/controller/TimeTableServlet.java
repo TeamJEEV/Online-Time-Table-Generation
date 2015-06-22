@@ -132,7 +132,8 @@ public class TimeTableServlet extends HttpServlet {
         if (action != null) {
 
             if ((request.getSession().getAttribute("user") == null && (!action.equals("login")))
-                    && (request.getSession().getAttribute("user") == null && !action.equals("loadFaculties"))) {
+                    && (request.getSession().getAttribute("user") == null && !action.equals("loadFaculties") &&
+                    !action.equals("getDepartmentSchedule"))) {
                 // Not logged in. Redirect to login page.
                 response.sendRedirect("index.jsp");
                 return;
@@ -200,6 +201,9 @@ public class TimeTableServlet extends HttpServlet {
                     case "getIndividualSchedule":
                         getScheduleData(request, response);
                         break;
+                    case "getDepartmentSchedule":
+                        getScheduleData(request, response);
+                        break;
                     case "getMondayLectureHours":
                         day = 2;
 //                        System.out.println("MONDAY!!");
@@ -208,7 +212,6 @@ public class TimeTableServlet extends HttpServlet {
                         break;
 
                     case "getTuesdayLectureHours":
-
                         day = 3;
 //                        System.out.println("TUESDAY!!");
                         getBlockedLecturerInfo(request, response, day);
@@ -772,8 +775,19 @@ public class TimeTableServlet extends HttpServlet {
     }
 
     public void getScheduleData(HttpServletRequest request, HttpServletResponse response) throws SQLException, IOException {
-        int lecturerId = Integer.parseInt(request.getSession().getAttribute("id").toString());
-        ResultSet resultSet = LecturerDAO.getLecturerSchedule(dataManager, lecturerId);
+        String action = request.getParameter("id");
+        ResultSet resultSet;
+        if (action.equals("getIndividualSchedule")) {
+            int lecturerId = Integer.parseInt(request.getSession().getAttribute("id").toString());
+            resultSet = LecturerDAO.getLecturerSchedule(dataManager, lecturerId);
+        }else{
+            resultSet = CourseDAO.getScheduleDepartCourse(dataManager, Integer.parseInt(request.getParameter("id")));
+            Department department = DepartmentDAO.getDepartmentById(dataManager, Integer.parseInt(request.getParameter("id")));
+            request.setAttribute("department", department.getName());
+            Faculty faculty = FacultyDAO.getFacultyById(dataManager, department.getFaculty());
+            request.setAttribute("faculty", faculty.getName());
+        }
+
         JSONArray schedule = new JSONArray();
         JSONArray tempSchedule = new JSONArray();
         JSONObject nullObject = new JSONObject();
