@@ -133,4 +133,4 @@ CREATE  TABLE IF NOT EXISTS `timetable`.`lecturer_has_courses` (
     ON UPDATE CASCADE)
 ENGINE = InnoDB;
 
-INSERT INTO timetable.lecturer values (NULL,"admin","admin","admin","Sysadmin");
+INSERT INTO `timetable`.`lecturer` values (NULL,"admin","admin","admin","Sysadmin");
