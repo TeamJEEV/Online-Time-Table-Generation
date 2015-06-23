@@ -129,7 +129,7 @@ and open the template in the editor.
                                                 </div>
                                                 <div class="col-xs-9 text-right">
 
-                                                    <div class="huge"><%out.print(count_fac);%></div>
+                                                    <div class="huge">${sessionScope.faculty}</div>
                                                     <div>Faculties</div>
                                                 </div>
                                             </div>
