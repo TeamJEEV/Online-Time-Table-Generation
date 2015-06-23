@@ -188,9 +188,9 @@ public class TimeTableServlet extends HttpServlet {
                         break;
                     case "loadLectsAndCourses"://load lecturers and courses
                         if (request.getSession().getAttribute("role").equals("Dean")) {
-                            deanSchedule(request, response);
+                            loadScheduleData(request, response);
                         } else {//is the hod
-                            hodSchedule(request, response);
+                            loadScheduleData(request, response);
                         }
                         url = base + "admin.jsp";
                         break;
@@ -199,10 +199,10 @@ public class TimeTableServlet extends HttpServlet {
                         url = base + "admin.jsp";
                         break;
                     case "getIndividualSchedule":
-                        getScheduleData(request, response);
+                        getScheduleData(request, response, action);
                         break;
                     case "getDepartmentSchedule":
-                        getScheduleData(request, response);
+                        getScheduleData(request, response, action);
                         break;
                     case "getMondayLectureHours":
                         day = 2;
@@ -699,51 +699,22 @@ public class TimeTableServlet extends HttpServlet {
     }
 
     /**
-     * Called when a Lecturer with the HOD role wants to schedule a course
+     * Called when a Lecturer with the Dean or HOD role wants to schedule a
+     * Course
      *
      * @param request
      * @param response
      * @throws java.io.IOException
      */
-    public void hodSchedule(HttpServletRequest request, HttpServletResponse response) throws IOException {
-
-////        if (request.getSession().getAttribute("role").equals("HOD")) {
-//        JSONObject lectAndCourses = new JSONObject();
-////            object containing a jsonarray of lecturer(id, name)
-//        JSONObject lecturers = getLecturers(request, response);
-//        JSONObject jsonObjCourses = new JSONObject();
-//        List<Course> courses = CourseDAO.getCourseByDepartment(dataManager,
-//                DepartmentDAO.getDepartmentIdByHOD(dataManager,
-//                        Integer.parseInt((String) request.getParameter("id"))));
-//        JSONArray jsonCourses = new JSONArray();
-//        for (Course course : courses) {
-//            JSONObject jsonCourse = new JSONObject();
-//            jsonCourse.put("id", course.getId());
-//            jsonCourse.put("name", course.getName());
-//            jsonCourses.add(jsonCourse);
-//        }
-////            object containing an jsonarray of course(id, name)
-//        jsonObjCourses.put("courses", jsonCourses);
-////            JSONObject conataining json two objects: object of courses and object of lecturers
-//        lectAndCourses.put("lecturers", lecturers);
-//        lectAndCourses.put("courses", jsonObjCourses);
-//        ObjectMapper mapper = new ObjectMapper();
-//        mapper.writeValue(response.getOutputStream(), lectAndCourses);
-//        System.out.println(lectAndCourses);
-//        }
-    }
-
-    /**
-     * Called when a Lecturer with the Dean role wants to schedule a Course
-     *
-     * @param request
-     * @param response
-     * @throws java.io.IOException
-     */
-    public void deanSchedule(HttpServletRequest request, HttpServletResponse response) throws IOException {
+    public void loadScheduleData(HttpServletRequest request, HttpServletResponse response) throws IOException {
+        List<Course> dbCourses;
         if (request.getSession().getAttribute("role").equals("Dean")) {
             int deanId = (Integer) request.getSession().getAttribute("id");
-            List<Course> dbCourses = CourseDAO.getCourseByFaculty(dataManager, deanId);
+            dbCourses = CourseDAO.getCourseByFaculty(dataManager, deanId);
+        } else {
+            dbCourses = CourseDAO.getCourseByHodId(dataManager,
+                    Integer.parseInt(request.getSession().getAttribute("id").toString()));
+        }
 
             JSONObject lectAndCourses = new JSONObject();
             JSONArray coursesArray = new JSONArray();
@@ -773,10 +744,8 @@ public class TimeTableServlet extends HttpServlet {
             ObjectMapper mapper = new ObjectMapper();
             mapper.writeValue(response.getOutputStream(), lectAndCourses);
         }
-    }
 
-    public void getScheduleData(HttpServletRequest request, HttpServletResponse response) throws SQLException, IOException {
-        String action = request.getParameter("id");
+    public void getScheduleData(HttpServletRequest request, HttpServletResponse response, String action) throws SQLException, IOException {
         ResultSet resultSet;
         if (action.equals("getIndividualSchedule")) {
             int lecturerId = Integer.parseInt(request.getSession().getAttribute("id").toString());

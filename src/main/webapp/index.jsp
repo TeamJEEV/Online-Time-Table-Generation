@@ -147,6 +147,7 @@ and open the template in the editor.
 
 
                     $("#accordion").html(contents);
+                    loadDepartmentSchedule(response[0].departments[0].id);
                 });
 
                 request.fail(function (jqXHR, textStatus) {
