@@ -89,7 +89,7 @@ public class DepartmentDAO {
         if (connection != null) {
             try {
                 Statement statement = connection.createStatement();
-                String query = "SELECT * FROM department where id = 1";
+                String query = "SELECT * FROM department where id = " + id;
                 try {
                     ResultSet rs = statement.executeQuery(query);
                     rs.next();

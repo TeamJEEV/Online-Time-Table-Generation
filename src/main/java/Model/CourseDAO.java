@@ -184,6 +184,39 @@ public class CourseDAO {
         return null;
     }
 
+    public static List<Course> getCourseByHodId(DataManager dataManager, int hodId) {
+        Connection connection = dataManager.getConnection();
+        if (connection != null) {
+            try {
+                List<Course> courses = new ArrayList<>();
+                Statement statement = connection.createStatement();
+                String query = "SELECT courses.code, courses.title, semester FROM department INNER JOIN "
+                        + "department_has_courses ON department.id = department_has_courses.department_id INNER JOIN "
+                        + "courses ON courses.code = department_has_courses.courses_code WHERE "
+                        + "department.hod_id = " + hodId;
+                try {
+                    ResultSet resultSet = statement.executeQuery(query);
+                    while (resultSet.next()) {
+                        Course course = new Course();
+                        course.setId(resultSet.getString(1));
+                        course.setName(resultSet.getString(2));
+                        course.setSemester(Integer.parseInt(resultSet.getString(3)));
+                        courses.add(course);
+                    }
+                    return courses;
+                } catch (SQLException ex) {
+                    Logger.getGlobal().log(Level.WARNING, ex.getMessage());
+                } finally {
+                    statement.close();
+                }
+            } catch (SQLException e) {
+
+            }
+        }
+        return null;
+    }
+
+
     public int countCourse(DataManager dataManager) {
         Connection connection = dataManager.getConnection();
         Integer count = 0;
